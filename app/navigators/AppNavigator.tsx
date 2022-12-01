@@ -20,6 +20,11 @@ import { useStores } from "../models" // @demo remove-current-line
 import {
   LoginScreen, // @demo remove-current-line
   WelcomeScreen,
+   HomeScreen,
+   HowItWorksScreen,
+   InvestScreen,
+   JoinUsScreen,
+   OwnerScreen
 } from "../screens"
 import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
@@ -41,7 +46,15 @@ export type AppStackParamList = {
   Welcome: undefined
   Login: undefined // @demo remove-current-line
   Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
+
+
   // 🔥 Your screens go here
+  Home: undefined
+  HowItWorks: undefined
+  Invest: undefined
+  JoinUs:undefined
+  Owner: undefined
+
 }
 
 /**
@@ -68,7 +81,7 @@ const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName={isAuthenticated ? "Welcome" : "Login"} // @demo remove-current-line
+      initialRouteName={isAuthenticated ? "Welcome" : "Home"} // @demo remove-current-line
     >
       {/* @demo remove-block-start */}
       {isAuthenticated ? (
@@ -81,6 +94,13 @@ const AppStack = observer(function AppStack() {
       ) : (
         <>
           <Stack.Screen name="Login" component={LoginScreen} />
+
+
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="HowItWorks" component={HowItWorksScreen} />
+          <Stack.Screen name="Invest" component={InvestScreen} />
+          <Stack.Screen name="JoinUs" component={JoinUsScreen} />
+          <Stack.Screen name="Owner" component={OwnerScreen} />
         </>
       )}
       {/* @demo remove-block-end */}

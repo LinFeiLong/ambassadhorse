@@ -6,4 +6,10 @@ export * from "./DemoDebugScreen"
 export * from "./DemoShowroomScreen/DemoShowroomScreen"
 // @demo remove-block-end
 export * from "./ErrorScreen/ErrorBoundary"
+
 // export other screens here
+export * from "./HomeScreen"
+export * from "./HowItWorksScreen"
+export * from "./InvestScreen"
+export * from "./OwnerScreen"
+export * from "./JoinUsScreen"
