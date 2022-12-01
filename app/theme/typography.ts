@@ -10,15 +10,30 @@ import {
   SpaceGrotesk_700Bold as spaceGroteskBold,
 } from "@expo-google-fonts/space-grotesk"
 
+
+import {
+  NunitoSans_300Light as nunitoLight,
+  NunitoSans_700Bold as nunitoBold
+} from "@expo-google-fonts/dev"
+
+
 export const customFontsToLoad = {
   spaceGroteskLight,
   spaceGroteskRegular,
   spaceGroteskMedium,
   spaceGroteskSemiBold,
   spaceGroteskBold,
+
+  nunitoLight,
+  nunitoBold
 }
 
-const fonts = {
+export const fonts = {
+  nunito: {
+    light: "nunitoLight",
+    bold: "nunitoBold"
+  },
+
   spaceGrotesk: {
     // Cross-platform Google font.
     light: "spaceGroteskLight",
