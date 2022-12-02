@@ -1,5 +1,3 @@
-/* eslint-disable react-native/no-color-literals */
-/* eslint-disable react-native/no-inline-styles */
 import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
 import { TouchableOpacity, View, ViewStyle, Text, TextStyle,Image, ImageStyle } from "react-native"
@@ -36,7 +34,7 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
         </TouchableOpacity>
       </View>
 
-      <View style={styling.ROW}>
+      <View style={[styling.ROW, styling.SPACE_BETWEEN]}>
         <View style={HERO_CTA_CONTAINER}>
           <Text style={TITLE}>Ambassad'Horse</Text>
           <Text style={HERO_TEXT}>Vivez l'expérience, devenez propriétaire d'un cheval de sport</Text>
@@ -91,10 +89,9 @@ const TITLE: TextStyle = {
   color: "white"
 }
 const HERO_CTA_CONTAINER: ViewStyle = {
-  paddingHorizontal : spacing.screen,
   minWidth: "40%",
   maxWidth: 450,
-  paddingBottom: 20,
+  paddingLeft : spacing.screen,
 }
 const HERO_TEXT: TextStyle = {
   fontSize: 41,
