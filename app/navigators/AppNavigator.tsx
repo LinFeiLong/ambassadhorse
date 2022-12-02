@@ -15,6 +15,7 @@ import { StackScreenProps } from "@react-navigation/stack"
 import { observer } from "mobx-react-lite"
 import React from "react"
 import { useColorScheme } from "react-native"
+import { Navbar } from "../components"
 import Config from "../config"
 import { useStores } from "../models" // @demo remove-current-line
 import {
@@ -81,7 +82,9 @@ const AppStack = observer(function AppStack() {
   // @demo remove-block-end
   return (
     <Stack.Navigator
-      screenOptions={{ headerShown: false }}
+      screenOptions={{
+        header: () => <Navbar />,
+      }}
       initialRouteName={isAuthenticated ? "Welcome" : "Home"} // @demo remove-current-line
     >
       {/* @demo remove-block-start */}

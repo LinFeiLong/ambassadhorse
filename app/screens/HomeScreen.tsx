@@ -20,7 +20,6 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
 
   return (
     <Screen style={$root} preset="scroll">
-      <Navbar />
 
       <View style={SUBNAV}>
         <TouchableOpacity>
