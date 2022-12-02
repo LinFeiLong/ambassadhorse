@@ -34,20 +34,23 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
       </View>
 
       <View style={[styling.ROW, styling.SPACE_BETWEEN]}>
-        <View style={HERO_CTA_CONTAINER}>
-          <Text style={TITLE}>Ambassad'Horse</Text>
-          <Text style={HERO_TEXT}>Vivez l'expérience, devenez propriétaire d'un cheval de sport</Text>
+        <View style={HERO_WRAPPER}>
+          <View style={HERO_CTA_CONTAINER}>
+            <Text style={TITLE}>Ambassad'Horse</Text>
+            <Text style={HERO_TEXT}>Vivez {"\n"}l'expérience,{"\n"}devenez{"\n"}propriétaire d'un cheval de sport</Text>
 
-          <View style={styling.ROW_CENTER_Y}>
-            <LinearGradient
-              start={{ x: 0.9, y: 0 }}
-              colors={[ '#ff1a92',   "#179cff", '#0c3cdb',  ]}
-              style={BTN_GRADIENT}
-              >
-              <Text style={BTN_GRADIENT_TEXT}>Own now</Text>
-            </LinearGradient>
-            <View style={HERO_SEPARATOR}></View>
-            <Text style={HERO_PRICING}>Start at $799,99</Text>
+            <View style={styling.ROW_CENTER_Y}>
+              <LinearGradient
+                start={{ x: 0.9, y: 0 }}
+                colors={[ '#ff1a92',   "#179cff", '#0c3cdb',  ]}
+                style={BTN_GRADIENT}
+                >
+                <Text style={BTN_GRADIENT_TEXT}>Own now</Text>
+              </LinearGradient>
+              <View style={HERO_SEPARATOR}></View>
+              <Text style={HERO_PRICING}>Start at $799,99</Text>
+            </View>
+
           </View>
         </View>
 
@@ -86,6 +89,9 @@ const TITLE: TextStyle = {
   paddingTop: 30,
   paddingBottom: 10,
   color: "white"
+}
+const HERO_WRAPPER: ViewStyle = {
+  alignSelf: "center",
 }
 const HERO_CTA_CONTAINER: ViewStyle = {
   minWidth: "40%",
