@@ -1,21 +1,16 @@
 // TODO: write documentation about fonts and typography along with guides on how to add custom fonts in own
 // markdown file and add links from here
 
-import { Platform } from "react-native"
-import {
-  SpaceGrotesk_300Light as spaceGroteskLight,
-  SpaceGrotesk_400Regular as spaceGroteskRegular,
-  SpaceGrotesk_500Medium as spaceGroteskMedium,
-  SpaceGrotesk_600SemiBold as spaceGroteskSemiBold,
-  SpaceGrotesk_700Bold as spaceGroteskBold,
-} from "@expo-google-fonts/space-grotesk"
-
+import { Platform } from 'react-native'
 
 import {
-  NunitoSans_300Light as nunitoLight,
-  NunitoSans_700Bold as nunitoBold
-} from "@expo-google-fonts/dev"
-
+    NunitoSans_300Light as nunitoLight, NunitoSans_700Bold as nunitoBold
+} from '@expo-google-fonts/nunito-sans'
+import {
+    SpaceGrotesk_300Light as spaceGroteskLight, SpaceGrotesk_400Regular as spaceGroteskRegular,
+    SpaceGrotesk_500Medium as spaceGroteskMedium, SpaceGrotesk_600SemiBold as spaceGroteskSemiBold,
+    SpaceGrotesk_700Bold as spaceGroteskBold
+} from '@expo-google-fonts/space-grotesk'
 
 export const customFontsToLoad = {
   spaceGroteskLight,
@@ -25,13 +20,13 @@ export const customFontsToLoad = {
   spaceGroteskBold,
 
   nunitoLight,
-  nunitoBold
+  nunitoBold,
 }
 
 export const fonts = {
   nunito: {
     light: "nunitoLight",
-    bold: "nunitoBold"
+    bold: "nunitoBold",
   },
 
   spaceGrotesk: {
