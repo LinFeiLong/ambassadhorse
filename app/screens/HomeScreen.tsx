@@ -5,13 +5,11 @@ import { observer } from "mobx-react-lite"
 import { TouchableOpacity, View, ViewStyle, Text, TextStyle,Image, ImageStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps } from "../navigators"
-import { Screen } from "../components"
-import { fonts, palette, styling } from "../theme"
+import { Navbar, Screen } from "../components"
+import { colors, fonts, spacing, styling } from "../theme"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
 import { LinearGradient } from 'expo-linear-gradient';
-import { MaterialCommunityIcons, SimpleLineIcons , EvilIcons } from '@expo/vector-icons';
-
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
@@ -21,44 +19,10 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
 
   // Pull in navigation via hook
   // const navigation = useNavigation()
+
   return (
     <Screen style={$root} preset="scroll">
-
-      <View style={NAVBAR}>
-        <View style={styling.ROW}>
-          <TouchableOpacity>
-            <MaterialCommunityIcons name="menu" size={24} color="white" style={ICON_MENU} />
-          </TouchableOpacity>
-          <Text style={LOGO_LABEL} >Ambassad'horse</Text>
-          
-          <TouchableOpacity style={MENU_ITEM}>
-            <MaterialCommunityIcons name="chevron-down" size={18} color="white" />
-            <Text style={{ fontSize: 12, color: "white", fontFamily: fonts.nunito.light }} >Chevaux</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={MENU_ITEM}>
-            <MaterialCommunityIcons name="chevron-down" size={18} color="white" />
-            <Text style={{ fontSize: 12, color: "white", fontFamily: fonts.nunito.light }} >Services</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity style={MENU_ITEM}>
-            <Text style={{ fontSize: 12, color: "white", fontFamily: fonts.nunito.light }} >News</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styling.ROW}>
-          <TouchableOpacity>
-            <EvilIcons name="search" size={24} color="white" style={NAVBAR_ICON} />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <SimpleLineIcons name="basket" size={18} color="white" style={NAVBAR_ICON} />
-          </TouchableOpacity>
-          <TouchableOpacity style={BTN_LOGIN}>  
-            <MaterialCommunityIcons name="account-outline" size={18} color="black" />
-            <Text style={BTN_LOGIN_TEXT}>Sign In</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Navbar />
 
       <View style={SUBNAV}>
         <TouchableOpacity>
@@ -76,7 +40,7 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
         <View style={HERO_CTA_CONTAINER}>
           <Text style={TITLE}>Ambassad'Horse</Text>
           <Text style={HERO_TEXT}>Vivez l'expérience, devenez propriétaire d'un cheval de sport</Text>
-        
+
           <View style={styling.ROW_CENTER_Y}>
             <LinearGradient
               start={{ x: 0.9, y: 0 }}
@@ -92,64 +56,20 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
 
         <Image source={ require('../../assets/images/hero.png')} style={HERO_IMG} />
       </View>
-      
+
     </Screen>
   )
 })
 
 const $root: ViewStyle = {
   flex: 1,
-  backgroundColor: palette.neutral800
-}
-
-const PAGE_PADDING_X: ViewStyle = {
-  paddingHorizontal: 50,
-}
-
-// NAVBAR
-const NAVBAR: ViewStyle = {
-  ...PAGE_PADDING_X,
-  ...styling.ROW_CENTER_Y,
-  paddingVertical: 30,
-  justifyContent: "space-between",
-  borderBottomColor: "rgba(255,255,255, 0.1)",
-  borderBottomWidth: 1
-}
-const ICON_MENU: ViewStyle = {
-  paddingRight: 20
-}
-const LOGO_LABEL: TextStyle = {
-  fontSize: 15,
-  fontFamily: fonts.nunito.bold,
-  paddingRight: 50,
-  color: "white"
-}
-const MENU_ITEM: ViewStyle = {
-  ...styling.ROW,
-  paddingHorizontal: 10
-}
-const NAVBAR_ICON: ViewStyle = {
-  paddingHorizontal: 10
-}
-const BTN_LOGIN: ViewStyle = {
-  marginHorizontal: 10,
-  ...styling.ROW_CENTER_Y,
-  paddingVertical: 4,
-  paddingHorizontal: 20,
-  borderRadius: 25,
-  backgroundColor: "white"
-}
-const BTN_LOGIN_TEXT: TextStyle = {
-  fontFamily: fonts.nunito.light,
-  fontSize: 12,
-  paddingLeft: 5,
-  color: "black"
+  backgroundColor: colors.screenBackground
 }
 
 // SUBNAV
 const SUBNAV: ViewStyle = {
   ...styling.ROW,
-  ...PAGE_PADDING_X,
+  paddingHorizontal : spacing.screen,
   paddingTop: 30,
 }
 const SUBNAV_MENU_ITEM: TextStyle = {
@@ -171,7 +91,7 @@ const TITLE: TextStyle = {
   color: "white"
 }
 const HERO_CTA_CONTAINER: ViewStyle = {
-  ...PAGE_PADDING_X,
+  paddingHorizontal : spacing.screen,
   minWidth: "40%",
   maxWidth: 450,
   paddingBottom: 20,
