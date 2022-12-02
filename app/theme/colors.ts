@@ -35,15 +35,18 @@ export const palette = {
 
   overlay20: "rgba(25, 16, 21, 0.2)",
   overlay50: "rgba(25, 16, 21, 0.5)",
+
+  // ---------- AMBASSAD'HORSE PALETTE ----------
+  orange: "#ef9e24"
 }
 
 export const colors = {
-  /**
-   * The palette is available to use, but prefer using the name.
-   * This is only included for rare, one-off cases. Try to use
-   * semantic names as much as possible.
-   */
+  // ---------- AMBASSAD'HORSE PALETTE ----------
+  screenBackground: "black",
+
+
   palette,
+  // --------------------------------------------
   /**
    * A helper for making something see-thru.
    */
