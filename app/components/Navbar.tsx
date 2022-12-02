@@ -1,7 +1,7 @@
 import * as React from "react"
 import { observer } from "mobx-react-lite"
 import { TouchableOpacity, View, ViewStyle, Text, TextStyle, StyleProp } from "react-native"
-import { fonts, styling } from "../theme"
+import { fonts, styling, colors } from "../theme"
 import { useNavigation } from "@react-navigation/native"
 import { MaterialCommunityIcons, SimpleLineIcons , EvilIcons } from '@expo/vector-icons';
 
@@ -73,7 +73,8 @@ const NAVBAR: ViewStyle = {
   paddingHorizontal: 50,
   paddingVertical: 30,
   borderBottomColor: "rgba(255,255,255, 0.1)",
-  borderBottomWidth: 1
+  borderBottomWidth: 1,
+  backgroundColor: colors.screenBackground
 }
 
 const ICON_MENU: ViewStyle = {
