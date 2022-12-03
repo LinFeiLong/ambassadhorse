@@ -3,11 +3,10 @@ import { observer } from "mobx-react-lite"
 import { TouchableOpacity, View, ViewStyle, Text, TextStyle,Image, ImageStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps } from "../navigators"
-import { Screen } from "../components"
-import { colors, fonts, spacing, styling } from "../theme"
-// import { useNavigation } from "@react-navigation/native"
+import { Btn, Screen } from "../components"
+import { fonts, styling, spacing, gradients, colors } from "../theme"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
-import { LinearGradient } from 'expo-linear-gradient'
 import { StrokedText } from 'stroked-text'
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
@@ -17,7 +16,8 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
   // const { someStore, anotherStore } = useStores()
 
   // Pull in navigation via hook
-  // const navigation = useNavigation()
+  const navigation = useNavigation()
+  const goToHorses = () => navigation.navigate("Horses")
 
   return (
     <Screen style={$root} preset="scroll">
@@ -46,17 +46,10 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
             <Text style={HERO_TEXT}>Vivez {"\n"}l'expérience,{"\n"}devenez{"\n"}propriétaire d'un cheval de sport</Text>
 
             <View style={styling.ROW_CENTER_Y}>
-              <LinearGradient
-                start={{ x: 0.9, y: 0 }}
-                colors={[ '#ff1a92',   "#179cff", '#0c3cdb',  ]}
-                style={BTN_GRADIENT}
-                >
-                <Text style={BTN_GRADIENT_TEXT}>Investir</Text>
-              </LinearGradient>
+              <Btn text="Investir" textStyle={BTN_GRADIENT_TEXT} gradient={gradients.default} gradientStyle={BTN_GRADIENT} onPress={goToHorses}/>
               <View style={HERO_SEPARATOR}></View>
               <Text style={HERO_PRICING}>Commence à 25€</Text>
             </View>
-
           </View>
         </View>
 

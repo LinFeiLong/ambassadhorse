@@ -4,6 +4,7 @@ import { TouchableOpacity, View, ViewStyle, Text, TextStyle, StyleProp } from "r
 import { fonts, styling, colors } from "../theme"
 import { useNavigation } from "@react-navigation/native"
 import { MaterialCommunityIcons, SimpleLineIcons , EvilIcons } from '@expo/vector-icons';
+import { Btn } from "./Btn"
 
 export interface NavbarProps {
   style?: StyleProp<ViewStyle>
@@ -57,10 +58,9 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
             <SimpleLineIcons name="basket" size={18} color="white" style={NAVBAR_ICON} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={BTN_LOGIN}>
+          <Btn text="Sign In" textStyle={BTN_LOGIN_TEXT} style={BTN_LOGIN} onPress={() => {}}>
             <MaterialCommunityIcons name="account-outline" size={18} color="black" />
-            <Text style={BTN_LOGIN_TEXT}>Sign In</Text>
-          </TouchableOpacity>
+          </Btn>
         </View>
       </View>
   )
@@ -105,11 +105,9 @@ const NAVBAR_ICON: ViewStyle = {
 }
 
 const BTN_LOGIN: ViewStyle = {
-  ...styling.ROW_CENTER_Y,
   marginHorizontal: 10,
   paddingVertical: 4,
   paddingHorizontal: 20,
-  borderRadius: 25,
   backgroundColor: "white"
 }
 
