@@ -85,3 +85,10 @@ export const colors = {
    */
   errorBackground: palette.angry100,
 }
+
+export const gradients = {
+  default: {
+      colors:[ '#ff1a92', "#179cff", '#0c3cdb'],
+      start: { x: 0.9, y: 0 }
+  }
+}
