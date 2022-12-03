@@ -11,6 +11,10 @@ import {
     SpaceGrotesk_500Medium as spaceGroteskMedium, SpaceGrotesk_600SemiBold as spaceGroteskSemiBold,
     SpaceGrotesk_700Bold as spaceGroteskBold
 } from '@expo-google-fonts/space-grotesk'
+import {
+  Anton_400Regular as anton
+} from '@expo-google-fonts/anton'
+
 
 export const customFontsToLoad = {
   spaceGroteskLight,
@@ -21,12 +25,17 @@ export const customFontsToLoad = {
 
   nunitoLight,
   nunitoBold,
+  anton
 }
 
 export const fonts = {
   nunito: {
     light: "nunitoLight",
     bold: "nunitoBold",
+  },
+
+  anton: {
+    regular: "anton"
   },
 
   spaceGrotesk: {
