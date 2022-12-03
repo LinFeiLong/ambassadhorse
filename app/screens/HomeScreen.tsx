@@ -3,11 +3,12 @@ import { observer } from "mobx-react-lite"
 import { TouchableOpacity, View, ViewStyle, Text, TextStyle,Image, ImageStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps } from "../navigators"
-import { Navbar, Screen } from "../components"
+import { Screen } from "../components"
 import { colors, fonts, spacing, styling } from "../theme"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient'
+import { StrokedText } from 'stroked-text'
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
@@ -36,7 +37,12 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
       <View style={[styling.ROW, styling.SPACE_BETWEEN]}>
         <View style={HERO_WRAPPER}>
           <View style={HERO_CTA_CONTAINER}>
-            <Text style={TITLE}>Ambassad'Horse</Text>
+            <View style={TITLE_CONTAINER}>
+              <Text style={TITLE}>Ambassad'</Text>
+              <StrokedText fill="transparent" stroke="white" strokeWidth={1} style={TITLE_STROKE}>
+                Horse
+              </StrokedText>
+            </View>
             <Text style={HERO_TEXT}>Vivez {"\n"}l'expérience,{"\n"}devenez{"\n"}propriétaire d'un cheval de sport</Text>
 
             <View style={styling.ROW_CENTER_Y}>
@@ -45,10 +51,10 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
                 colors={[ '#ff1a92',   "#179cff", '#0c3cdb',  ]}
                 style={BTN_GRADIENT}
                 >
-                <Text style={BTN_GRADIENT_TEXT}>Own now</Text>
+                <Text style={BTN_GRADIENT_TEXT}>Investir</Text>
               </LinearGradient>
               <View style={HERO_SEPARATOR}></View>
-              <Text style={HERO_PRICING}>Start at $799,99</Text>
+              <Text style={HERO_PRICING}>Commence à 25€</Text>
             </View>
 
           </View>
@@ -83,12 +89,22 @@ const SUBNAV_MENU_ACTIVE: TextStyle = {
   borderBottomColor: "#424242",
   borderBottomWidth: 3
 }
-const TITLE: TextStyle = {
-  fontSize: 18,
-  fontFamily: fonts.nunito.light,
+const TITLE_CONTAINER: TextStyle = {
+  ...styling.ROW_CENTER_Y,
   paddingTop: 30,
   paddingBottom: 10,
-  color: "white"
+}
+const TITLE: TextStyle = {
+  fontSize: 29,
+  fontFamily: fonts.anton.regular,
+  textTransform: "uppercase",
+  color: "white",
+}
+const TITLE_STROKE : TextStyle =  {
+  fontSize: 29,
+  fontFamily: fonts.anton.regular,
+  paddingTop: 1, // stroke hack
+  textTransform: "uppercase",
 }
 const HERO_WRAPPER: ViewStyle = {
   alignSelf: "center",
