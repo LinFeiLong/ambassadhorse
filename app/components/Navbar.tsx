@@ -78,7 +78,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
         })}
       </View>
 
-      <View style={styling.ROW}>
+      <View style={[styling.ROW, styling.ROW_CENTER_Y]}>
         <TouchableOpacity>
           <EvilIcons name="search" size={24} color="white" style={NAVBAR_ICON} />
         </TouchableOpacity>
@@ -87,8 +87,8 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
           <SimpleLineIcons name="basket" size={18} color="white" style={NAVBAR_ICON} />
         </TouchableOpacity>
 
-        <Btn text="Sign In" textStyle={BTN_LOGIN_TEXT} style={BTN_LOGIN} onPress={() => {}}>
-          <MaterialCommunityIcons name="account-outline" size={18} color="black" />
+        <Btn style={BTN_LOGIN} text="Sign In" textStyle={BTN_LOGIN_TEXT} onPress={() => {}}>
+          <MaterialCommunityIcons name="account-outline" size={15} color="black" />
         </Btn>
       </View>
     </View>
@@ -136,8 +136,8 @@ const NAVBAR_ICON: ViewStyle = {
 }
 
 const BTN_LOGIN: ViewStyle = {
+  height: 30,
   marginHorizontal: 10,
-  paddingVertical: 4,
   paddingHorizontal: 20,
   backgroundColor: "white",
 }
