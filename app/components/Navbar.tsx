@@ -1,7 +1,7 @@
-import * as React from "react"
+import React, { useState } from "react"
 import { observer } from "mobx-react-lite"
 import { TouchableOpacity, View, ViewStyle, Text, TextStyle, StyleProp } from "react-native"
-import { fonts, styling, colors } from "../theme"
+import { fonts, styling, colors, palette } from "../theme"
 import { useNavigation } from "@react-navigation/native"
 import { MaterialCommunityIcons, SimpleLineIcons , EvilIcons } from '@expo/vector-icons';
 import { Btn } from "./Btn"
@@ -17,7 +17,38 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
   // Pull in navigation via hook
   const navigation = useNavigation()
   const goToHome = () => navigation.navigate("Home")
-  const goToHorses = () => navigation.navigate("Horses")
+
+  // Menu items
+  const menu = [
+    {
+      title: "Chevaux en vente",
+      hasSubmenu: true,
+      link: "Horses"
+    },
+    {
+      title: "Revente",
+      hasSubmenu: true,
+      link: "Home"
+    },
+    {
+      title: "Concept",
+      hasSubmenu: true,
+      link: "Home"
+    },
+    {
+      title: "News",
+      hasSubmenu: false,
+      link: "Home"
+    },
+    {
+      title: "Contact",
+      hasSubmenu: false,
+      link: "Home"
+    }
+  ]
+
+  const [active, setActive] = useState("")
+  const handlePress = (menu) => setActive(menu)
 
   return (
       <View style={$styles}>
@@ -26,27 +57,28 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
             <MaterialCommunityIcons name="menu" size={24} color="white" style={ICON_MENU} />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={goToHome}>
-            <Text style={LOGO_LABEL} >Ambassad'horse</Text>
+          <TouchableOpacity onPress={goToHome} >
+            <Text style={LOGO_LABEL}>Ambassad'horse</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={MENU_ITEM} onPress={goToHorses}>
-            <MaterialCommunityIcons name="chevron-down" size={18} color="white" />
-            <Text style={MENU_TEXT} >Chevaux</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={MENU_ITEM}>
-            <MaterialCommunityIcons name="chevron-down" size={18} color="white" />
-            <Text style={MENU_TEXT}>Services</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={MENU_ITEM}>
-            <Text style={MENU_TEXT}>News</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={MENU_ITEM}>
-            <Text style={MENU_TEXT}>Contact</Text>
-          </TouchableOpacity>
+          {
+            menu.map(i =>
+              <TouchableOpacity style={MENU_ITEM} key={i} onPress={
+                () => {
+                  handlePress(i.title)
+                  navigation.navigate(i.link)
+                }
+              }
+              >
+                {
+                  (i.hasSubmenu)
+                  ? <MaterialCommunityIcons name="chevron-down" size={18} color={(active === i.title) ? palette.orange : "white" } />
+                  : null
+                }
+                <Text style={[MENU_TEXT, (active === i.title) ? MENU_ACTIVE : null]}>{i.title}</Text>
+              </TouchableOpacity>
+            )
+          }
         </View>
 
         <View style={styling.ROW}>
@@ -71,7 +103,7 @@ const NAVBAR: ViewStyle = {
   ...styling.ROW_CENTER_Y,
   justifyContent: "space-between",
   paddingHorizontal: 50,
-  paddingVertical: 30,
+  paddingVertical: 17,
   borderBottomColor: "rgba(255,255,255, 0.1)",
   borderBottomWidth: 1,
   backgroundColor: colors.screenBackground
@@ -97,7 +129,10 @@ const MENU_TEXT: TextStyle = {
   fontFamily: fonts.nunito.light,
   fontSize: 12,
   color: "white",
+}
 
+const MENU_ACTIVE: TextStyle = {
+  color: palette.orange
 }
 
 const NAVBAR_ICON: ViewStyle = {
