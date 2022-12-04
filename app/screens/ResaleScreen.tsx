@@ -7,16 +7,9 @@ import { Screen, Text } from "../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
 
-// STOP! READ ME FIRST!
-// To fix the TS error below, you'll need to add the following things in your navigation config:
-// - Add `JoinUs: undefined` to AppStackParamList
-// - Import your screen, and add it to the stack:
-//     `<Stack.Screen name="JoinUs" component={JoinUsScreen} />`
-// Hint: Look for the 🔥!
-
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
-export const JoinUsScreen: FC<StackScreenProps<AppStackScreenProps, "JoinUs">> = observer(function JoinUsScreen() {
+export const ResaleScreen: FC<StackScreenProps<AppStackScreenProps, "Resale">> = observer(function ResaleScreen() {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
 
@@ -24,7 +17,7 @@ export const JoinUsScreen: FC<StackScreenProps<AppStackScreenProps, "JoinUs">> =
   // const navigation = useNavigation()
   return (
     <Screen style={$root} preset="scroll">
-      <Text text="joinUs" />
+      <Text text="resale" />
     </Screen>
   )
 })

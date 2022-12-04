@@ -9,8 +9,8 @@ export * from "./ErrorScreen/ErrorBoundary"
 
 // export other screens here
 export * from "./HomeScreen"
-export * from "./HowItWorksScreen"
-export * from "./InvestScreen"
-export * from "./OwnerScreen"
-export * from "./JoinUsScreen"
 export * from "./HorsesScreen"
+export * from "./ResaleScreen"
+export * from "./ConceptScreen"
+export * from "./NewsScreen"
+export * from "./OwnerScreen"

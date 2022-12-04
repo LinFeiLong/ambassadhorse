@@ -1,10 +1,8 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
-
 import { EvilIcons, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { RouteProp, useNavigation } from '@react-navigation/native'
-
 import { AppStackParamList } from '../navigators'
 import { colors, fonts, palette, styling } from '../theme'
 import { Btn } from './Btn'
@@ -19,40 +17,34 @@ const MENU = [
   {
     title: "Revente",
     hasSubmenu: true,
-    link: "Home",
+    link: "Resale",
   },
   {
     title: "Concept",
     hasSubmenu: true,
-    link: "Home",
+    link: "Concept",
   },
   {
     title: "News",
     hasSubmenu: false,
-    link: "Home",
-  },
-  {
-    title: "Contact",
-    hasSubmenu: false,
-    link: "Home",
-  },
+    link: "News",
+  }
 ]
+
 export interface NavbarProps {
   route: RouteProp<AppStackParamList, keyof AppStackParamList>
 }
 
 export const Navbar = observer(function Navbar(props: NavbarProps) {
   const { route } = props
-  const $styles = [NAVBAR]
+  const routeName = route.name
 
   // Pull in navigation via hook
   const navigation = useNavigation()
   const goToHome = () => navigation.navigate("Home")
 
-  const routeName = route.name
-
   return (
-    <View style={$styles}>
+    <View style={NAVBAR}>
       <View style={styling.ROW}>
         <TouchableOpacity>
           <MaterialCommunityIcons name="menu" size={24} color="white" style={ICON_MENU} />

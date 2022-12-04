@@ -18,8 +18,14 @@ import { Navbar } from '../components'
 import Config from '../config'
 import { useStores } from '../models' // @demo remove-current-line
 import {
-    HomeScreen, HorsesScreen, HowItWorksScreen, InvestScreen, JoinUsScreen, OwnerScreen,
-    WelcomeScreen
+    WelcomeScreen,
+
+    HomeScreen,
+    HorsesScreen,
+    ResaleScreen,
+    ConceptScreen,
+    NewsScreen,
+    OwnerScreen
 } from '../screens'
 import { DemoNavigator, DemoTabParamList } from './DemoNavigator' // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from './navigationUtilities'
@@ -44,11 +50,11 @@ export type AppStackParamList = {
 
   // 🔥 Your screens go here
   Home: undefined
-  HowItWorks: undefined
-  Invest: undefined
-  JoinUs: undefined
-  Owner: undefined
   Horses: undefined
+  Resale: undefined
+  Concept: undefined
+  News: undefined
+  Owner: undefined
 }
 
 /**
@@ -92,11 +98,12 @@ const AppStack = observer(function AppStack() {
           {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
 
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="HowItWorks" component={HowItWorksScreen} />
-          <Stack.Screen name="Invest" component={InvestScreen} />
-          <Stack.Screen name="JoinUs" component={JoinUsScreen} />
-          <Stack.Screen name="Owner" component={OwnerScreen} />
           <Stack.Screen name="Horses" component={HorsesScreen} />
+          <Stack.Screen name="Resale" component={ResaleScreen} />
+          <Stack.Screen name="Concept" component={ConceptScreen} />
+          <Stack.Screen name="News" component={NewsScreen} />
+          <Stack.Screen name="Owner" component={OwnerScreen} />
+
         </>
       )}
       {/* @demo remove-block-end */}

@@ -7,16 +7,9 @@ import { Screen, Text } from "../components"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
 
-// STOP! READ ME FIRST!
-// To fix the TS error below, you'll need to add the following things in your navigation config:
-// - Add `HowItWorks: undefined` to AppStackParamList
-// - Import your screen, and add it to the stack:
-//     `<Stack.Screen name="HowItWorks" component={HowItWorksScreen} />`
-// Hint: Look for the 🔥!
-
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
-export const HowItWorksScreen: FC<StackScreenProps<AppStackScreenProps, "HowItWorks">> = observer(function HowItWorksScreen() {
+export const NewsScreen: FC<StackScreenProps<AppStackScreenProps, "News">> = observer(function NewsScreen() {
   // Pull in one of our MST stores
   // const { someStore, anotherStore } = useStores()
 
@@ -24,7 +17,7 @@ export const HowItWorksScreen: FC<StackScreenProps<AppStackScreenProps, "HowItWo
   // const navigation = useNavigation()
   return (
     <Screen style={$root} preset="scroll">
-      <Text text="howItWorks" />
+      <Text text="news" />
     </Screen>
   )
 })
