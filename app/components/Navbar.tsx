@@ -19,16 +19,16 @@ const MENU = [
     hasSubmenu: true,
     link: "Resale",
   },
-  {
-    title: "Concept",
-    hasSubmenu: true,
-    link: "Concept",
-  },
-  {
-    title: "News",
-    hasSubmenu: false,
-    link: "News",
-  }
+  // {
+  //   title: "Concept",
+  //   hasSubmenu: true,
+  //   link: "Concept",
+  // },
+  // {
+  //   title: "News",
+  //   hasSubmenu: false,
+  //   link: "News",
+  // }
 ]
 
 export interface NavbarProps {
@@ -84,9 +84,9 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
           <EvilIcons name="search" size={24} color="white" style={NAVBAR_ICON} />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <SimpleLineIcons name="basket" size={18} color="white" style={NAVBAR_ICON} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <Btn style={BTN_LOGIN} text="Sign In" textStyle={BTN_LOGIN_TEXT} onPress={() => {}}>
           <MaterialCommunityIcons name="account-outline" size={15} color="black" />
