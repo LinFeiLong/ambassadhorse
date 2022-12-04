@@ -25,7 +25,8 @@ import {
     ResaleScreen,
     ConceptScreen,
     NewsScreen,
-    OwnerScreen
+    OwnerScreen,
+    DaoScreen
 } from '../screens'
 import { DemoNavigator, DemoTabParamList } from './DemoNavigator' // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from './navigationUtilities'
@@ -55,6 +56,7 @@ export type AppStackParamList = {
   Concept: undefined
   News: undefined
   Owner: undefined
+  Dao: undefined
 }
 
 /**
@@ -103,6 +105,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="Concept" component={ConceptScreen} />
           <Stack.Screen name="News" component={NewsScreen} />
           <Stack.Screen name="Owner" component={OwnerScreen} />
+          <Stack.Screen name="Dao" component={DaoScreen} />
 
         </>
       )}
