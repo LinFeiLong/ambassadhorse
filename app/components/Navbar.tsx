@@ -38,6 +38,7 @@ export interface NavbarProps {
 export const Navbar = observer(function Navbar(props: NavbarProps) {
   const { route } = props
   const routeName = route.name
+  const submenuIconSize = 18
 
   // Pull in navigation via hook
   const navigation = useNavigation()
@@ -45,7 +46,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
 
   return (
     <View style={NAVBAR}>
-      <View style={styling.ROW}>
+      <View style={[styling.ROW, styling.ROW_CENTER_Y]}>
         <TouchableOpacity>
           <MaterialCommunityIcons name="menu" size={24} color="white" style={ICON_MENU} />
         </TouchableOpacity>
@@ -66,10 +67,10 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
               {item.hasSubmenu ? (
                 <MaterialCommunityIcons
                   name="chevron-down"
-                  size={18}
+                  size={submenuIconSize}
                   color={routeName === item.link ? palette.orange : "white"}
                 />
-              ) : null}
+              ) : <View style={{ width: submenuIconSize, height: submenuIconSize, backgroundColor: "transparent"}}></View>}
               <Text style={[MENU_TEXT, routeName === item.link ? MENU_ACTIVE : null]}>
                 {item.title}
               </Text>
