@@ -1,3 +1,7 @@
+import { observer } from 'mobx-react-lite'
+import React from 'react'
+import { useColorScheme } from 'react-native'
+
 /**
  * The app navigator (formerly "AppNavigator" and "MainNavigator") is used for the primary
  * navigation flows of your app.
@@ -5,31 +9,20 @@
  * and a "main" flow which the user will use once logged in.
  */
 import {
-  DarkTheme,
-  DefaultTheme,
-  NavigationContainer,
-  NavigatorScreenParams, // @demo remove-current-line
-} from "@react-navigation/native"
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { StackScreenProps } from "@react-navigation/stack"
-import { observer } from "mobx-react-lite"
-import React from "react"
-import { useColorScheme } from "react-native"
-import { Navbar } from "../components"
-import Config from "../config"
-import { useStores } from "../models" // @demo remove-current-line
+    DarkTheme, DefaultTheme, NavigationContainer, NavigatorScreenParams
+} from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { StackScreenProps } from '@react-navigation/stack'
+
+import { Navbar } from '../components'
+import Config from '../config'
+import { useStores } from '../models' // @demo remove-current-line
 import {
-  // LoginScreen, // @demo remove-current-line
-  WelcomeScreen,
-   HomeScreen,
-   HowItWorksScreen,
-   InvestScreen,
-   JoinUsScreen,
-   OwnerScreen,
-   HorsesScreen
-} from "../screens"
-import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
-import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
+    HomeScreen, HorsesScreen, HowItWorksScreen, InvestScreen, JoinUsScreen, OwnerScreen,
+    WelcomeScreen
+} from '../screens'
+import { DemoNavigator, DemoTabParamList } from './DemoNavigator' // @demo remove-current-line
+import { navigationRef, useBackButtonHandler } from './navigationUtilities'
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -49,12 +42,11 @@ export type AppStackParamList = {
   Login: undefined // @demo remove-current-line
   Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
 
-
   // 🔥 Your screens go here
   Home: undefined
   HowItWorks: undefined
   Invest: undefined
-  JoinUs:undefined
+  JoinUs: undefined
   Owner: undefined
   Horses: undefined
 }
@@ -82,9 +74,9 @@ const AppStack = observer(function AppStack() {
   // @demo remove-block-end
   return (
     <Stack.Navigator
-      screenOptions={{
-        header: () => <Navbar />,
-      }}
+      screenOptions={({ route }) => ({
+        header: () => <Navbar route={route} />,
+      })}
       initialRouteName={isAuthenticated ? "Welcome" : "Home"} // @demo remove-current-line
     >
       {/* @demo remove-block-start */}
