@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { TouchableOpacity, View, ViewStyle, Text, TextStyle,Image, ImageStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
@@ -19,19 +19,22 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
   const navigation = useNavigation()
   const goToHorses = () => navigation.navigate("Horses")
 
+  // Subnav
+  const subnav = ["Highlights", "Specifications", "Compare"]
+  const [active, setActive] = useState("Highlights")
+  const handlePress = (subnav) => setActive(subnav)
+
   return (
     <Screen style={$root} preset="scroll">
 
       <View style={SUBNAV}>
-        <TouchableOpacity>
-          <Text style={[SUBNAV_MENU_ITEM, SUBNAV_MENU_ACTIVE]}>Highlights</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={SUBNAV_MENU_ITEM}>Specifications</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={SUBNAV_MENU_ITEM}>Compare</Text>
-        </TouchableOpacity>
+        {
+          subnav.map(i =>
+            <TouchableOpacity key={i} onPress={() => handlePress(i)} style={(active === i) ? SUBNAV_MENU_ACTIVE : null }>
+              <Text style={SUBNAV_MENU_ITEM}>{i}</Text>
+            </TouchableOpacity>
+          )
+        }
       </View>
 
       <View style={[styling.ROW, styling.SPACE_BETWEEN]}>
@@ -69,7 +72,7 @@ const $root: ViewStyle = {
 const SUBNAV: ViewStyle = {
   ...styling.ROW,
   paddingHorizontal : spacing.screen,
-  paddingTop: 30,
+  paddingTop: 20,
 }
 const SUBNAV_MENU_ITEM: TextStyle = {
   fontSize: 12,
@@ -139,6 +142,6 @@ const HERO_PRICING: TextStyle = {
 const HERO_IMG: ImageStyle = {
   width: 728,
   height: 626,
-  maxWidth: "70%",
+  maxWidth: "60%",
   resizeMode: "contain"
 }
