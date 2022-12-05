@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
 import { Text, TextStyle, View, ViewStyle, Image,ImageStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
@@ -20,6 +20,11 @@ export const DaoScreen: FC<StackScreenProps<AppStackScreenProps, "Dao">> = obser
 
   // Pull in navigation via hook
   // const navigation = useNavigation()
+
+  // Votes
+  const [vote1, setVote1] = useState("")
+  const [vote2, setVote2] = useState("")
+
   return (
     <Screen style={CONTAINER} preset="scroll">
       <View style={[styling.ROW_CENTER_Y, styling.SPACE_BETWEEN]}>
@@ -68,8 +73,8 @@ export const DaoScreen: FC<StackScreenProps<AppStackScreenProps, "Dao">> = obser
           <Text style={GRADIENT_TEXT}>VOTRE VOTE</Text>
         </LinearGradient>
 
-        <Btn style={BTN_YES} text="OUI" textStyle={{ color: "white"}} onPress={()=>{}} />
-        <Btn style={BTN_NO} text="NON" textStyle={{ color: "white"}} onPress={()=>{}} />
+        <Btn style={[BTN, (vote1 === "yes") ? BTN_GREEN : BTN_GREY ]} text="oui" textStyle={BTN_TEXT} onPress={()=> setVote1("yes") } />
+        <Btn style={[BTN, (vote1 === "no") ? BTN_GREEN : BTN_GREY ]} text="non" textStyle={BTN_TEXT} onPress={()=> setVote1("no") } />
       </View>
 
 
@@ -103,8 +108,8 @@ export const DaoScreen: FC<StackScreenProps<AppStackScreenProps, "Dao">> = obser
           <Text style={GRADIENT_TEXT}>VOTRE VOTE</Text>
         </LinearGradient>
 
-        <Btn style={BTN_YES} text="OUI" textStyle={{ color: "white"}} onPress={()=>{}} />
-        <Btn style={BTN_NO} text="NON" textStyle={{ color: "white"}} onPress={()=>{}} />
+        <Btn style={[BTN, (vote2 === "yes") ? BTN_GREEN : BTN_GREY ]} text="oui" textStyle={BTN_TEXT} onPress={()=> setVote2("yes") } />
+        <Btn style={[BTN, (vote2 === "no") ? BTN_GREEN : BTN_GREY ]} text="non" textStyle={BTN_TEXT} onPress={()=> setVote2("no") } />
       </View>
 
 
@@ -235,12 +240,15 @@ const BTN: ViewStyle = {
   marginHorizontal: 7,
 }
 
-const BTN_YES: ViewStyle = {
-  ...BTN,
+const BTN_GREEN: ViewStyle = {
   backgroundColor: palette.greenBright
 }
 
-const BTN_NO: ViewStyle = {
-  ...BTN,
+const BTN_GREY: ViewStyle = {
   backgroundColor: palette.greyBlue
+}
+
+const BTN_TEXT: TextStyle = {
+  textTransform: "uppercase",
+  color: "white"
 }
