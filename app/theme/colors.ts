@@ -37,7 +37,11 @@ export const palette = {
   overlay50: "rgba(25, 16, 21, 0.5)",
 
   // ---------- AMBASSAD'HORSE PALETTE ----------
-  orange: "#ef9e24"
+  orange: "#ef9e24",
+  greyBlue: "#353A50",
+  greenBright: "#34ca3f",
+  pinkBright: "#ff1a92",
+  blueBright: "#41edda",
 }
 
 export const colors = {
