@@ -27,7 +27,7 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
   return (
     <Screen style={$root} preset="scroll">
 
-      <View style={SUBNAV}>
+      {/* <View style={SUBNAV}>
         {
           subnav.map(i =>
             <TouchableOpacity key={i} onPress={() => handlePress(i)} style={(active === i) ? SUBNAV_MENU_ACTIVE : null }>
@@ -35,7 +35,7 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
             </TouchableOpacity>
           )
         }
-      </View>
+      </View> */}
 
       <View style={[styling.ROW, styling.SPACE_BETWEEN]}>
         <View style={HERO_WRAPPER}>
