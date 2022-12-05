@@ -8,6 +8,12 @@ export const styling = StyleSheet.create({
     CENTER_X: {
         alignItems: "center"
     },
+    CENTER_Y: {
+        justifyContent: "center"
+    },
+    COL: {
+        flexDirection: "column"
+    },
     POS_END: {
         justifyContent: "flex-end"
     },
