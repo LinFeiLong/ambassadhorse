@@ -43,6 +43,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
   // Pull in navigation via hook
   const navigation = useNavigation()
   const goToHome = () => navigation.navigate("Home")
+  const goToDao = () => navigation.navigate("Dao")
 
   return (
     <View style={NAVBAR}>
@@ -88,7 +89,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
           <SimpleLineIcons name="basket" size={18} color="white" style={NAVBAR_ICON} />
         </TouchableOpacity> */}
 
-        <Btn style={BTN_LOGIN} text="Sign In" textStyle={BTN_LOGIN_TEXT} onPress={() => {}}>
+        <Btn style={BTN_LOGIN} text="Sign In" textStyle={BTN_LOGIN_TEXT} onPress={goToDao}>
           <MaterialCommunityIcons name="account-outline" size={15} color="black" />
         </Btn>
       </View>
