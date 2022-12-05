@@ -14,6 +14,10 @@ import {
 import {
   Anton_400Regular as anton
 } from '@expo-google-fonts/anton'
+import {
+  Poppins_500Medium as poppinsMedium
+} from '@expo-google-fonts/poppins'
+
 
 
 export const customFontsToLoad = {
@@ -25,7 +29,8 @@ export const customFontsToLoad = {
 
   nunitoLight,
   nunitoBold,
-  anton
+  anton,
+  poppinsMedium
 }
 
 export const fonts = {
@@ -37,6 +42,11 @@ export const fonts = {
   anton: {
     regular: "anton"
   },
+
+  poppins: {
+    medium: "poppinsMedium"
+  },
+
 
   spaceGrotesk: {
     // Cross-platform Google font.
