@@ -3,7 +3,7 @@ import { Image, ImageStyle, StyleProp, Text, TextStyle, View, ViewStyle } from "
 import { observer } from "mobx-react-lite"
 import { styling, fonts, palette } from "../theme"
 
-export interface CardSaleProps {
+export interface CardOnSaleProps {
   style?: StyleProp<ViewStyle>
   end: string
   picture: any
@@ -12,7 +12,7 @@ export interface CardSaleProps {
   tokenPrice: number
 }
 
-export const CardSale = observer(function CardSale(props: CardSaleProps) {
+export const CardOnSale = observer(function CardOnSale(props: CardOnSaleProps) {
   const { style, end, picture, title, price, tokenPrice } = props
   const styles = [CONTAINER, style]
 

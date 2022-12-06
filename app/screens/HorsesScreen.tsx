@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import { FlatList, Text, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps } from "../navigators"
-import { Screen, CardSale } from "../components"
+import { Screen, CardOnSale } from "../components"
 import { styling, fonts, spacing, colors } from "../theme"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
@@ -91,7 +91,7 @@ export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> =
 
   // Flatlist items
   const renderItem = ({ item }) => (
-    <CardSale picture={item.picture} title={item.title} price={item.price} tokenPrice={item.tokenPrice} end={item.end} />
+    <CardOnSale picture={item.picture} title={item.title} price={item.price} tokenPrice={item.tokenPrice} end={item.end} />
   )
 
   return (
