@@ -1,10 +1,10 @@
 import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { Text, TextStyle, View, ViewStyle, Image,ImageStyle } from "react-native"
+import { View, ViewStyle, Text, TextStyle, Image, ImageStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps } from "../navigators"
-import { Btn, Screen } from "../components"
-import { colors, fonts, gradients, palette, spacing, styling } from "../theme"
+import { Screen, Sidebar, Btn } from "../components"
+import { styling, fonts, spacing, colors, gradients, palette } from "../theme"
 import { LinearGradient } from "expo-linear-gradient"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
@@ -26,102 +26,116 @@ export const DaoScreen: FC<StackScreenProps<AppStackScreenProps, "Dao">> = obser
   const [vote2, setVote2] = useState("")
 
   return (
-    <Screen style={CONTAINER} preset="scroll">
-      <View style={[styling.ROW_CENTER_Y, styling.SPACE_BETWEEN]}>
+    <Screen style={CONTAINER} contentContainerStyle={CONTAINER_INNER} preset="scroll">
+      <Sidebar />
+
+      <View style={MAIN_WRAPPER}>
+        <View style={[styling.ROW_CENTER_Y, styling.SPACE_BETWEEN]}>
+          <View style={styling.ROW_CENTER_Y}>
+            <Image source={avatar} style={AVATAR_IMG} />
+
+            <View style={AVATAR_CAPTION}>
+              <Text style={AVATAR_CAPTION_TITLE}>Hello Olivia Wilson !</Text>
+              <Text style={AVATAR_CAPTION_SUBTITLE}>Espace propriétaire</Text>
+            </View>
+          </View>
+
+          <View style={[styling.COL, styling.CENTER_X]}>
+            <Image source={horse} style={HORSE_IMG} />
+            <Text style={HORSE_CAPTION}>Liberty</Text>
+          </View>
+        </View>
+
+        <Text style={TITLE}>DAO Overview</Text>
+        <Text style={TITLE_SECTION}>Décisions prises</Text>
+
+        <View style={TABLE_WRAPPER}>
+          <View style={TABLE_HEADER_CONTAINER}>
+            <Text style={TABLE_HEADER_TEXT}>Dates</Text>
+            <View style={TABLE_CELL_GROW}>
+              <Text style={[TABLE_HEADER_TEXT, TABLE_TEXT_GROW]}>Questions soumlses au vote</Text>
+            </View>
+            <Text style={TABLE_HEADER_TEXT}>Statut</Text>
+            <Text style={TABLE_HEADER_TEXT}>% pour</Text>
+            <Text style={TABLE_HEADER_TEXT}>% contre</Text>
+          </View>
+
+          <View style={TABLE_BODY_ROW}>
+            <Text style={TABLE_TEXT}>02/12/2022</Text>
+            <View style={TABLE_CELL_GROW}>
+              <Text style={TABLE_TEXT_GROW}>Choix de Pénélope Leprevost comme cavalière de concours</Text>
+            </View>
+            <Text style={[TABLE_TEXT, { color: palette.greenBright }]}>Validé</Text>
+            <Text style={[TABLE_TEXT, { color: palette.blueBright }]}>100%</Text>
+            <Text style={[TABLE_TEXT, { color: palette.pinkBright }]}>0%</Text>
+          </View>
+        </View>
+
         <View style={styling.ROW_CENTER_Y}>
-          <Image source={avatar} style={AVATAR_IMG} />
+          <LinearGradient style={GRADIENT_CONTAINER} {...gradients.default}>
+            <Text style={GRADIENT_TEXT}>VOTRE VOTE</Text>
+          </LinearGradient>
 
-          <View style={AVATAR_CAPTION}>
-            <Text style={AVATAR_CAPTION_TITLE}>Hello Olivia Wilson !</Text>
-            <Text style={AVATAR_CAPTION_SUBTITLE}>Espace propriétaire</Text>
+          <Btn style={[BTN, (vote1 === "yes") ? BTN_GREEN : BTN_GREY]} text="oui" textStyle={BTN_TEXT} onPress={() => setVote1("yes")} />
+          <Btn style={[BTN, (vote1 === "no") ? BTN_GREEN : BTN_GREY]} text="non" textStyle={BTN_TEXT} onPress={() => setVote1("no")} />
+        </View>
+
+
+        {/* TABLE 2 */}
+        <Text style={TITLE_SECTION}>Votes en cours</Text>
+
+        <View style={TABLE_WRAPPER}>
+          <View style={TABLE_HEADER_CONTAINER}>
+            <Text style={TABLE_HEADER_TEXT}>Date butoire</Text>
+            <View style={TABLE_CELL_GROW}>
+              <Text style={[TABLE_HEADER_TEXT, TABLE_TEXT_GROW]}>Questions soumises au vote</Text>
+            </View>
+            <Text style={TABLE_HEADER_TEXT}>Statut</Text>
+            <Text style={TABLE_HEADER_TEXT}>% pour</Text>
+            <Text style={TABLE_HEADER_TEXT}>% contre</Text>
+          </View>
+
+          <View style={TABLE_BODY_ROW}>
+            <Text style={TABLE_TEXT}>15/12/2022</Text>
+            <View style={TABLE_CELL_GROW}>
+              <Text style={TABLE_TEXT_GROW}>Vente cheval au "Haras de la bella vida"</Text>
+            </View>
+            <Text style={[TABLE_TEXT, { color: colors.error }]}>Refusé</Text>
+            <Text style={[TABLE_TEXT, { color: palette.blueBright }]}>20%</Text>
+            <Text style={[TABLE_TEXT, { color: palette.pinkBright }]}>80%</Text>
           </View>
         </View>
 
-        <View style={[styling.COL, styling.CENTER_X]}>
-          <Image source={horse} style={HORSE_IMG} />
-          <Text style={HORSE_CAPTION}>Liberty</Text>
-        </View>
-      </View>
+        <View style={styling.ROW_CENTER_Y}>
+          <LinearGradient style={GRADIENT_CONTAINER} {...gradients.default}>
+            <Text style={GRADIENT_TEXT}>VOTRE VOTE</Text>
+          </LinearGradient>
 
-      <Text style={TITLE}>DAO Overview</Text>
-      <Text style={TITLE_SECTION}>Décisions prises</Text>
-
-      <View style={TABLE_WRAPPER}>
-        <View style={TABLE_HEADER_CONTAINER}>
-          <Text style={TABLE_HEADER_TEXT}>Dates</Text>
-          <View style={TABLE_CELL_GROW}>
-            <Text style={[TABLE_HEADER_TEXT, TABLE_TEXT_GROW]}>Questions soumlses au vote</Text>
-          </View>
-          <Text style={TABLE_HEADER_TEXT}>Statut</Text>
-          <Text style={TABLE_HEADER_TEXT}>% pour</Text>
-          <Text style={TABLE_HEADER_TEXT}>% contre</Text>
+          <Btn style={[BTN, (vote2 === "yes") ? BTN_GREEN : BTN_GREY]} text="oui" textStyle={BTN_TEXT} onPress={() => setVote2("yes")} />
+          <Btn style={[BTN, (vote2 === "no") ? BTN_GREEN : BTN_GREY]} text="non" textStyle={BTN_TEXT} onPress={() => setVote2("no")} />
         </View>
 
-        <View style={TABLE_BODY_ROW}>
-          <Text style={TABLE_TEXT}>02/12/2022</Text>
-          <View style={TABLE_CELL_GROW}>
-            <Text style={TABLE_TEXT_GROW}>Choix de Pénélope Leprevost comme cavalière de concours</Text>
-          </View>
-          <Text style={[TABLE_TEXT, { color: palette.greenBright}]}>Validé</Text>
-          <Text style={[TABLE_TEXT, { color: palette.blueBright}]}>100%</Text>
-          <Text style={[TABLE_TEXT, { color: palette.pinkBright}]}>0%</Text>
-        </View>
       </View>
-
-      <View style={styling.ROW_CENTER_Y}>
-        <LinearGradient style={GRADIENT_CONTAINER} {...gradients.default}>
-          <Text style={GRADIENT_TEXT}>VOTRE VOTE</Text>
-        </LinearGradient>
-
-        <Btn style={[BTN, (vote1 === "yes") ? BTN_GREEN : BTN_GREY ]} text="oui" textStyle={BTN_TEXT} onPress={()=> setVote1("yes") } />
-        <Btn style={[BTN, (vote1 === "no") ? BTN_GREEN : BTN_GREY ]} text="non" textStyle={BTN_TEXT} onPress={()=> setVote1("no") } />
-      </View>
-
-
-      {/* TABLE 2 */}
-      <Text style={TITLE_SECTION}>Votes en cours</Text>
-
-      <View style={TABLE_WRAPPER}>
-        <View style={TABLE_HEADER_CONTAINER}>
-          <Text style={TABLE_HEADER_TEXT}>Date butoire</Text>
-          <View style={TABLE_CELL_GROW}>
-            <Text style={[TABLE_HEADER_TEXT, TABLE_TEXT_GROW]}>Questions soumises au vote</Text>
-          </View>
-          <Text style={TABLE_HEADER_TEXT}>Statut</Text>
-          <Text style={TABLE_HEADER_TEXT}>% pour</Text>
-          <Text style={TABLE_HEADER_TEXT}>% contre</Text>
-        </View>
-
-        <View style={TABLE_BODY_ROW}>
-          <Text style={TABLE_TEXT}>15/12/2022</Text>
-          <View style={TABLE_CELL_GROW}>
-            <Text style={TABLE_TEXT_GROW}>Vente cheval au "Haras de la bella vida"</Text>
-          </View>
-          <Text style={[TABLE_TEXT, { color: colors.error}]}>Refusé</Text>
-          <Text style={[TABLE_TEXT, { color: palette.blueBright}]}>20%</Text>
-          <Text style={[TABLE_TEXT, { color: palette.pinkBright}]}>80%</Text>
-        </View>
-      </View>
-
-      <View style={styling.ROW_CENTER_Y}>
-        <LinearGradient style={GRADIENT_CONTAINER} {...gradients.default}>
-          <Text style={GRADIENT_TEXT}>VOTRE VOTE</Text>
-        </LinearGradient>
-
-        <Btn style={[BTN, (vote2 === "yes") ? BTN_GREEN : BTN_GREY ]} text="oui" textStyle={BTN_TEXT} onPress={()=> setVote2("yes") } />
-        <Btn style={[BTN, (vote2 === "no") ? BTN_GREEN : BTN_GREY ]} text="non" textStyle={BTN_TEXT} onPress={()=> setVote2("no") } />
-      </View>
-
-
     </Screen>
   )
 })
 
 const CONTAINER: ViewStyle = {
   flex: 1,
+  backgroundColor: colors.screenBackground,
+}
+
+const CONTAINER_INNER: ViewStyle = {
+  flexGrow: 1,
+  ...styling.ROW_SPACE_BETWEEN,
+}
+
+
+// MAIN CONTENT
+const MAIN_WRAPPER: ViewStyle = {
+  flex: 1,
   paddingTop: 30,
   paddingHorizontal: spacing.screen,
-  backgroundColor: colors.screenBackground
 }
 
 const AVATAR_CAPTION: ViewStyle = {
@@ -216,7 +230,7 @@ const TABLE_HEADER_TEXT: TextStyle = {
 }
 
 const TABLE_TEXT_GROW: TextStyle = {
-    ...TABLE_TEXT,
+  ...TABLE_TEXT,
   maxWidth: "unset"
 }
 
