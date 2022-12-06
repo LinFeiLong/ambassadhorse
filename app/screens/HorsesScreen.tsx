@@ -143,7 +143,7 @@ const SUBNAV_MENU_ACTIVE: TextStyle = {
 
 const FLATLIST: ViewStyle = {
   ...styling.ROW_CENTER_X,
-  alignSelf: "center",
-  width: "99%"
+  flexWrap: "wrap",
+  marginBottom: 70
 }
 

@@ -30,11 +30,10 @@ export const CardOnSale = observer(function CardOnSale(props: CardOnSaleProps) {
 const CONTAINER: ViewStyle = {
   position: "relative",
   zIndex: 1,
-  width: 310,
-  maxWidth: "22%",
   ...styling.POS_END,
   alignSelf: "flex-end",
-  margin: 10,
+  minWidth: 310,
+  margin: 10
 }
 
 const CAPTION: TextStyle = {
@@ -49,7 +48,7 @@ const CAPTION: TextStyle = {
 
 const IMG: ImageStyle = {
   width: 310,
-  height: 330,
+  height: 400,
   maxWidth: "100%",
   maxHeight: "100%",
   resizeMode: "cover",
