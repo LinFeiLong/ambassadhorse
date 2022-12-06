@@ -43,7 +43,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
   // Pull in navigation via hook
   const navigation = useNavigation()
   const goToHome = () => navigation.navigate("Home")
-  const goToDao = () => navigation.navigate("Dao")
+  const goToOwnerHome = () => navigation.navigate("OwnerHome")
 
   return (
     <View style={NAVBAR}>
@@ -71,7 +71,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
                   size={submenuIconSize}
                   color={routeName === item.link ? palette.orange : "white"}
                 />
-              ) : <View style={{ width: submenuIconSize, height: submenuIconSize, backgroundColor: "transparent"}}></View>}
+              ) : <View style={{ width: submenuIconSize, height: submenuIconSize, backgroundColor: "transparent" }}></View>}
               <Text style={[MENU_TEXT, routeName === item.link ? MENU_ACTIVE : null]}>
                 {item.title}
               </Text>
@@ -89,7 +89,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
           <SimpleLineIcons name="basket" size={18} color="white" style={NAVBAR_ICON} />
         </TouchableOpacity> */}
 
-        <Btn style={BTN_LOGIN} text="Sign In" textStyle={BTN_LOGIN_TEXT} onPress={goToDao}>
+        <Btn style={BTN_LOGIN} text="Sign In" textStyle={BTN_LOGIN_TEXT} onPress={goToOwnerHome}>
           <MaterialCommunityIcons name="account-outline" size={15} color="black" />
         </Btn>
       </View>
