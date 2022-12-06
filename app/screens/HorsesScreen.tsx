@@ -1,10 +1,10 @@
 import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { FlatList, Image, ImageStyle, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
+import { FlatList, Text, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps } from "../navigators"
-import { Screen, Text } from "../components"
-import { styling, fonts, spacing, colors, palette } from "../theme"
+import { Screen, CardSale } from "../components"
+import { styling, fonts, spacing, colors } from "../theme"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
 
@@ -75,7 +75,6 @@ const DATA = [
   }
 ]
 
-
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
 export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> = observer(function HorsesScreen() {
@@ -90,20 +89,9 @@ export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> =
   const [active, setActive] = useState("Nos 2 ans")
   const handlePress = (tab) => setActive(tab)
 
-  const Item = ({ picture, title, price, tokenPrice, end  }) => {
-    return (
-      <View style={LIST_ITEM_CONTAINER}>
-        <Text style={LIST_CAPTION}>{end}</Text>
-        <Image style={LIST_IMG} source={picture} />
-        <Text style={LIST_TITLE}>{title}</Text>
-        <Text style={LIST_SUBTITLE}>Total price {price}</Text>
-        <Text style={LIST_SUBTITLE}>Token start price {tokenPrice}</Text>
-      </View>
-    )
-  }
-
+  // Flatlist items
   const renderItem = ({ item }) => (
-    <Item picture={item.picture} title={item.title} price={item.price} tokenPrice={item.tokenPrice} end={item.end}  />
+    <CardSale picture={item.picture} title={item.title} price={item.price} tokenPrice={item.tokenPrice} end={item.end} />
   )
 
   return (
@@ -111,7 +99,7 @@ export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> =
       <View style={SUBNAV}>
         {
           tab.map(i =>
-            <TouchableOpacity key={i} onPress={() => handlePress(i)} style={(active === i) ? SUBNAV_MENU_ACTIVE : null }>
+            <TouchableOpacity key={i} onPress={() => handlePress(i)} style={(active === i) ? SUBNAV_MENU_ACTIVE : null}>
               <Text style={SUBNAV_MENU_ITEM}>{i}</Text>
             </TouchableOpacity>
           )
@@ -137,7 +125,7 @@ const $root: ViewStyle = {
 // SUBNAV
 const SUBNAV: ViewStyle = {
   ...styling.ROW,
-  paddingHorizontal : spacing.screen,
+  paddingHorizontal: spacing.screen,
   paddingTop: 30,
   paddingBottom: 24,
 }
@@ -151,48 +139,6 @@ const SUBNAV_MENU_ITEM: TextStyle = {
 const SUBNAV_MENU_ACTIVE: TextStyle = {
   borderBottomColor: "#424242",
   borderBottomWidth: 3
-}
-
-// LIST
-const LIST_ITEM_CONTAINER: ViewStyle = {
-  position: "relative",
-  zIndex: 1,
-  width: 310,
-  maxWidth: "22%",
-  ...styling.POS_END,
-  alignSelf: "flex-end",
-  margin: 10,
-}
-
-const LIST_CAPTION: TextStyle = {
-  position: "absolute",
-  zIndex: 10,
-  top: 5,
-  left: 5,
-  fontFamily: fonts.nunito.bold,
-  fontSize: 13,
-  color: "black",
-}
-
-const LIST_IMG: ImageStyle = {
-  width: 310,
-  height: 330,
-  maxWidth: "100%",
-  maxHeight: "100%",
-  resizeMode: "cover",
-}
-
-const LIST_TITLE: TextStyle = {
-  fontFamily: fonts.nunito.light,
-  fontSize: 12,
-  paddingVertical: 10,
-  color: "white",
-}
-
-const LIST_SUBTITLE: TextStyle = {
-  fontFamily: fonts.nunito.bold,
-  fontSize: 14,
-  color: palette.orange
 }
 
 const FLATLIST: ViewStyle = {
