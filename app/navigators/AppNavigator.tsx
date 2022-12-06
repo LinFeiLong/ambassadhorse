@@ -9,7 +9,7 @@ import { useColorScheme } from 'react-native'
  * and a "main" flow which the user will use once logged in.
  */
 import {
-    DarkTheme, DefaultTheme, NavigationContainer, NavigatorScreenParams
+  DarkTheme, DefaultTheme, NavigationContainer, NavigatorScreenParams
 } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -18,15 +18,16 @@ import { Navbar } from '../components'
 import Config from '../config'
 import { useStores } from '../models' // @demo remove-current-line
 import {
-    WelcomeScreen,
+  WelcomeScreen,
 
-    HomeScreen,
-    HorsesScreen,
-    ResaleScreen,
-    ConceptScreen,
-    NewsScreen,
-    OwnerScreen,
-    DaoScreen
+  HomeScreen,
+  HorsesScreen,
+  ResaleScreen,
+  ConceptScreen,
+  NewsScreen,
+  OwnerScreen,
+  DaoScreen,
+  OwnerHomeScreen
 } from '../screens'
 import { DemoNavigator, DemoTabParamList } from './DemoNavigator' // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from './navigationUtilities'
@@ -57,6 +58,7 @@ export type AppStackParamList = {
   News: undefined
   Owner: undefined
   Dao: undefined
+  OwnerHome: undefined
 }
 
 /**
@@ -106,7 +108,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="News" component={NewsScreen} />
           <Stack.Screen name="Owner" component={OwnerScreen} />
           <Stack.Screen name="Dao" component={DaoScreen} />
-
+          <Stack.Screen name="OwnerHome" component={OwnerHomeScreen} />
         </>
       )}
       {/* @demo remove-block-end */}
@@ -115,7 +117,7 @@ const AppStack = observer(function AppStack() {
   )
 })
 
-interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
+interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> { }
 
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
   const colorScheme = useColorScheme()
