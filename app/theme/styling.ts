@@ -29,6 +29,10 @@ export const styling = StyleSheet.create({
         alignItems: "center",
         flexDirection: "row"
     },
+    ROW_SPACE_BETWEEN: {
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
     ROW_WRAP: {
         flexDirection: "row",
         flexWrap: "wrap"
