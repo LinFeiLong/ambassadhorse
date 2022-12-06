@@ -1,12 +1,43 @@
 import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { View, ViewStyle, Text, TextStyle } from "react-native"
+import { View, ViewStyle, Text, TextStyle, FlatList } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps } from "../navigators"
-import { OwnerHeader, Screen, Sidebar } from "../components"
+import { CardStable, OwnerHeader, Screen, Sidebar } from "../components"
 import { colors, fonts, spacing, styling } from "../theme"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
+
+const DATA = [
+  {
+    id: 1,
+    name: "Lucky Crypto",
+    tokens: 1,
+    initPrice: "30 000€",
+    currentPrice: "60 000€",
+    ownerSince: "01/04/22",
+    picture: require('../../assets/images/horse1.png'),
+  },
+  {
+    id: 2,
+    name: "Millenium",
+    tokens: 2,
+    initPrice: "30 000€",
+    currentPrice: "60 000€",
+    ownerSince: "01/04/22",
+    picture: require('../../assets/images/horse2.png'),
+  },
+  {
+    id: 3,
+    name: "Alyra du web",
+    tokens: 1,
+    initPrice: "30 000€",
+    currentPrice: "60 000€",
+    ownerSince: "01/04/22",
+    picture: require('../../assets/images/horse3.jpg'),
+  },
+]
+
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
@@ -16,6 +47,12 @@ export const OwnerHomeScreen: FC<StackScreenProps<AppStackScreenProps, "OwnerHom
 
   // Pull in navigation via hook
   // const navigation = useNavigation()
+
+  // Flatlist items
+  const renderItem = ({ item }) => (
+    <CardStable picture={item.picture} name={item.name} tokens={item.tokens} initPrice={item.initPrice} currentPrice={item.currentPrice} ownerSince={item.ownerSince} onPress={() => { }} />
+  )
+
   return (
     <Screen style={CONTAINER} contentContainerStyle={CONTAINER_INNER} preset="scroll">
       <Sidebar />
@@ -23,6 +60,14 @@ export const OwnerHomeScreen: FC<StackScreenProps<AppStackScreenProps, "OwnerHom
       <View style={MAIN_WRAPPER}>
         <OwnerHeader horseImgVisible={false} />
         <Text style={TITLE}>Mon écurie</Text>
+
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          numColumns={3}
+          columnWrapperStyle={FLATLIST}
+        />
 
       </View>
     </Screen>
@@ -50,8 +95,11 @@ const MAIN_WRAPPER: ViewStyle = {
 const TITLE: TextStyle = {
   fontFamily: fonts.poppins.medium,
   fontSize: 26,
-  paddingBottom: 24,
+  paddingVertical: 30,
   color: "white"
 }
 
-
+const FLATLIST: ViewStyle = {
+  ...styling.ROW_CENTER_X,
+  flexWrap: "wrap",
+}
