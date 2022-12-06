@@ -25,7 +25,6 @@ import {
   ResaleScreen,
   ConceptScreen,
   NewsScreen,
-  OwnerScreen,
   DaoScreen,
   OwnerHomeScreen
 } from '../screens'
@@ -56,7 +55,6 @@ export type AppStackParamList = {
   Resale: undefined
   Concept: undefined
   News: undefined
-  Owner: undefined
   Dao: undefined
   OwnerHome: undefined
 }
@@ -106,7 +104,6 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="Resale" component={ResaleScreen} />
           <Stack.Screen name="Concept" component={ConceptScreen} />
           <Stack.Screen name="News" component={NewsScreen} />
-          <Stack.Screen name="Owner" component={OwnerScreen} />
           <Stack.Screen name="Dao" component={DaoScreen} />
           <Stack.Screen name="OwnerHome" component={OwnerHomeScreen} />
         </>
