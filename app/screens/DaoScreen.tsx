@@ -1,16 +1,13 @@
 import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { View, ViewStyle, Text, TextStyle, Image, ImageStyle } from "react-native"
+import { View, ViewStyle, Text, TextStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps } from "../navigators"
-import { Screen, Sidebar, Btn } from "../components"
+import { Screen, Sidebar, OwnerHeader, Btn } from "../components"
 import { styling, fonts, spacing, colors, gradients, palette } from "../theme"
 import { LinearGradient } from "expo-linear-gradient"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
-
-const avatar = require('../../assets/images/avatar.png')
-const horse = require('../../assets/images/horse-owned.png')
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
@@ -30,21 +27,7 @@ export const DaoScreen: FC<StackScreenProps<AppStackScreenProps, "Dao">> = obser
       <Sidebar />
 
       <View style={MAIN_WRAPPER}>
-        <View style={[styling.ROW_CENTER_Y, styling.SPACE_BETWEEN]}>
-          <View style={styling.ROW_CENTER_Y}>
-            <Image source={avatar} style={AVATAR_IMG} />
-
-            <View style={AVATAR_CAPTION}>
-              <Text style={AVATAR_CAPTION_TITLE}>Hello Olivia Wilson !</Text>
-              <Text style={AVATAR_CAPTION_SUBTITLE}>Espace propriétaire</Text>
-            </View>
-          </View>
-
-          <View style={[styling.COL, styling.CENTER_X]}>
-            <Image source={horse} style={HORSE_IMG} />
-            <Text style={HORSE_CAPTION}>Liberty</Text>
-          </View>
-        </View>
+        <OwnerHeader />
 
         <Text style={TITLE}>DAO Overview</Text>
         <Text style={TITLE_SECTION}>Décisions prises</Text>
@@ -136,40 +119,6 @@ const MAIN_WRAPPER: ViewStyle = {
   flex: 1,
   paddingTop: 30,
   paddingHorizontal: spacing.screen,
-}
-
-const AVATAR_CAPTION: ViewStyle = {
-  paddingLeft: 38
-}
-
-const AVATAR_CAPTION_TITLE: TextStyle = {
-  fontFamily: fonts.poppins.medium,
-  fontSize: 22,
-  color: "white"
-}
-
-const AVATAR_CAPTION_SUBTITLE: TextStyle = {
-  fontFamily: fonts.poppins.medium,
-  fontSize: 18,
-  color: "white"
-}
-
-const AVATAR_IMG: ImageStyle = {
-  width: 313 / 3,
-  height: 318 / 3,
-  resizeMode: "contain"
-}
-
-const HORSE_IMG: ImageStyle = {
-  width: 328 / 3,
-  height: 338 / 3,
-  resizeMode: "contain"
-}
-
-const HORSE_CAPTION: TextStyle = {
-  fontFamily: fonts.nunito.light,
-  fontSize: 15,
-  color: palette.orange
 }
 
 const TITLE: TextStyle = {
