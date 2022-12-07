@@ -85,6 +85,6 @@ web-build/
 # Configurations
 !env.js
 .vercel
-
+.env
 ios/
 android/
