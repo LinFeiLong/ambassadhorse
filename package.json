@@ -4,9 +4,9 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "react-native start",
-    "ios": "react-native run-ios",
-    "android": "react-native run-android --active-arch-only",
+    "start": "expo start",
+    "ios": "expo run:ios",
+    "android": "expo run:android",
     "test:detox": "detox test -c ios.sim.debug",
     "build:detox": "detox build -c ios.sim.debug",
     "ci:test:detox": "detox test -c ios.sim.release -l verbose --cleanup",
