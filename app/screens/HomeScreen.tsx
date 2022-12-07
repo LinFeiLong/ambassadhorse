@@ -1,3 +1,4 @@
+import * as ImagePicker from 'expo-image-picker'
 import { observer } from 'mobx-react-lite'
 import React, { FC, useState } from 'react'
 import { Image, ImageStyle, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
@@ -8,6 +9,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { Btn, Screen } from '../components'
 import { AppStackScreenProps } from '../navigators'
 import { colors, fonts, gradients, spacing, styling } from '../theme'
+import { pinFileToIPFS } from '../utils/pinata/pinFileToIPFS'
 
 // import { useStores } from "../models"
 // import { StrokedText } from 'stroked-text'
@@ -16,6 +18,20 @@ import { colors, fonts, gradients, spacing, styling } from '../theme'
 // @ts-ignore
 export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = observer(
   function HomeScreen() {
+    const pickImageAsync = async () => {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        quality: 1,
+      })
+
+      if (!result.canceled) {
+        await pinFileToIPFS(result?.assets[0]?.uri)
+        console.log(result)
+      } else {
+        alert("You did not select any image.")
+      }
+    }
+
     // Pull in one of our MST stores
     // const { someStore, anotherStore } = useStores()
 
@@ -27,6 +43,8 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
     const subnav = ["Highlights", "Specifications", "Compare"]
     const [active, setActive] = useState("Highlights")
     const handlePress = (subnav) => setActive(subnav)
+
+    // pinFileToIPFS()
 
     return (
       <Screen style={$root} preset="scroll">
@@ -43,14 +61,16 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
         <View style={[styling.ROW, styling.SPACE_BETWEEN]}>
           <View style={HERO_WRAPPER}>
             <View style={HERO_CTA_CONTAINER}>
-              <View style={TITLE_CONTAINER}>
-                <Text style={TITLE}>Ambassad'</Text>
-                <Text style={TITLE}>Horse</Text>
+              <TouchableOpacity onPress={pickImageAsync}>
+                <View style={TITLE_CONTAINER}>
+                  <Text style={TITLE}>Ambassad'</Text>
+                  <Text style={TITLE}>Horse</Text>
 
-                {/* <StrokedText fill="transparent" stroke="white" strokeWidth={1} style={TITLE_STROKE}>
+                  {/* <StrokedText fill="transparent" stroke="white" strokeWidth={1} style={TITLE_STROKE}>
                 Horse
               </StrokedText> */}
-              </View>
+                </View>
+              </TouchableOpacity>
               <Text style={HERO_TEXT}>
                 Vivez {"\n"}l'expérience,{"\n"}devenez{"\n"}propriétaire d'un cheval de sport
               </Text>
