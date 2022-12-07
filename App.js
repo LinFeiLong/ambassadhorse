@@ -5,11 +5,16 @@ import App from "./app/app.tsx"
 import React from "react"
 import { registerRootComponent } from "expo"
 import * as SplashScreen from "expo-splash-screen"
+import { NativeBaseProvider } from "native-base"
 
 SplashScreen.preventAutoHideAsync()
 
 function IgniteApp() {
-  return <App hideSplashScreen={SplashScreen.hideAsync} />
+  return (
+    <NativeBaseProvider>
+      <App hideSplashScreen={SplashScreen.hideAsync} />
+    </NativeBaseProvider>
+  )
 }
 
 registerRootComponent(IgniteApp)
