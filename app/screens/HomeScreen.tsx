@@ -2,17 +2,13 @@ import * as ImagePicker from 'expo-image-picker'
 import { observer } from 'mobx-react-lite'
 import React, { FC, useState } from 'react'
 import { Image, ImageStyle, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
-
 import { useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
-
 import { Btn, Screen } from '../components'
 import { AppStackScreenProps } from '../navigators'
 import { colors, fonts, gradients, spacing, styling } from '../theme'
 import { pinFileToIPFS } from '../utils/pinata/pinFileToIPFS'
-
 // import { useStores } from "../models"
-// import { StrokedText } from 'stroked-text'
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
@@ -67,10 +63,6 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
                 <View style={TITLE_CONTAINER}>
                   <Text style={TITLE}>Ambassad'</Text>
                   <Text style={TITLE}>Horse</Text>
-
-                  {/* <StrokedText fill="transparent" stroke="white" strokeWidth={1} style={TITLE_STROKE}>
-                Horse
-              </StrokedText> */}
                 </View>
               </TouchableOpacity>
               <Text style={HERO_TEXT}>
@@ -130,12 +122,6 @@ const TITLE: TextStyle = {
   fontFamily: fonts.anton.regular,
   textTransform: "uppercase",
   color: "white",
-}
-const TITLE_STROKE: TextStyle = {
-  fontSize: 29,
-  fontFamily: fonts.anton.regular,
-  paddingTop: 1, // stroke hack
-  textTransform: "uppercase",
 }
 const HERO_WRAPPER: ViewStyle = {
   alignSelf: "center",
