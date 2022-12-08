@@ -1,8 +1,10 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
+
 import { EvilIcons, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { RouteProp, useNavigation } from '@react-navigation/native'
+
 import { AppStackParamList } from '../navigators'
 import { colors, fonts, palette, styling } from '../theme'
 import { Btn } from './Btn'
@@ -14,11 +16,11 @@ const MENU = [
     hasSubmenu: true,
     link: "Horses",
   },
-  {
-    title: "Revente",
-    hasSubmenu: true,
-    link: "Resale",
-  },
+  // {
+  //   title: "Revente",
+  //   hasSubmenu: true,
+  //   link: "Resale",
+  // },
   // {
   //   title: "Concept",
   //   hasSubmenu: true,
@@ -48,9 +50,9 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
   return (
     <View style={NAVBAR}>
       <View style={[styling.ROW, styling.ROW_CENTER_Y]}>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <MaterialCommunityIcons name="menu" size={24} color="white" style={ICON_MENU} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity onPress={goToHome}>
           <Text style={LOGO_LABEL}>Ambassad'horse</Text>
@@ -71,7 +73,15 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
                   size={submenuIconSize}
                   color={routeName === item.link ? palette.orange : "white"}
                 />
-              ) : <View style={{ width: submenuIconSize, height: submenuIconSize, backgroundColor: "transparent" }}></View>}
+              ) : (
+                <View
+                  style={{
+                    width: submenuIconSize,
+                    height: submenuIconSize,
+                    backgroundColor: "transparent",
+                  }}
+                ></View>
+              )}
               <Text style={[MENU_TEXT, routeName === item.link ? MENU_ACTIVE : null]}>
                 {item.title}
               </Text>
@@ -81,9 +91,9 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
       </View>
 
       <View style={[styling.ROW, styling.ROW_CENTER_Y]}>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <EvilIcons name="search" size={24} color="white" style={NAVBAR_ICON} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         {/* <TouchableOpacity>
           <SimpleLineIcons name="basket" size={18} color="white" style={NAVBAR_ICON} />
