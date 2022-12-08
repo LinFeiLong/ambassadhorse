@@ -13,17 +13,34 @@ export interface CardStableProps {
   ownerSince: string
   picture: any
   onPress: () => void
+  onSalePress: () => void
 }
 
 export const CardStable = observer(function CardStable(props: CardStableProps) {
-  const { style, picture, name, tokens, initPrice, currentPrice, ownerSince, onPress } = props
+  const {
+    style,
+    picture,
+    name,
+    tokens,
+    initPrice,
+    currentPrice,
+    ownerSince,
+    onPress,
+    onSalePress,
+  } = props
   const styles = [CONTAINER, style]
 
   return (
     <View style={styles}>
       <View style={IMG_CONTAINER}>
         <Image style={IMG} source={picture} />
-        <Btn style={BTN} text="INFO" gradient={gradients.default} gradientStyle={BTN_GRADIENT} onPress={() => onPress} />
+        <Btn
+          style={BTN_INFO}
+          text="INFO"
+          gradient={gradients.default}
+          gradientStyle={BTN_GRADIENT}
+          onPress={() => onPress}
+        />
       </View>
 
       <Text style={TITLE}>{name}</Text>
@@ -31,6 +48,8 @@ export const CardStable = observer(function CardStable(props: CardStableProps) {
       <Text style={SUBTITLE}>Prix de revient initial : {initPrice}</Text>
       <Text style={SUBTITLE}>Prix de revient actuel : {currentPrice}</Text>
       <Text style={SUBTITLE}>Propriétaire depuis : {ownerSince}</Text>
+
+      <Btn style={BTN} text="VENDRE" textStyle={BTN_TEXT} onPress={() => onSalePress} />
     </View>
   )
 })
@@ -39,7 +58,7 @@ const CONTAINER: ViewStyle = {
   ...styling.POS_END,
   alignSelf: "flex-end",
   minWidth: 310,
-  margin: 10
+  margin: 10,
 }
 
 const IMG_CONTAINER: ViewStyle = {
@@ -52,10 +71,29 @@ const IMG: ImageStyle = {
   height: 400,
   maxWidth: "100%",
   maxHeight: "100%",
-  resizeMode: "cover"
+  resizeMode: "cover",
 }
 
-const BTN: ViewStyle = {
+const TITLE: TextStyle = {
+  fontFamily: fonts.nunito.light,
+  fontSize: 12,
+  paddingVertical: 10,
+  color: "white",
+}
+
+const SUBTITLE: TextStyle = {
+  fontFamily: fonts.nunito.bold,
+  fontSize: 14,
+  color: "white",
+}
+
+const SUBTITLE_ORANGE: TextStyle = {
+  ...SUBTITLE,
+  color: palette.orange,
+}
+
+// BUTTONS
+const BTN_INFO: ViewStyle = {
   position: "absolute",
   bottom: 0,
   left: 0,
@@ -69,20 +107,20 @@ const BTN_GRADIENT: ViewStyle = {
   borderRadius: 25,
 }
 
-const TITLE: TextStyle = {
+const BTN: ViewStyle = {
+  alignSelf: "center",
+  height: 30,
+  marginTop: 15,
+  marginHorizontal: 10,
+  paddingHorizontal: 20,
+  borderColor: "white",
+  borderWidth: 1,
+  backgroundColor: "transparent",
+}
+
+const BTN_TEXT: TextStyle = {
   fontFamily: fonts.nunito.light,
   fontSize: 12,
-  paddingVertical: 10,
+  paddingLeft: 5,
   color: "white",
-}
-
-const SUBTITLE: TextStyle = {
-  fontFamily: fonts.nunito.bold,
-  fontSize: 14,
-  color: "white"
-}
-
-const SUBTITLE_ORANGE: TextStyle = {
-  ...SUBTITLE,
-  color: palette.orange
 }

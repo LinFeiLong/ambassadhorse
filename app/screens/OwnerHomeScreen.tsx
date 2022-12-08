@@ -16,7 +16,7 @@ const DATA = [
     initPrice: "30 000€",
     currentPrice: "60 000€",
     ownerSince: "01/04/22",
-    picture: require('../../assets/images/horse1.png'),
+    picture: require("../../assets/images/horse1.png"),
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ const DATA = [
     initPrice: "30 000€",
     currentPrice: "60 000€",
     ownerSince: "01/04/22",
-    picture: require('../../assets/images/horse2.png'),
+    picture: require("../../assets/images/horse2.png"),
   },
   {
     id: 3,
@@ -34,45 +34,54 @@ const DATA = [
     initPrice: "30 000€",
     currentPrice: "60 000€",
     ownerSince: "01/04/22",
-    picture: require('../../assets/images/horse3.jpg'),
+    picture: require("../../assets/images/horse3.jpg"),
   },
 ]
 
-
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
-export const OwnerHomeScreen: FC<StackScreenProps<AppStackScreenProps, "OwnerHome">> = observer(function OwnerHomeScreen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+export const OwnerHomeScreen: FC<StackScreenProps<AppStackScreenProps, "OwnerHome">> = observer(
+  function OwnerHomeScreen() {
+    // Pull in one of our MST stores
+    // const { someStore, anotherStore } = useStores()
 
-  // Pull in navigation via hook
-  // const navigation = useNavigation()
+    // Pull in navigation via hook
+    // const navigation = useNavigation()
 
-  // Flatlist items
-  const renderItem = ({ item }) => (
-    <CardStable picture={item.picture} name={item.name} tokens={item.tokens} initPrice={item.initPrice} currentPrice={item.currentPrice} ownerSince={item.ownerSince} onPress={() => { }} />
-  )
+    // Flatlist items
+    const renderItem = ({ item }) => (
+      <CardStable
+        picture={item.picture}
+        name={item.name}
+        tokens={item.tokens}
+        initPrice={item.initPrice}
+        currentPrice={item.currentPrice}
+        ownerSince={item.ownerSince}
+        onPress={() => {}}
+        onSalePress={() => {}}
+      />
+    )
 
-  return (
-    <Screen style={CONTAINER} contentContainerStyle={CONTAINER_INNER} preset="scroll">
-      <Sidebar />
+    return (
+      <Screen style={CONTAINER} contentContainerStyle={CONTAINER_INNER} preset="scroll">
+        <Sidebar />
 
-      <View style={MAIN_WRAPPER}>
-        <OwnerHeader horseImgVisible={false} />
-        <Text style={TITLE}>Mon écurie</Text>
+        <View style={MAIN_WRAPPER}>
+          <OwnerHeader horseImgVisible={false} />
+          <Text style={TITLE}>Mon écurie</Text>
 
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          numColumns={3}
-          columnWrapperStyle={FLATLIST}
-        />
-
-      </View>
-    </Screen>
-  )
-})
+          <FlatList
+            data={DATA}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            numColumns={3}
+            columnWrapperStyle={FLATLIST}
+          />
+        </View>
+      </Screen>
+    )
+  },
+)
 
 const CONTAINER: ViewStyle = {
   flex: 1,
@@ -83,7 +92,6 @@ const CONTAINER_INNER: ViewStyle = {
   flexGrow: 1,
   ...styling.ROW_SPACE_BETWEEN,
 }
-
 
 // MAIN CONTENT
 const MAIN_WRAPPER: ViewStyle = {
@@ -96,7 +104,7 @@ const TITLE: TextStyle = {
   fontFamily: fonts.poppins.medium,
   fontSize: 26,
   paddingVertical: 30,
-  color: "white"
+  color: "white",
 }
 
 const FLATLIST: ViewStyle = {
