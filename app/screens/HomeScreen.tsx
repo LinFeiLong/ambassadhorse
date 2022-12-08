@@ -24,6 +24,8 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
         quality: 1,
       })
 
+      await console.log({ result })
+
       if (!result.canceled) {
         await pinFileToIPFS(result?.assets[0]?.uri)
         console.log(result)
