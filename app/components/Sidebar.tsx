@@ -33,7 +33,7 @@ export const Sidebar = observer(function Sidebar(props: SidebarProps) {
             <Text style={MENU_TEXT}>Vendre</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={MENU_CONTAINER} onPress={goToDao}>
+          <TouchableOpacity style={MENU_CONTAINER} onPress={goToAdminCreate}>
             <Feather name="users" size={34} color="white" />
             <Text style={MENU_TEXT}>DAO</Text>
           </TouchableOpacity>
