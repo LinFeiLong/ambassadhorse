@@ -1,6 +1,6 @@
-import { observer } from 'mobx-react-lite'
-import React from 'react'
-import { useColorScheme } from 'react-native'
+import { observer } from "mobx-react-lite"
+import React from "react"
+import { useColorScheme } from "react-native"
 
 /**
  * The app navigator (formerly "AppNavigator" and "MainNavigator") is used for the primary
@@ -9,27 +9,30 @@ import { useColorScheme } from 'react-native'
  * and a "main" flow which the user will use once logged in.
  */
 import {
-  DarkTheme, DefaultTheme, NavigationContainer, NavigatorScreenParams
-} from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { StackScreenProps } from '@react-navigation/stack'
+  DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
+  NavigatorScreenParams,
+} from "@react-navigation/native"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { StackScreenProps } from "@react-navigation/stack"
 
-import { Navbar } from '../components'
-import Config from '../config'
-import { useStores } from '../models' // @demo remove-current-line
+import { Navbar } from "../components"
+import Config from "../config"
+import { useStores } from "../models" // @demo remove-current-line
 import {
   WelcomeScreen,
-
   HomeScreen,
   HorsesScreen,
   ResaleScreen,
   ConceptScreen,
   NewsScreen,
   DaoScreen,
-  OwnerHomeScreen
-} from '../screens'
-import { DemoNavigator, DemoTabParamList } from './DemoNavigator' // @demo remove-current-line
-import { navigationRef, useBackButtonHandler } from './navigationUtilities'
+  OwnerHomeScreen,
+  AdminCreateScreen,
+} from "../screens"
+import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
+import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -57,6 +60,7 @@ export type AppStackParamList = {
   News: undefined
   Dao: undefined
   OwnerHome: undefined
+  AdminCreate: undefined
 }
 
 /**
@@ -106,6 +110,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="News" component={NewsScreen} />
           <Stack.Screen name="Dao" component={DaoScreen} />
           <Stack.Screen name="OwnerHome" component={OwnerHomeScreen} />
+          <Stack.Screen name="AdminCreate" component={AdminCreateScreen} />
         </>
       )}
       {/* @demo remove-block-end */}
@@ -114,7 +119,7 @@ const AppStack = observer(function AppStack() {
   )
 })
 
-interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> { }
+interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
 
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
   const colorScheme = useColorScheme()

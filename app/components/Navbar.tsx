@@ -1,13 +1,13 @@
-import { observer } from 'mobx-react-lite'
-import React from 'react'
-import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
+import { observer } from "mobx-react-lite"
+import React from "react"
+import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 
-import { EvilIcons, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
-import { RouteProp, useNavigation } from '@react-navigation/native'
+import { EvilIcons, MaterialCommunityIcons, SimpleLineIcons } from "@expo/vector-icons"
+import { RouteProp, useNavigation } from "@react-navigation/native"
 
-import { AppStackParamList } from '../navigators'
-import { colors, fonts, palette, styling } from '../theme'
-import { Btn } from './Btn'
+import { AppStackParamList } from "../navigators"
+import { colors, fonts, palette, styling } from "../theme"
+import { Btn } from "./Btn"
 
 // Menu items
 const MENU = [
@@ -16,6 +16,14 @@ const MENU = [
     hasSubmenu: true,
     link: "Horses",
   },
+
+  // TODO: remove this menu item
+  {
+    title: "Admin",
+    hasSubmenu: false,
+    link: "AdminCreate",
+  },
+
   // {
   //   title: "Revente",
   //   hasSubmenu: true,

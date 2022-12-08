@@ -42,12 +42,16 @@ export const palette = {
   greenBright: "#34ca3f",
   pinkBright: "#ff1a92",
   blueBright: "#41edda",
+  blueDodger: "#3a8dcc",
+  greyLight: "#dbe0e5",
+  grey: "#595959",
 }
 
 export const colors = {
   // ---------- AMBASSAD'HORSE PALETTE ----------
   screenBackground: "black",
-
+  admin: palette.blueDodger,
+  placeholder: palette.grey,
 
   palette,
   // --------------------------------------------
@@ -92,7 +96,7 @@ export const colors = {
 
 export const gradients = {
   default: {
-      colors:[ '#ff1a92', "#179cff", '#0c3cdb'],
-      start: { x: 0.9, y: 0 }
-  }
+    colors: ["#ff1a92", "#179cff", "#0c3cdb"],
+    start: { x: 0.9, y: 0 },
+  },
 }

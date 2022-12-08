@@ -1,23 +1,27 @@
-import * as ImagePicker from 'expo-image-picker'
-import { observer } from 'mobx-react-lite'
-import React, { FC, useState } from 'react'
-import { Image, ImageStyle, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
-
-import { useNavigation } from '@react-navigation/native'
-import { StackScreenProps } from '@react-navigation/stack'
-
-import { Btn, Screen } from '../components'
-import { AppStackScreenProps } from '../navigators'
-import { colors, fonts, gradients, spacing, styling } from '../theme'
-import { pinFileToIPFS } from '../utils/pinata/pinFileToIPFS'
-
+import React, { FC } from "react"
+import { Image, ImageStyle, Text, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
+import { observer } from "mobx-react-lite"
+import { useNavigation } from "@react-navigation/native"
+import { AppStackScreenProps } from "../navigators"
+import { StackScreenProps } from "@react-navigation/stack"
+import { Btn, Screen, Subnav } from "../components"
+import { styling, fonts, spacing, colors, gradients } from "../theme"
+import * as ImagePicker from "expo-image-picker"
+import { pinFileToIPFS } from "../utils/pinata/pinFileToIPFS"
 // import { useStores } from "../models"
-// import { StrokedText } from 'stroked-text'
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
 export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = observer(
   function HomeScreen() {
+    // Pull in one of our MST stores
+    // const { someStore, anotherStore } = useStores()
+
+    // Pull in navigation via hook
+    const navigation = useNavigation()
+    const goToHorses = () => navigation.navigate("Horses")
+
+    // Image Picker
     const pickImageAsync = async () => {
       const result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
@@ -34,31 +38,11 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
       }
     }
 
-    // Pull in one of our MST stores
-    // const { someStore, anotherStore } = useStores()
-
-    // Pull in navigation via hook
-    const navigation = useNavigation()
-    const goToHorses = () => navigation.navigate("Horses")
-
-    // Subnav
-    const subnav = ["Highlights", "Specifications", "Compare"]
-    const [active, setActive] = useState("Highlights")
-    const handlePress = (subnav) => setActive(subnav)
-
     // pinFileToIPFS()
 
     return (
       <Screen style={$root} preset="scroll">
-        {/* <View style={SUBNAV}>
-        {
-          subnav.map(i =>
-            <TouchableOpacity key={i} onPress={() => handlePress(i)} style={(active === i) ? SUBNAV_MENU_ACTIVE : null }>
-              <Text style={SUBNAV_MENU_ITEM}>{i}</Text>
-            </TouchableOpacity>
-          )
-        }
-      </View> */}
+        {/* <Subnav /> */}
 
         <View style={[styling.ROW, styling.SPACE_BETWEEN]}>
           <View style={HERO_WRAPPER}>
@@ -67,10 +51,6 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
                 <View style={TITLE_CONTAINER}>
                   <Text style={TITLE}>Ambassad'</Text>
                   <Text style={TITLE}>Horse</Text>
-
-                  {/* <StrokedText fill="transparent" stroke="white" strokeWidth={1} style={TITLE_STROKE}>
-                Horse
-              </StrokedText> */}
                 </View>
               </TouchableOpacity>
               <Text style={HERO_TEXT}>
@@ -103,23 +83,6 @@ const $root: ViewStyle = {
   backgroundColor: colors.screenBackground,
 }
 
-// SUBNAV
-const SUBNAV: ViewStyle = {
-  ...styling.ROW,
-  paddingHorizontal: spacing.screen,
-  paddingTop: 20,
-}
-const SUBNAV_MENU_ITEM: TextStyle = {
-  fontSize: 12,
-  fontFamily: fonts.nunito.light,
-  paddingBottom: 10,
-  marginHorizontal: 10,
-  color: "white",
-}
-const SUBNAV_MENU_ACTIVE: TextStyle = {
-  borderBottomColor: "#424242",
-  borderBottomWidth: 3,
-}
 const TITLE_CONTAINER: TextStyle = {
   ...styling.ROW_CENTER_Y,
   paddingTop: 30,
@@ -130,12 +93,6 @@ const TITLE: TextStyle = {
   fontFamily: fonts.anton.regular,
   textTransform: "uppercase",
   color: "white",
-}
-const TITLE_STROKE: TextStyle = {
-  fontSize: 29,
-  fontFamily: fonts.anton.regular,
-  paddingTop: 1, // stroke hack
-  textTransform: "uppercase",
 }
 const HERO_WRAPPER: ViewStyle = {
   alignSelf: "center",
