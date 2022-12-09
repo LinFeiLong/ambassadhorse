@@ -1,5 +1,5 @@
 const hasMetamask = () => {
-  return typeof windo !== "undefined" && typeof window.etherum !== "undefined"
+  return typeof window !== "undefined" && typeof window.ethereum !== "undefined"
 }
 
 export { hasMetamask }

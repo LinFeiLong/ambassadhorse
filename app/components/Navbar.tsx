@@ -1,13 +1,23 @@
-import { observer } from "mobx-react-lite"
-import React from "react"
-import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
+// // Import the crypto getRandomValues shim (**BEFORE** the shims)
+// import 'react-native-get-random-values'
+// // Import the the ethers shims (**BEFORE** ethers)
+// import '@ethersproject/shims'
 
-import { EvilIcons, MaterialCommunityIcons, SimpleLineIcons } from "@expo/vector-icons"
-import { RouteProp, useNavigation } from "@react-navigation/native"
+// Import the ethers library
+import { ethers } from 'ethers'
+import { observer } from 'mobx-react-lite'
+import { Alert, Spinner, useToast } from 'native-base'
+import React, { useState } from 'react'
+import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 
-import { AppStackParamList } from "../navigators"
-import { colors, fonts, palette, styling } from "../theme"
-import { Btn } from "./Btn"
+import { EvilIcons, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
+import { RouteProp, useNavigation } from '@react-navigation/native'
+
+import useEthersProvider from '../hooks/useEthersProvider'
+import { AppStackParamList } from '../navigators'
+import { colors, fonts, palette, styling } from '../theme'
+import { hasMetamask } from '../utils/hasMetamask'
+import { Btn } from './Btn'
 
 // Menu items
 const MENU = [
@@ -54,6 +64,42 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
   const navigation = useNavigation()
   const goToHome = () => navigation.navigate("Home")
   const goToOwnerHome = () => navigation.navigate("OwnerHome")
+
+  // Connect
+  const [isLoading, setIsLoading] = useState(false)
+  const { account, provider, setAccount } = useEthersProvider()
+  const toast = useToast()
+
+  const connectWallet = async () => {
+    if (hasMetamask()) {
+      setIsLoading(true)
+      if (provider) {
+        const network = await provider.getNetwork()
+        if (network.chainId === 80001) {
+          const resultAccount = await provider.send("eth_requestAccounts", [])
+          setAccount(ethers.utils.getAddress(resultAccount[0]))
+          setIsLoading(false)
+          toast.show({
+            title: "Congratulations",
+            description: "Your wallet has been successfully connected",
+            placement: "bottom",
+          })
+        } else {
+          toast.show({
+            title: "An error occured",
+            description: "Please switch to Mumbai(Testnet)",
+            placement: "bottom",
+          })
+        }
+      }
+    } else {
+      toast.show({
+        title: "An error occured",
+        description: "Please install Metamask extension on your browser",
+        placement: "bottom",
+      })
+    }
+  }
 
   return (
     <View style={NAVBAR}>
@@ -107,9 +153,23 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
           <SimpleLineIcons name="basket" size={18} color="white" style={NAVBAR_ICON} />
         </TouchableOpacity> */}
 
-        <Btn style={BTN_LOGIN} text="Sign In" textStyle={BTN_LOGIN_TEXT} onPress={goToOwnerHome}>
-          <MaterialCommunityIcons name="account-outline" size={15} color="black" />
-        </Btn>
+        {isLoading ? (
+          <Spinner />
+        ) : account ? (
+          <Text style={{ color: "white" }}>{`Wallet: ${account.substring(
+            0,
+            5,
+          )} ... ${account.substring(account.length - 5)}`}</Text>
+        ) : (
+          <Btn
+            style={BTN_LOGIN}
+            text="Connect Wallet"
+            textStyle={BTN_LOGIN_TEXT}
+            onPress={connectWallet}
+          >
+            <MaterialCommunityIcons name="account-outline" size={15} color="black" />
+          </Btn>
+        )}
       </View>
     </View>
   )
