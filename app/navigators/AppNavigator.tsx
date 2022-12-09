@@ -30,6 +30,7 @@ import {
   DaoScreen,
   OwnerHomeScreen,
   AdminCreateScreen,
+  AdminFormDaoScreen,
 } from "../screens"
 import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
@@ -61,6 +62,7 @@ export type AppStackParamList = {
   Dao: undefined
   OwnerHome: undefined
   AdminCreate: undefined
+  AdminFormDao: undefined
 }
 
 /**
@@ -111,6 +113,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="Dao" component={DaoScreen} />
           <Stack.Screen name="OwnerHome" component={OwnerHomeScreen} />
           <Stack.Screen name="AdminCreate" component={AdminCreateScreen} />
+          <Stack.Screen name="AdminFormDao" component={AdminFormDaoScreen} />
         </>
       )}
       {/* @demo remove-block-end */}
