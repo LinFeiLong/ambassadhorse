@@ -94,39 +94,6 @@ export const AdminCreateScreen: FC<StackScreenProps<AppStackScreenProps, "AdminC
   },
 )
 
-const INPUT: ViewStyle = {
-  height: 30,
-  borderBottomWidth: 2,
-  borderBottomColor: "black",
-  marginBottom: 15,
-}
-
-const INPUT_LABEL: TextStyle = {
-  fontFamily: fonts.nunito.bold,
-  fontSize: 17,
-  textTransform: "uppercase",
-}
-
-const INPUT_TEXTAREA: ViewStyle = {
-  padding: 15,
-  borderWidth: 2,
-  borderColor: "black",
-}
-
-const BTN: ViewStyle = {
-  ...styling.CENTER_X,
-  marginTop: 16,
-  borderRadius: 5,
-  backgroundColor: "#131724",
-}
-
-const BTN_TEXT: TextStyle = {
-  fontFamily: fonts.nunito.bold,
-  fontSize: 17,
-  textTransform: "uppercase",
-  color: "white",
-}
-
 const CONTAINER: ViewStyle = {
   flex: 1,
   backgroundColor: colors.screenBackground,
@@ -140,19 +107,18 @@ const CONTAINER_INNER: ViewStyle = {
 // MAIN CONTENT
 const MAIN_WRAPPER: ViewStyle = {
   flex: 1,
-  paddingTop: 30,
-  paddingHorizontal: spacing.screen,
+  ...styling.CENTER,
 }
 
 const FORM_CONTAINER: ViewStyle = {
   alignSelf: "center",
   width: 450,
-  maxWidth: "75%",
+  maxWidth: "95%",
 }
 
 const HEADER: ViewStyle = {
   ...styling.CENTER_X,
-  paddingVertical: 15,
+  padding: 15,
   borderTopLeftRadius: 15,
   borderTopRightRadius: 15,
   backgroundColor: palette.greyLight,
@@ -161,6 +127,7 @@ const HEADER: ViewStyle = {
 const TITLE: TextStyle = {
   fontFamily: fonts.nunito.bold,
   fontSize: 26,
+  textAlign: "center",
   color: "#131724",
 }
 
@@ -183,4 +150,39 @@ const SUBTITLE: TextStyle = {
 
 const TEXT_INFO: TextStyle = {
   paddingVertical: 8,
+}
+
+// INPUT
+const INPUT: ViewStyle = {
+  height: 30,
+  borderBottomWidth: 2,
+  borderBottomColor: "black",
+  marginBottom: 15,
+}
+
+const INPUT_LABEL: TextStyle = {
+  fontFamily: fonts.nunito.bold,
+  fontSize: 17,
+  textTransform: "uppercase",
+}
+
+const INPUT_TEXTAREA: ViewStyle = {
+  padding: 15,
+  borderWidth: 2,
+  borderColor: "black",
+}
+
+// BUTTON
+const BTN: ViewStyle = {
+  ...styling.CENTER_X,
+  marginTop: 16,
+  borderRadius: 5,
+  backgroundColor: "#131724",
+}
+
+const BTN_TEXT: TextStyle = {
+  fontFamily: fonts.nunito.bold,
+  fontSize: 17,
+  textTransform: "uppercase",
+  color: "white",
 }
