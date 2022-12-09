@@ -6,6 +6,7 @@ import React from "react"
 import { registerRootComponent } from "expo"
 import * as SplashScreen from "expo-splash-screen"
 import { NativeBaseProvider } from "native-base"
+import { Provider as PaperProvider } from 'react-native-paper'
 
 // import { configureChains, creatClient, WagmiConfig } from "wagmi"
 // import { mainnet, polygonMumbai } from "wagmi/chains"
@@ -39,7 +40,9 @@ function IgniteApp() {
   return (
     // <WagmiConfig client={wagmiClient}>
     <NativeBaseProvider>
-      <App hideSplashScreen={SplashScreen.hideAsync} />
+      <PaperProvider>
+        <App hideSplashScreen={SplashScreen.hideAsync} />
+      </PaperProvider>
     </NativeBaseProvider>
     // </WagmiConfig>
   )
