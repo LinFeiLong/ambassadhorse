@@ -1,13 +1,16 @@
-import React, { FC } from "react"
-import { Image, ImageStyle, Text, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
-import { observer } from "mobx-react-lite"
-import { useNavigation } from "@react-navigation/native"
-import { AppStackScreenProps } from "../navigators"
-import { StackScreenProps } from "@react-navigation/stack"
-import { Btn, Screen, Subnav } from "../components"
-import { styling, fonts, spacing, colors, gradients } from "../theme"
-import * as ImagePicker from "expo-image-picker"
-import { pinFileToIPFS } from "../utils/pinata/pinFileToIPFS"
+import * as ImagePicker from 'expo-image-picker'
+import { observer } from 'mobx-react-lite'
+import React, { FC } from 'react'
+import { Image, ImageStyle, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
+
+import { useNavigation } from '@react-navigation/native'
+import { StackScreenProps } from '@react-navigation/stack'
+
+import { Btn, Screen, Subnav } from '../components'
+import { AppStackScreenProps } from '../navigators'
+import { colors, fonts, gradients, spacing, styling } from '../theme'
+import { pinFileToIPFS } from '../utils/pinata/pinFileToIPFS'
+
 // import { useStores } from "../models"
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
@@ -40,6 +43,8 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
 
     // pinFileToIPFS()
 
+    const imgURI = require("../../assets/images/logo@3x.png")
+
     return (
       <Screen style={$root} preset="scroll">
         {/* <Subnav /> */}
@@ -49,12 +54,15 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
             <View style={HERO_CTA_CONTAINER}>
               <TouchableOpacity onPress={pickImageAsync}>
                 <View style={TITLE_CONTAINER}>
-                  <Text style={TITLE}>Ambassad'</Text>
-                  <Text style={TITLE}>Horse</Text>
+                  <Image source={{ uri: imgURI }} style={{ height: 44, width: 220 }} />
                 </View>
               </TouchableOpacity>
               <Text style={HERO_TEXT}>
-                Vivez {"\n"}l'expérience,{"\n"}devenez{"\n"}propriétaire d'un cheval de sport
+                {`Vivez
+l'expérience,
+devenez
+propriétaire d'un
+cheval de sport`}
               </Text>
 
               <View style={styling.ROW_CENTER_Y}>
@@ -88,12 +96,7 @@ const TITLE_CONTAINER: TextStyle = {
   paddingTop: 30,
   paddingBottom: 10,
 }
-const TITLE: TextStyle = {
-  fontSize: 29,
-  fontFamily: fonts.anton.regular,
-  textTransform: "uppercase",
-  color: "white",
-}
+
 const HERO_WRAPPER: ViewStyle = {
   alignSelf: "center",
 }
