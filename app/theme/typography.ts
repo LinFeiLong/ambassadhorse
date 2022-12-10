@@ -4,7 +4,9 @@
 import { Platform } from 'react-native'
 
 import {
-    NunitoSans_300Light as nunitoLight, NunitoSans_700Bold as nunitoBold
+  NunitoSans_300Light as nunitoLight,
+  NunitoSans_700Bold as nunitoBold,
+  NunitoSans_900Black as nunitoBlack
 } from '@expo-google-fonts/nunito-sans'
 import {
     SpaceGrotesk_300Light as spaceGroteskLight, SpaceGrotesk_400Regular as spaceGroteskRegular,
@@ -18,7 +20,9 @@ import {
   Poppins_500Medium as poppinsMedium
 } from '@expo-google-fonts/poppins'
 
-
+import {
+  Tomorrow_700Bold as tomorrowBold
+} from '@expo-google-fonts/tomorrow'
 
 export const customFontsToLoad = {
   spaceGroteskLight,
@@ -29,14 +33,17 @@ export const customFontsToLoad = {
 
   nunitoLight,
   nunitoBold,
+  nunitoBlack,
   anton,
-  poppinsMedium
+  poppinsMedium,
+  tomorrowBold
 }
 
 export const fonts = {
   nunito: {
     light: "nunitoLight",
     bold: "nunitoBold",
+    black: "nunitoBlack"
   },
 
   anton: {
@@ -47,6 +54,9 @@ export const fonts = {
     medium: "poppinsMedium"
   },
 
+  tomorrow: {
+    bold: "tomorrowBold"
+  },
 
   spaceGrotesk: {
     // Cross-platform Google font.
