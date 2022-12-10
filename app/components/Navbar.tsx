@@ -22,7 +22,7 @@ import { Btn } from './Btn'
 // Menu items
 const MENU = [
   {
-    title: "Chevaux en vente",
+    title: "Catalogue",
     hasSubmenu: true,
     link: "Horses",
   },

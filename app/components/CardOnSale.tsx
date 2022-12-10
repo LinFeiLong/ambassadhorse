@@ -1,7 +1,8 @@
-import * as React from "react"
-import { Image, ImageStyle, StyleProp, Text, TextStyle, View, ViewStyle } from "react-native"
-import { observer } from "mobx-react-lite"
-import { styling, fonts, palette } from "../theme"
+import { observer } from 'mobx-react-lite'
+import * as React from 'react'
+import { Image, ImageStyle, StyleProp, Text, TextStyle, View, ViewStyle } from 'react-native'
+
+import { fonts, palette, styling } from '../theme'
 
 export interface CardOnSaleProps {
   style?: StyleProp<ViewStyle>
@@ -21,8 +22,8 @@ export const CardOnSale = observer(function CardOnSale(props: CardOnSaleProps) {
       <Text style={CAPTION}>{end}</Text>
       <Image style={IMG} source={picture} />
       <Text style={TITLE}>{title}</Text>
-      <Text style={SUBTITLE}>Total price {price}</Text>
-      <Text style={SUBTITLE}>Token start price {tokenPrice}</Text>
+      <Text style={[SUBTITLE, { color: "#179cff" }]}>Total price {price}</Text>
+      <Text style={[SUBTITLE, { color: "#ff1a92" }]}>Token start price {tokenPrice}</Text>
     </View>
   )
 })
@@ -33,7 +34,7 @@ const CONTAINER: ViewStyle = {
   ...styling.POS_END,
   alignSelf: "flex-end",
   minWidth: 310,
-  margin: 10
+  margin: 10,
 }
 
 const CAPTION: TextStyle = {
@@ -64,5 +65,5 @@ const TITLE: TextStyle = {
 const SUBTITLE: TextStyle = {
   fontFamily: fonts.nunito.bold,
   fontSize: 14,
-  color: palette.orange
+  color: palette.orange,
 }
