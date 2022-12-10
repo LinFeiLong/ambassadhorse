@@ -85,6 +85,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
             placement: "bottom",
           })
         } else {
+          setIsLoading(false)
           toast.show({
             title: "An error occured",
             description: "Please switch to Mumbai(Testnet)",
@@ -93,6 +94,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
         }
       }
     } else {
+      setIsLoading(false)
       toast.show({
         title: "An error occured",
         description: "Please install Metamask extension on your browser",
