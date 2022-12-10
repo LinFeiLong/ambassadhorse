@@ -8,7 +8,7 @@ import { CardOnSale, Screen } from '../components'
 import { AppStackScreenProps } from '../navigators'
 import { colors, fonts, spacing, styling } from '../theme'
 
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
 
 const DATA = [
@@ -86,7 +86,8 @@ export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> =
     // const { someStore, anotherStore } = useStores()
 
     // Pull in navigation via hook
-    // const navigation = useNavigation()
+    const navigation = useNavigation()
+    const goToHorseDetails = () => navigation.navigate("HorseDetails")
 
     // Tabs
     const tab = ["Nos 2 ans", "Nos 3 ans", "Nos 4 ans"]
@@ -101,7 +102,7 @@ export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> =
         price={item.price}
         tokenPrice={item.tokenPrice}
         deadline={item.deadline}
-        onPress={item.onPress}
+        onPress={goToHorseDetails}
       />
     )
 
