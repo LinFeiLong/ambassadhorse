@@ -7,6 +7,7 @@ import { registerRootComponent } from "expo"
 import * as SplashScreen from "expo-splash-screen"
 import { NativeBaseProvider } from "native-base"
 import { EthersProvider } from "./app/contexts/ethersProviderContext"
+import { Provider as PaperProvider } from "react-native-paper"
 
 SplashScreen.preventAutoHideAsync()
 
@@ -14,7 +15,9 @@ function IgniteApp() {
   return (
     <EthersProvider>
       <NativeBaseProvider>
-        <App hideSplashScreen={SplashScreen.hideAsync} />
+        <PaperProvider>
+          <App hideSplashScreen={SplashScreen.hideAsync} />
+        </PaperProvider>
       </NativeBaseProvider>
     </EthersProvider>
   )

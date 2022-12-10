@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-paper/lib/module/components/MaterialCommunityIcon.js b/node_modules/react-native-paper/lib/module/components/MaterialCommunityIcon.js
+index d8b55b2..c72e3ee 100644
+--- a/node_modules/react-native-paper/lib/module/components/MaterialCommunityIcon.js
++++ b/node_modules/react-native-paper/lib/module/components/MaterialCommunityIcon.js
+@@ -5,7 +5,7 @@ import { black } from '../styles/themes/v2/colors';
+ let MaterialCommunityIcons;
+ try {
+   // Optionally require vector-icons
+-  MaterialCommunityIcons = require('react-native-vector-icons/MaterialCommunityIcons').default;
++  MaterialCommunityIcons = require('@expo/vector-icons/MaterialCommunityIcons').default;
+ } catch (e) {
+   let isErrorLogged = false;
+ 

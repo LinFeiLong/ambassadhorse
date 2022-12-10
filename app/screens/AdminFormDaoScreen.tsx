@@ -1,17 +1,19 @@
 import React, { FC, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { View, ViewStyle, Text, TextStyle, TextInput } from "react-native"
+import { TextInput, TextStyle, View, ViewStyle } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps } from "../navigators"
-import { Btn, Screen, Sidebar } from "../components"
-import { styling, spacing, colors, fonts, palette } from "../theme"
+import { Btn, Screen, Sidebar, Text } from "../components"
+import { colors, fonts, palette, styling } from "../theme"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
+import { Button } from "react-native-paper"
+import { DatePickerModal } from "react-native-paper-dates"
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
-export const AdminCreateScreen: FC<StackScreenProps<AppStackScreenProps, "AdminCreate">> = observer(
-  function AdminCreateScreen() {
+export const AdminFormDaoScreen: FC<StackScreenProps<AppStackScreenProps, "AdminFormDao">> =
+  observer(function AdminFormDaoScreen() {
     // Pull in one of our MST stores
     // const { someStore, anotherStore } = useStores()
 
@@ -19,10 +21,23 @@ export const AdminCreateScreen: FC<StackScreenProps<AppStackScreenProps, "AdminC
     // const navigation = useNavigation()
 
     // FORM
-    const [name, onChangeName] = useState("")
-    const [price, onChangePrice] = useState("")
-    const [tokens, onChangeTokens] = useState("")
-    const [description, onChangeDescription] = useState("")
+    const [subject, onChangeSubject] = useState("")
+
+    // PICKER
+    const [date, setDate] = React.useState<Date | undefined>(undefined)
+    const [open, setOpen] = React.useState(false)
+
+    const onDismissSingle = React.useCallback(() => {
+      setOpen(false)
+    }, [setOpen])
+
+    const onConfirmSingle = React.useCallback(
+      (params) => {
+        setOpen(false)
+        setDate(params.date)
+      },
+      [setOpen, setDate],
+    )
 
     return (
       <Screen style={CONTAINER} contentContainerStyle={CONTAINER_INNER} preset="scroll">
@@ -31,68 +46,45 @@ export const AdminCreateScreen: FC<StackScreenProps<AppStackScreenProps, "AdminC
         <View style={MAIN_WRAPPER}>
           <View style={FORM_CONTAINER}>
             <View style={HEADER}>
-              <Text style={TITLE}>Créer un nouveau cheval</Text>
+              <Text style={TITLE}>Créer un vote</Text>
             </View>
 
             <View style={BODY}>
-              <Text style={SUBTITLE}>Image, Video, Audio, or 3D Model</Text>
-              <Text style={TEXT_INFO}>
-                Fichiers acceptés: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF. Max
-                size: 100 MB
-              </Text>
-
-              <Text style={INPUT_LABEL}>Nom</Text>
+              <Text style={INPUT_LABEL}>Sujet</Text>
               <TextInput
                 editable
-                placeholder="Nom du cheval"
+                placeholder="Sujet du vote"
                 placeholderTextColor={colors.placeholder}
                 maxLength={150}
-                onChangeText={(text) => onChangeName(text)}
-                value={name}
+                onChangeText={(text) => onChangeSubject(text)}
+                value={subject}
                 style={INPUT}
               />
 
-              <Text style={INPUT_LABEL}>Prix du token</Text>
-              <TextInput
-                editable
-                placeholder="Prix du token"
-                placeholderTextColor={colors.placeholder}
-                maxLength={150}
-                onChangeText={(text) => onChangePrice(text)}
-                value={price}
-                style={INPUT}
-              />
+              <Text style={INPUT_LABEL}>Date butoire</Text>
+              <>
+                <Button onPress={() => setOpen(true)} uppercase={false} mode="outlined">
+                  Pick single date
+                </Button>
+                <DatePickerModal
+                  locale="en"
+                  mode="single"
+                  visible={open}
+                  onDismiss={onDismissSingle}
+                  date={date}
+                  onConfirm={onConfirmSingle}
+                />
+              </>
 
-              <Text style={INPUT_LABEL}>Nombre de tokens</Text>
-              <TextInput
-                editable
-                placeholder="Nombre de tokens"
-                placeholderTextColor={colors.placeholder}
-                maxLength={150}
-                onChangeText={(text) => onChangeTokens(text)}
-                value={tokens}
-                style={INPUT}
-              />
-
-              <Text style={INPUT_LABEL}>Description</Text>
-              <TextInput
-                editable
-                multiline
-                numberOfLines={5}
-                maxLength={150}
-                onChangeText={(text) => onChangeDescription(text)}
-                value={description}
-                style={INPUT_TEXTAREA}
-              />
-
-              <Btn style={BTN} text="create" textStyle={BTN_TEXT} onPress={() => {}} />
+              <Btn style={BTN} text="publication" textStyle={BTN_TEXT} onPress={() => {}} />
             </View>
           </View>
+
+          <Text style={TEXT_INFO}>Vote créé le </Text>
         </View>
       </Screen>
     )
-  },
-)
+  })
 
 const CONTAINER: ViewStyle = {
   flex: 1,
@@ -140,14 +132,6 @@ const BODY: ViewStyle = {
   backgroundColor: "white",
 }
 
-const SUBTITLE: TextStyle = {
-  fontFamily: fonts.nunito.bold,
-  fontSize: 17,
-  paddingTop: 10,
-  textTransform: "uppercase",
-  color: "#131724",
-}
-
 const TEXT_INFO: TextStyle = {
   paddingVertical: 8,
 }
@@ -164,12 +148,6 @@ const INPUT_LABEL: TextStyle = {
   fontFamily: fonts.nunito.bold,
   fontSize: 17,
   textTransform: "uppercase",
-}
-
-const INPUT_TEXTAREA: ViewStyle = {
-  padding: 15,
-  borderWidth: 2,
-  borderColor: "black",
 }
 
 // BUTTON

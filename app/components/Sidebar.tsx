@@ -18,6 +18,7 @@ export const Sidebar = observer(function Sidebar(props: SidebarProps) {
   const goToOwnerHome = () => navigation.navigate("OwnerHome")
   const goToDao = () => navigation.navigate("Dao")
   const goToAdminCreate = () => navigation.navigate("AdminCreate")
+  const goToAdminFormDao = () => navigation.navigate("AdminFormDao")
 
   return (
     <View style={[admin ? CONTAINER_ADMIN : CONTAINER_OWNER, styles]}>
@@ -33,7 +34,7 @@ export const Sidebar = observer(function Sidebar(props: SidebarProps) {
             <Text style={MENU_TEXT}>Vendre</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={MENU_CONTAINER} onPress={goToAdminCreate}>
+          <TouchableOpacity style={MENU_CONTAINER} onPress={goToAdminFormDao}>
             <Feather name="users" size={34} color="white" />
             <Text style={MENU_TEXT}>DAO</Text>
           </TouchableOpacity>
