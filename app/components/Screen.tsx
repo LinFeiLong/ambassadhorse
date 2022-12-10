@@ -1,19 +1,14 @@
-import { useScrollToTop } from "@react-navigation/native"
-import { StatusBar, StatusBarProps } from "expo-status-bar"
-import React, { useRef, useState } from "react"
+import { StatusBar, StatusBarProps } from 'expo-status-bar'
+import React, { useRef, useState } from 'react'
 import {
-  KeyboardAvoidingView,
-  KeyboardAvoidingViewProps,
-  LayoutChangeEvent,
-  Platform,
-  ScrollView,
-  ScrollViewProps,
-  StyleProp,
-  View,
-  ViewStyle,
-} from "react-native"
-import { colors } from "../theme"
-import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+    KeyboardAvoidingView, KeyboardAvoidingViewProps, LayoutChangeEvent, Platform, ScrollView,
+    ScrollViewProps, StyleProp, View, ViewStyle
+} from 'react-native'
+
+import { useScrollToTop } from '@react-navigation/native'
+
+import { colors } from '../theme'
+import { ExtendedEdge, useSafeAreaInsetsStyle } from '../utils/useSafeAreaInsetsStyle'
 
 interface BaseScreenProps {
   /**
@@ -194,7 +189,7 @@ export function Screen(props: ScreenProps) {
     keyboardOffset = 0,
     safeAreaEdges,
     StatusBarProps,
-    statusBarStyle = "dark",
+    statusBarStyle = "light",
   } = props
 
   const $containerInsets = useSafeAreaInsetsStyle(safeAreaEdges)

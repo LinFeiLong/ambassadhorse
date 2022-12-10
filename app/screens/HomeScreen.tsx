@@ -52,7 +52,7 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
             <View style={HERO_CTA_CONTAINER}>
               <TouchableOpacity onPress={pickImageAsync}>
                 <View style={TITLE_CONTAINER}>
-                  <Image source={{ uri: imgURI }} style={{ height: 44, width: 220 }} />
+                  <Image source={imgURI} style={{ height: 44, width: 220 }} />
                 </View>
               </TouchableOpacity>
               <Text style={HERO_TEXT}>
