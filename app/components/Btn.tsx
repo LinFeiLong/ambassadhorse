@@ -7,7 +7,7 @@ import { styling } from "../theme"
 export interface BtnProps {
   style?: StyleProp<ViewStyle>
   onPress: () => void
-  text: string
+  text?: string
   textStyle?: StyleProp<TextStyle>
   gradient?: any
   gradientStyle?: StyleProp<ViewStyle>
@@ -16,15 +16,15 @@ export interface BtnProps {
 }
 
 export const Btn = observer(function Btn(props: BtnProps) {
-  const { style, onPress, text, textStyle, gradient, gradientStyle, children, iconPosition="left"  } = props
+  const { style, onPress, text, textStyle, gradient, gradientStyle, children, iconPosition = "left" } = props
   const $styles = [$container, style]
 
   return (
     <TouchableOpacity style={$styles} onPress={onPress}>
       {
         gradient
-        ? (
-            <LinearGradient {...gradient} style={[{ flexDirection: (children) ? "row" : "column" }, gradientStyle ]}>
+          ? (
+            <LinearGradient {...gradient} style={[{ flexDirection: (children) ? "row" : "column" }, gradientStyle]}>
               {(children && iconPosition === "left") ? children : null}
               <Text style={textStyle}>{text}</Text>
               {(children && iconPosition === "right") ? children : null}

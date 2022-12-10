@@ -41,10 +41,12 @@ export const palette = {
   greyBlue: "#353A50",
   greenBright: "#34ca3f",
   pinkBright: "#ff1a92",
+  purple: "#bb6ce6",
   blueBright: "#41edda",
   blueDodger: "#3a8dcc",
   greyLight: "#dbe0e5",
   grey: "#595959",
+  greyTransparent: "rgba(166, 166, 166, 0.62)"
 }
 
 export const colors = {
@@ -52,6 +54,7 @@ export const colors = {
   screenBackground: "black",
   admin: palette.blueDodger,
   placeholder: palette.grey,
+  cardOverlay: palette.greyTransparent,
 
   palette,
   // --------------------------------------------
@@ -98,5 +101,9 @@ export const gradients = {
   default: {
     colors: ["#ff1a92", "#179cff", "#0c3cdb"],
     start: { x: 0.9, y: 0 },
+  },
+  grey: {
+    colors: ["rgb(67, 67, 67)", "rgba(143,152,157,0.60)", "#3F3F3F"],
+    start: { x: 0, y: 0 },
   },
 }

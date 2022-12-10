@@ -16,8 +16,8 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { Navbar } from '../components'
 import Config from '../config'
 import {
-    AdminCreateScreen, AdminFormDaoScreen, ConceptScreen, DaoScreen, HomeScreen, HorsesScreen,
-    NewsScreen, OwnerHomeScreen, ResaleScreen
+    AdminCreateScreen, AdminFormDaoScreen, ConceptScreen, DaoScreen, HomeScreen, HorseDetailsScreen,
+    HorsesScreen, NewsScreen, OwnerHomeScreen, ResaleScreen
 } from '../screens'
 import { navigationRef, useBackButtonHandler } from './navigationUtilities'
 
@@ -49,6 +49,7 @@ export type AppStackParamList = {
   OwnerHome: undefined
   AdminCreate: undefined
   AdminFormDao: undefined
+  HorseDetails: undefined
 }
 
 /**
@@ -84,6 +85,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="OwnerHome" component={OwnerHomeScreen} />
           <Stack.Screen name="AdminCreate" component={AdminCreateScreen} />
           <Stack.Screen name="AdminFormDao" component={AdminFormDaoScreen} />
+          <Stack.Screen name="HorseDetails" component={HorseDetailsScreen} />
         </Stack.Navigator>
       </SafeAreaView>
     </View>

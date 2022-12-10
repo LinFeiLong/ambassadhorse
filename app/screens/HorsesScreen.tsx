@@ -8,7 +8,7 @@ import { CardOnSale, Screen } from '../components'
 import { AppStackScreenProps } from '../navigators'
 import { colors, fonts, spacing, styling } from '../theme'
 
-// import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
 
 const DATA = [
@@ -18,7 +18,7 @@ const DATA = [
     price: "30 000€",
     tokenPrice: "30€",
     picture: require("../../assets/images/horse1.png"),
-    end: "Ends in 30 days",
+    deadline: "Finit dans 30 jours",
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ const DATA = [
     price: "40 000€",
     tokenPrice: "40€",
     picture: require("../../assets/images/horse2.png"),
-    end: "Ends in 4 days",
+    deadline: "Finit dans 4 jours",
   },
   {
     id: 3,
@@ -34,7 +34,7 @@ const DATA = [
     price: "20 000€",
     tokenPrice: "20€",
     picture: require("../../assets/images/horse3.jpg"),
-    end: "Ends in 15 days",
+    deadline: "Finit dans 15 jours",
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ const DATA = [
     price: "35 000€",
     tokenPrice: "35€",
     picture: require("../../assets/images/horse4.png"),
-    end: "Ends in 1 hour",
+    deadline: "Finit dans 1 heure",
   },
   {
     id: 5,
@@ -50,7 +50,7 @@ const DATA = [
     price: "27 000€",
     tokenPrice: "27€",
     picture: require("../../assets/images/horse3.jpg"),
-    end: "",
+    deadline: "",
   },
   {
     id: 6,
@@ -58,7 +58,7 @@ const DATA = [
     price: "27 000€",
     tokenPrice: "27€",
     picture: require("../../assets/images/horse3.jpg"),
-    end: "",
+    deadline: "",
   },
   {
     id: 7,
@@ -66,7 +66,7 @@ const DATA = [
     price: "27 000€",
     tokenPrice: "27€",
     picture: require("../../assets/images/horse3.jpg"),
-    end: "",
+    deadline: "",
   },
   {
     id: 8,
@@ -74,7 +74,7 @@ const DATA = [
     price: "27 000€",
     tokenPrice: "27€",
     picture: require("../../assets/images/horse3.jpg"),
-    end: "",
+    deadline: "",
   },
 ]
 
@@ -86,7 +86,8 @@ export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> =
     // const { someStore, anotherStore } = useStores()
 
     // Pull in navigation via hook
-    // const navigation = useNavigation()
+    const navigation = useNavigation()
+    const goToHorseDetails = () => navigation.navigate("HorseDetails")
 
     // Tabs
     const tab = ["Nos 2 ans", "Nos 3 ans", "Nos 4 ans"]
@@ -100,7 +101,8 @@ export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> =
         title={item.title}
         price={item.price}
         tokenPrice={item.tokenPrice}
-        end={item.end}
+        deadline={item.deadline}
+        onPress={goToHorseDetails}
       />
     )
 
