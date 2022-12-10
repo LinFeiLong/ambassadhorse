@@ -34,15 +34,13 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
 
       await console.log({ result })
 
-      if (!result.canceled) {
-        await pinFileToIPFS(result?.assets[0]?.uri)
+      if (!result.cancelled) {
+        await pinFileToIPFS(result?.uri)
         console.log(result)
       } else {
         alert("You did not select any image.")
       }
     }
-
-    // pinFileToIPFS()
 
     const imgURI =
       Platform.OS === "web"
