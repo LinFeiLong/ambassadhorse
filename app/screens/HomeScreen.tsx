@@ -58,23 +58,19 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
                 </View>
               </TouchableOpacity>
               <Text style={HERO_TEXT}>
-                {`Vivez
-l'expérience,
-devenez
-propriétaire d'un
+                {`Vivez l'expérience,
+investissez dans un
 cheval de sport`}
               </Text>
 
               <View style={styling.ROW_CENTER_Y}>
                 <Btn
-                  text="Investir"
+                  text="En savoir +"
                   textStyle={BTN_GRADIENT_TEXT}
                   gradient={gradients.default}
                   gradientStyle={BTN_GRADIENT}
                   onPress={goToHorses}
                 />
-                <View style={HERO_SEPARATOR}></View>
-                <Text style={HERO_PRICING}>Commence à 25€</Text>
               </View>
             </View>
           </View>
