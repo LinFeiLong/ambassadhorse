@@ -107,9 +107,7 @@ const LAYER: ViewStyle = {
   bottom: 0,
   left: 0,
   right: 0,
-  flex: 1,
   overflow: "hidden",
-  backgroundColor: "brown"
 }
 
 const WRAPPER: ViewStyle = {
