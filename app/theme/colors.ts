@@ -45,6 +45,7 @@ export const palette = {
   blueDodger: "#3a8dcc",
   greyLight: "#dbe0e5",
   grey: "#595959",
+  greyTransparent: "rgba(166, 166, 166, 0.62)"
 }
 
 export const colors = {
@@ -52,6 +53,7 @@ export const colors = {
   screenBackground: "black",
   admin: palette.blueDodger,
   placeholder: palette.grey,
+  cardOverlay: palette.greyTransparent,
 
   palette,
   // --------------------------------------------
