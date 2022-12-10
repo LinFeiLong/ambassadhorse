@@ -6,9 +6,10 @@ import '@ethersproject/shims'
 // Import the ethers library
 import { ethers } from 'ethers'
 import { observer } from 'mobx-react-lite'
-import { Spinner, useToast } from 'native-base'
 import React, { useState } from 'react'
 import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
+import { ActivityIndicator } from 'react-native-paper'
+import Toast from 'react-native-toast-message'
 
 import { EvilIcons, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { RouteProp, useNavigation } from '@react-navigation/native'
@@ -68,7 +69,6 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
   // Connect
   const [isLoading, setIsLoading] = useState(false)
   const { account, provider, setAccount } = useEthersProvider()
-  const toast = useToast()
 
   const connectWallet = async () => {
     if (hasMetamask()) {
@@ -79,26 +79,29 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
           const resultAccount = await provider.send("eth_requestAccounts", [])
           setAccount(ethers.utils.getAddress(resultAccount[0]))
           setIsLoading(false)
-          toast.show({
-            title: "Congratulations",
-            description: "Your wallet has been successfully connected",
-            placement: "bottom",
+          Toast.show({
+            type: "success",
+            text1: "Congratulations",
+            text2: "Your wallet has been successfully connected",
+            position: "bottom",
           })
         } else {
           setIsLoading(false)
-          toast.show({
-            title: "An error occured",
-            description: "Please switch to Mumbai(Testnet)",
-            placement: "bottom",
+          Toast.show({
+            type: "error",
+            text1: "An error occured",
+            text2: "Please switch to Mumbai(Testnet)",
+            position: "bottom",
           })
         }
       }
     } else {
       setIsLoading(false)
-      toast.show({
-        title: "An error occured",
-        description: "Please install Metamask extension on your browser",
-        placement: "bottom",
+      Toast.show({
+        type: "error",
+        text1: "An error occured",
+        text2: "Please install Metamask extension on your browser",
+        position: "bottom",
       })
     }
   }
@@ -156,7 +159,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
         </TouchableOpacity> */}
 
         {isLoading ? (
-          <Spinner />
+          <ActivityIndicator />
         ) : account ? (
           <Text style={{ color: "white" }}>{`Wallet: ${account.substring(
             0,

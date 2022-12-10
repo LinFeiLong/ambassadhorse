@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useColorScheme, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import Toast from 'react-native-toast-message'
 
 /**
  * The app navigator (formerly "AppNavigator" and "MainNavigator") is used for the primary
@@ -100,12 +101,15 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
   useBackButtonHandler((routeName) => exitRoutes.includes(routeName))
 
   return (
-    <NavigationContainer
-      ref={navigationRef}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-      {...props}
-    >
-      <AppStack />
-    </NavigationContainer>
+    <>
+      <NavigationContainer
+        ref={navigationRef}
+        theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        {...props}
+      >
+        <AppStack />
+        <Toast />
+      </NavigationContainer>
+    </>
   )
 })
