@@ -18,18 +18,42 @@ export const EthersProvider = ({ children }) => {
   const [account, setAccount] = useState(null)
   const [provider, setProvider] = useState(null)
 
+  const hMM = hasMetamask()
+
   useEffect(() => {
-    if (hasMetamask()) {
-      // connect
-      window.ethereum.on("connect", (accounts) => {
-        console.log("connect")
-        setAccount(accounts[0])
-        setProvider(new ethers.providers.Web3Provider(window.ethereum))
-      })
+    if (hMM) {
+      console.log("hasMetamask1")
+      setProvider(new ethers.providers.Web3Provider(window.ethereum))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (hMM) {
+      console.log("hasMetamask2")
+
       // chain
       window.ethereum.on("chainChanged", (chainId) => {
         console.log("chainChanged")
         console.log({ chainId })
+        setAccount(null)
+        setProvider(new ethers.providers.Web3Provider(window.ethereum))
+      })
+
+      // accounts changed
+      window.ethereum.on("accountsChanged", (accounts) => {
+        console.log("accountsChanged")
+        if (_.isEmpty(accounts)) {
+          AsyncStorage.removeItem("AMBASSADHORSE_APP::ACCOUNT_VALUE")
+          setAccount(null)
+        } else {
+          setAccount(accounts[0])
+        }
+        setProvider(new ethers.providers.Web3Provider(window.ethereum))
+      })
+
+      // connect
+      window.ethereum.on("connect", () => {
+        console.log("connect")
         setAccount(null)
         setProvider(new ethers.providers.Web3Provider(window.ethereum))
       })
@@ -39,19 +63,16 @@ export const EthersProvider = ({ children }) => {
         setAccount(null)
         setProvider(new ethers.providers.Web3Provider(window.ethereum))
       })
-      // accounts changed
-      window.ethereum.on("accountsChanged", (accounts) => {
-        console.log("accountsChanged")
-        setAccount(accounts[0])
-        setProvider(new ethers.providers.Web3Provider(window.ethereum))
-      })
     }
-  })
+  }, [hMM])
 
   useEffect(() => {
-    if (hasMetamask()) {
-      setProvider(new ethers.providers.Web3Provider(window.ethereum))
-    }
+    AsyncStorage.getItem("AMBASSADHORSE_APP::ACCOUNT_VALUE").then((valueFromGet) => {
+      console.log({ valueFromGet })
+      if (valueFromGet && !account) {
+        setAccount(valueFromGet)
+      }
+    })
   }, [])
 
   useEffect(() => {
@@ -60,15 +81,6 @@ export const EthersProvider = ({ children }) => {
       console.log({ account })
     }
   }, [account])
-
-  useEffect(() => {
-    AsyncStorage.getItem("AMBASSADHORSE_APP::ACCOUNT_VALUE").then((value) => {
-      console.log({ value })
-      if (value) {
-        setAccount(value)
-      }
-    })
-  }, [])
 
   return (
     <EthersContext.Provider value={{ account, provider, setAccount }}>

@@ -6,7 +6,7 @@ import '@ethersproject/shims'
 // Import the ethers library
 import { ethers } from 'ethers'
 import { observer } from 'mobx-react-lite'
-import { Alert, Spinner, useToast } from 'native-base'
+import { Spinner, useToast } from 'native-base'
 import React, { useState } from 'react'
 import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 
