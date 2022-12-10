@@ -40,7 +40,7 @@ export const CardOnSale = observer(function CardOnSale(props: CardOnSaleProps) {
           textStyle={BTN_TEXT}
           gradient={gradients.default}
           gradientStyle={BTN_GRADIENT}
-          onPress={() => onPress}
+          onPress={onPress}
         />
       </View>
 
