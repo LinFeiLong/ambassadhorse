@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 
 import { Btn, Screen, Subnav } from '../components'
+import HeroLogo from '../components/HeroLogo'
 import { AppStackScreenProps } from '../navigators'
 import { colors, fonts, gradients, spacing, styling } from '../theme'
 import { pinFileToIPFS } from '../utils/pinata/pinFileToIPFS'
@@ -41,8 +42,6 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
       }
     }
 
-    const imgURI = require("../../assets/images/logo.png")
-
     return (
       <Screen style={$root} preset="scroll">
         {/* <Subnav /> */}
@@ -52,7 +51,7 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
             <View style={HERO_CTA_CONTAINER}>
               <TouchableOpacity onPress={pickImageAsync}>
                 <View style={TITLE_CONTAINER}>
-                  <Image source={imgURI} style={{ height: 44, width: 220 }} />
+                  <HeroLogo />
                 </View>
               </TouchableOpacity>
               <Text style={HERO_TEXT}>
