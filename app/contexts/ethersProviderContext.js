@@ -10,6 +10,8 @@ import "@ethersproject/shims"
 // Import the ethers library
 import { ethers } from "ethers"
 
+import AsyncStorage from "@react-native-async-storage/async-storage"
+
 const EthersContext = React.createContext(null)
 
 export const EthersProvider = ({ children }) => {
@@ -18,19 +20,29 @@ export const EthersProvider = ({ children }) => {
 
   useEffect(() => {
     if (hasMetamask()) {
+      // connect
+      window.ethereum.on("connect", (accounts) => {
+        console.log("connect")
+        setAccount(accounts[0])
+        setProvider(new ethers.providers.Web3Provider(window.ethereum))
+      })
       // chain
-      window.ethereum.on("chainChanged", () => {
+      window.ethereum.on("chainChanged", (chainId) => {
+        console.log("chainChanged")
+        console.log({ chainId })
         setAccount(null)
         setProvider(new ethers.providers.Web3Provider(window.ethereum))
       })
       // disconnect
       window.ethereum.on("disconnect", () => {
+        console.log("disconnect")
         setAccount(null)
         setProvider(new ethers.providers.Web3Provider(window.ethereum))
       })
       // accounts changed
-      window.ethereum.on("accountsChanged", () => {
-        setAccount(null)
+      window.ethereum.on("accountsChanged", (accounts) => {
+        console.log("accountsChanged")
+        setAccount(accounts[0])
         setProvider(new ethers.providers.Web3Provider(window.ethereum))
       })
     }
@@ -40,6 +52,22 @@ export const EthersProvider = ({ children }) => {
     if (hasMetamask()) {
       setProvider(new ethers.providers.Web3Provider(window.ethereum))
     }
+  }, [])
+
+  useEffect(() => {
+    if (account) {
+      AsyncStorage.setItem("AMBASSADHORSE_APP::ACCOUNT_VALUE", `${account}`)
+      console.log({ account })
+    }
+  }, [account])
+
+  useEffect(() => {
+    AsyncStorage.getItem("AMBASSADHORSE_APP::ACCOUNT_VALUE").then((value) => {
+      console.log({ value })
+      if (value) {
+        setAccount(value)
+      }
+    })
   }, [])
 
   return (
