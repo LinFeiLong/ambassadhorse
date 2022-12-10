@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useColorScheme } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 /**
  * The app navigator (formerly "AppNavigator" and "MainNavigator") is used for the primary
@@ -76,38 +77,40 @@ const AppStack = observer(function AppStack() {
 
   // @demo remove-block-end
   return (
-    <Stack.Navigator
-      screenOptions={({ route }) => ({
-        header: () => <Navbar route={route} />,
-      })}
-      initialRouteName={isAuthenticated ? "Welcome" : "Home"} // @demo remove-current-line
-    >
-      {/* @demo remove-block-start */}
-      {isAuthenticated ? (
-        <>
-          {/* @demo remove-block-end */}
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          {/* @demo remove-block-start */}
-          <Stack.Screen name="Demo" component={DemoNavigator} />
-        </>
-      ) : (
-        <>
-          {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
+    <SafeAreaView style={{ flex: 1 }}>
+      <Stack.Navigator
+        screenOptions={({ route }) => ({
+          header: () => <Navbar route={route} />,
+        })}
+        initialRouteName={isAuthenticated ? "Welcome" : "Home"} // @demo remove-current-line
+      >
+        {/* @demo remove-block-start */}
+        {isAuthenticated ? (
+          <>
+            {/* @demo remove-block-end */}
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            {/* @demo remove-block-start */}
+            <Stack.Screen name="Demo" component={DemoNavigator} />
+          </>
+        ) : (
+          <>
+            {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
 
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Horses" component={HorsesScreen} />
-          <Stack.Screen name="Resale" component={ResaleScreen} />
-          <Stack.Screen name="Concept" component={ConceptScreen} />
-          <Stack.Screen name="News" component={NewsScreen} />
-          <Stack.Screen name="Dao" component={DaoScreen} />
-          <Stack.Screen name="OwnerHome" component={OwnerHomeScreen} />
-          <Stack.Screen name="AdminCreate" component={AdminCreateScreen} />
-          <Stack.Screen name="AdminFormDao" component={AdminFormDaoScreen} />
-        </>
-      )}
-      {/* @demo remove-block-end */}
-      {/** 🔥 Your screens go here */}
-    </Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Horses" component={HorsesScreen} />
+            <Stack.Screen name="Resale" component={ResaleScreen} />
+            <Stack.Screen name="Concept" component={ConceptScreen} />
+            <Stack.Screen name="News" component={NewsScreen} />
+            <Stack.Screen name="Dao" component={DaoScreen} />
+            <Stack.Screen name="OwnerHome" component={OwnerHomeScreen} />
+            <Stack.Screen name="AdminCreate" component={AdminCreateScreen} />
+            <Stack.Screen name="AdminFormDao" component={AdminFormDaoScreen} />
+          </>
+        )}
+        {/* @demo remove-block-end */}
+        {/** 🔥 Your screens go here */}
+      </Stack.Navigator>
+    </SafeAreaView>
   )
 })
 

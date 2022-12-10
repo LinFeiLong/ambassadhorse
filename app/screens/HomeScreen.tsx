@@ -1,5 +1,4 @@
 import * as ImagePicker from 'expo-image-picker'
-import { Platform } from 'expo-modules-core'
 import { observer } from 'mobx-react-lite'
 import React, { FC } from 'react'
 import { Image, ImageStyle, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
@@ -42,10 +41,7 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
       }
     }
 
-    const imgURI =
-      Platform.OS === "web"
-        ? require("../../assets/images/logo@3x.png")
-        : require("../../assets/images/logo.png")
+    const imgURI = require("../../assets/images/logo.png")
 
     return (
       <Screen style={$root} preset="scroll">
