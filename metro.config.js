@@ -20,6 +20,18 @@ if (isExpo) {
    * https://github.com/infinitered/ignite/issues/1904#issuecomment-1054535068
    */
   metroConfig = getDefaultExpoConfig(__dirname)
+
+  const { transformer, resolver } = metroConfig
+
+  metroConfig.transformer = {
+    ...transformer,
+    babelTransformerPath: require.resolve("react-native-svg-transformer"),
+  }
+  metroConfig.resolver = {
+    ...resolver,
+    assetExts: resolver.assetExts.filter((ext) => ext !== "svg"),
+    sourceExts: [...resolver.sourceExts, "svg"],
+  }
 } else {
   /**
    * Vanilla metro config - we're using a custom metro config because we want to support symlinks
@@ -38,6 +50,9 @@ if (isExpo) {
     return makeMetroConfig({
       projectRoot: __dirname,
       // watchFolders: [`${__dirname}/../..`], // for monorepos
+      transformer: {
+        babelTransformerPath: require.resolve("react-native-svg-transformer"),
+      },
       resolver: {
         /**
          * This custom resolver is for if you're using symlinks.
