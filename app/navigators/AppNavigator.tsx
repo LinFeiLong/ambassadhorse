@@ -9,7 +9,7 @@ import { useColorScheme } from 'react-native'
  * and a "main" flow which the user will use once logged in.
  */
 import {
-    DarkTheme, DefaultTheme, NavigationContainer, NavigatorScreenParams
+  DarkTheme, DefaultTheme, NavigationContainer, NavigatorScreenParams
 } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -18,8 +18,8 @@ import { Navbar } from '../components'
 import Config from '../config'
 import { useStores } from '../models' // @demo remove-current-line
 import {
-    AdminCreateScreen, AdminFormDaoScreen, ConceptScreen, DaoScreen, HomeScreen, HorsesScreen,
-    NewsScreen, OwnerHomeScreen, ResaleScreen, WelcomeScreen
+  AdminCreateScreen, AdminFormDaoScreen, ConceptScreen, DaoScreen, HomeScreen, HorseDetailsScreen, HorsesScreen,
+  NewsScreen, OwnerHomeScreen, ResaleScreen, WelcomeScreen
 } from '../screens'
 import { DemoNavigator, DemoTabParamList } from './DemoNavigator' // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from './navigationUtilities'
@@ -52,6 +52,7 @@ export type AppStackParamList = {
   OwnerHome: undefined
   AdminCreate: undefined
   AdminFormDao: undefined
+  HorseDetails: undefined
 }
 
 /**
@@ -103,6 +104,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="OwnerHome" component={OwnerHomeScreen} />
           <Stack.Screen name="AdminCreate" component={AdminCreateScreen} />
           <Stack.Screen name="AdminFormDao" component={AdminFormDaoScreen} />
+          <Stack.Screen name="HorseDetails" component={HorseDetailsScreen} />
         </>
       )}
       {/* @demo remove-block-end */}
@@ -111,7 +113,7 @@ const AppStack = observer(function AppStack() {
   )
 })
 
-interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
+interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> { }
 
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
   const colorScheme = useColorScheme()
