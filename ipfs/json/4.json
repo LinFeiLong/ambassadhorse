@@ -1,31 +1,31 @@
 {
-  "name": "Gourmant",
+  "name": "Calgary",
   "description": "",
-  "image": "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmTZaE8f2rx1tAUPYDKFUSU3iuhP81SsrFi7qGXbVSGPMT",
+  "image": "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/Qmd7NGp2UQ8y4HdZGQDL9Ae4ajRnxGT2vC3HoVx5Krwo1n/4.jpg",
   "attributes": [
     {
       "display_type": "number",
       "trait_type": "total_price",
-      "value":  "33000"
+      "value":  "39600"
     },
     {
       "display_type": "number",
       "trait_type": "token_price_at_start",
-      "value":  "150"
+      "value":  "220"
     },
     {
       "display_type": "date",
       "trait_type": "end_date",
-      "value":  "31/05/2023"
+      "value":  "30/06/2023"
     },
     {
       "display_type": "number",
       "trait_type": "investment_horizon",
-      "value":  "3"
+      "value":  "4"
     },
     {
       "trait_type": "origin",
-      "value":  "BWP"
+      "value":  "KWPN"
     },
     {
       "trait_type": "type",
@@ -33,26 +33,26 @@
     },
     {
       "trait_type": "gender",
-      "value":  "male"
+      "value":  "female"
     },
     {
       "trait_type": "color",
-      "value":  "Bai brun clair"
+      "value":  "Noir"
     },
     {
       "display_type": "date",
       "trait_type": "birthdate",
-      "value":  "10/10/2019"
+      "value":  "10/08/2019"
     },
     {
       "trait_type": "birthplace",
-      "value":  "Saint-Lô"
+      "value":  "Pornichet"
     },
     {
       "display_type": "number",
       "trait_type": "height",
-      "value":  "163"
+      "value":  "159"
     }
   ],
-  "external_url": "https://ambassadhorse.vercel.app/horse/7"
+  "external_url": "https://ambassadhorse.vercel.app/horse/4"
 }

@@ -1,58 +1,58 @@
 {
-  "name": "Lola Moon",
+  "name": "Flamenco",
   "description": "",
-  "image": "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmTZaE8f2rx1tAUPYDKFUSU3iuhP81SsrFi7qGXbVSGPMT",
+  "image": "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/Qmd7NGp2UQ8y4HdZGQDL9Ae4ajRnxGT2vC3HoVx5Krwo1n/6.jpg",
   "attributes": [
     {
       "display_type": "number",
       "trait_type": "total_price",
-      "value":  "40000"
+      "value":  "37500"
     },
     {
       "display_type": "number",
       "trait_type": "token_price_at_start",
-      "value":  "200"
+      "value":  "150"
     },
     {
       "display_type": "date",
       "trait_type": "end_date",
-      "value":  "31/01/2023"
+      "value":  "30/04/2023"
     },
     {
       "display_type": "number",
       "trait_type": "investment_horizon",
-      "value":  "3"
+      "value":  "4"
     },
     {
       "trait_type": "origin",
-      "value":  "Selle français"
+      "value":  "Hollsteiner"
     },
     {
       "trait_type": "type",
-      "value":  "CSO"
+      "value":  "Dressage"
     },
     {
       "trait_type": "gender",
-      "value":  "male"
+      "value":  "female"
     },
     {
       "trait_type": "color",
-      "value":  "Alezan"
+      "value":  "Isablelle"
     },
     {
       "display_type": "date",
       "trait_type": "birthdate",
-      "value":  "25/2/2019"
+      "value":  "26/10/2019"
     },
     {
       "trait_type": "birthplace",
-      "value":  "Saint-Lô"
+      "value":  "Deauville"
     },
     {
       "display_type": "number",
       "trait_type": "height",
-      "value":  "160"
+      "value":  "162"
     }
   ],
-    "external_url": "https://ambassadhorse.vercel.app/horse/1"
+  "external_url": "https://ambassadhorse.vercel.app/horse/6"
 }

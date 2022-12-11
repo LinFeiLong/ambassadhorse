@@ -43,7 +43,6 @@ contract Horses is ERC1155, Royalties, Ownable {
 
     struct Horse{
       uint256 id;
-      string name;
       string uri; // json uri
     }
 
@@ -58,6 +57,8 @@ contract Horses is ERC1155, Royalties, Ownable {
     constructor() ERC1155("") {
       name = "Ambassad'Horse";
       symbol = "ZEHORSE";
+
+      init();
     }
 
     function supportsInterface(bytes4 interfaceId) public view virtual override(ERC1155, Royalties) returns (bool){
@@ -80,10 +81,10 @@ contract Horses is ERC1155, Royalties, Ownable {
       return horses[tokenId];
     }
 
-    function mintHorse(address account, uint256 amount, string memory _name, string memory _uri) public onlyOwner returns (uint) {
+    function mintHorse(address account, uint256 amount, string memory _uri) public onlyOwner returns (uint) {
       _tokenIds.increment();
       uint256 newItemId = _tokenIds.current();
-      horses.push(Horse(newItemId, _name, _uri));
+      horses.push(Horse(newItemId, _uri));
       _mint(account, newItemId, amount, "");
       _setTokenRoyalty(newItemId, msg.sender, 1000);
 
@@ -91,7 +92,42 @@ contract Horses is ERC1155, Royalties, Ownable {
     }
 
     function init()public {
-        mintHorse(msg.sender, 2*10**6, "Parisiens", "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmexER8EgqcC2Bwiv9WbDWfV4JZbmSs19RqYer6fKhoEQw");
-        mintHorse(msg.sender, 1, "Formateur", "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmPjJyjAUumRTFyCZcJcBcNLjyeZt4Qy69gA8hGTM4fYvH");
+      const gateway = "https://gray-occasional-firefly-693.mypinata.cloud";
+      const url = "/ipfs/Qmd7NGp2UQ8y4HdZGQDL9Ae4ajRnxGT2vC3HoVx5Krwo1n/"
+      mintHorse(
+        msg.sender,
+        200,
+        gateway + url + "1.jpg"
+      );
+      mintHorse(
+        msg.sender,
+        140,
+        gateway + url + "2.jpg"
+      );
+      mintHorse(
+        msg.sender,
+        150,
+        gateway + url + "3.jpg"
+      );
+      mintHorse(
+        msg.sender,
+        180,
+        gateway + url + "4.jpg"
+      );
+      mintHorse(
+        msg.sender,
+        160,
+        gateway + url + "5.jpg"
+      );
+      mintHorse(
+        msg.sender,
+        250,
+        gateway + url + "6.jpg"
+      );
+      mintHorse(
+        msg.sender,
+        220,
+        gateway + url + "7.jpg"
+      );
     }
 }

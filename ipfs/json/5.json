@@ -1,35 +1,35 @@
 {
-  "name": "Flamenco",
+  "name": "Corneille",
   "description": "",
-  "image": "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmTZaE8f2rx1tAUPYDKFUSU3iuhP81SsrFi7qGXbVSGPMT",
+  "image": "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/Qmd7NGp2UQ8y4HdZGQDL9Ae4ajRnxGT2vC3HoVx5Krwo1n/5.jpg",
   "attributes": [
     {
       "display_type": "number",
       "trait_type": "total_price",
-      "value":  "37500"
+      "value":  "48000"
     },
     {
       "display_type": "number",
       "trait_type": "token_price_at_start",
-      "value":  "150"
+      "value":  "300"
     },
     {
       "display_type": "date",
       "trait_type": "end_date",
-      "value":  "30/04/2023"
+      "value":  "31/01/2023"
     },
     {
       "display_type": "number",
       "trait_type": "investment_horizon",
-      "value":  "4"
+      "value":  "3"
     },
     {
       "trait_type": "origin",
-      "value":  "Hollsteiner"
+      "value":  "Selle français"
     },
     {
       "trait_type": "type",
-      "value":  "Dressage"
+      "value":  "CSO"
     },
     {
       "trait_type": "gender",
@@ -37,22 +37,22 @@
     },
     {
       "trait_type": "color",
-      "value":  "Isablelle"
+      "value":  "Crème"
     },
     {
       "display_type": "date",
       "trait_type": "birthdate",
-      "value":  "26/10/2019"
+      "value":  "30/12/2018"
     },
     {
       "trait_type": "birthplace",
-      "value":  "Deauville"
+      "value":  "Saint-Lô"
     },
     {
       "display_type": "number",
       "trait_type": "height",
-      "value":  "162"
+      "value":  "167"
     }
   ],
-  "external_url": "https://ambassadhorse.vercel.app/horse/6"
+  "external_url": "https://ambassadhorse.vercel.app/horse/5"
 }
