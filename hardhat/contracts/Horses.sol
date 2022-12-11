@@ -36,7 +36,7 @@ contract Royalties is IERC2981Royalties, ERC165{
     }
 }
 
-contract HorsesSFT is ERC1155, Ownable {
+contract HorsesSFT is ERC1155, Royalties, Ownable {
 
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
@@ -46,8 +46,19 @@ contract HorsesSFT is ERC1155, Ownable {
         uint height;
         bool hair;
     }
+
+    // Contract name
+    string public name;
+
+    // Contract symbol
+    string public symbol;
+
     Horse[] horses;
-    constructor() ERC1155("https://ipfs.io/votrehash/{id}.json") {}
+
+    constructor() ERC1155("https://ipfs.io/votrehash/{id}.json") {
+        name = "Ambassad'Horse";
+        symbol = "ZEHORSE";
+    }
 
     function supportsInterface(bytes4 interfaceId) public view virtual override(ERC1155, Royalties) returns (bool){
         return super.supportsInterface(interfaceId);
@@ -57,13 +68,18 @@ contract HorsesSFT is ERC1155, Ownable {
         _setURI(newuri);
     }
 
-    function mintHorse(address account, uint256 amount, string memory _name, uint _height, bool _hair) public onlyOwner {
+    function mintHorse(address account, uint256 amount, string memory _name, uint _height, bool _hair) public onlyOwner returns (uint) {
       _tokenIds.increment();
       horses.push(Horse(_name, _height, _hair));
       uint256 newItemId = _tokenIds.current();
-      _mint(account, id, amount, "");
+      _mint(account, newItemId, amount, "");
       _setTokenRoyalty(newItemId, msg.sender, 1000);
 
       return newItemId;
+    }
+
+    function init()public {
+        mintHorse(msg.sender, 2*10**6, "Parisiens", 170, true );
+        mintHorse(msg.sender, 1, "Formateur", 185, true);
     }
 }
