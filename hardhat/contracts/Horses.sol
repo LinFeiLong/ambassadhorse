@@ -68,8 +68,8 @@ contract Horses is ERC1155, Royalties, Ownable {
       horses[tokenId].uri = newUri;
     }
 
-    function uri(uint256 tokenId) public view virtual override returns (string memory) {
-      return horses[tokenId].uri;
+    function uri(uint256 id) public view virtual override returns (string memory) {
+      return horses[id].uri;
     }
 
     function getHorses() public view returns (Horse[] memory) {
