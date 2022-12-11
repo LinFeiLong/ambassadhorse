@@ -1,14 +1,15 @@
-import React, { FC, useState } from "react"
+import React, { FC, useState, useCallback } from "react"
 import { observer } from "mobx-react-lite"
-import { TextInput, TextStyle, View, ViewStyle } from "react-native"
+import { TextInput, Text, TextStyle, View, ViewStyle, TouchableOpacity } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps } from "../navigators"
-import { Btn, Screen, Sidebar, Text } from "../components"
+import { Btn, Screen, Sidebar } from "../components"
 import { colors, fonts, palette, styling } from "../theme"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
-import { Button } from "react-native-paper"
 import { DatePickerModal } from "react-native-paper-dates"
+import DropDownPicker from "react-native-dropdown-picker"
+import { AntDesign } from "@expo/vector-icons"
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
@@ -23,15 +24,26 @@ export const AdminFormDaoScreen: FC<StackScreenProps<AppStackScreenProps, "Admin
     // FORM
     const [subject, onChangeSubject] = useState("")
 
-    // PICKER
-    const [date, setDate] = React.useState<Date | undefined>(undefined)
-    const [open, setOpen] = React.useState(false)
+    // DROPDOWN
+    const [openDropdown, setOpenDropdown] = useState(false)
+    const [value, setValue] = useState(null)
+    // TODO: add data
+    const [items, setItems] = useState([
+      { label: "Lucky", value: "lucky" },
+      { label: "Millenium", value: "millenium" },
+      { label: "Liberty", value: "liberty" },
+      { label: "Meteorite", value: "meteorite" },
+    ])
 
-    const onDismissSingle = React.useCallback(() => {
+    // DATE PICKER
+    const [date, setDate] = useState<Date | undefined>(undefined)
+    const [open, setOpen] = useState(false)
+
+    const onDismissSingle = useCallback(() => {
       setOpen(false)
     }, [setOpen])
 
-    const onConfirmSingle = React.useCallback(
+    const onConfirmSingle = useCallback(
       (params) => {
         setOpen(false)
         setDate(params.date)
@@ -50,7 +62,22 @@ export const AdminFormDaoScreen: FC<StackScreenProps<AppStackScreenProps, "Admin
             </View>
 
             <View style={BODY}>
-              <Text style={INPUT_LABEL}>Sujet</Text>
+              <Text style={INPUT_LABEL}>Cheval</Text>
+              <View style={DROPDOWN_CONTAINER}>
+                <DropDownPicker
+                  open={openDropdown}
+                  value={value}
+                  items={items}
+                  setOpen={setOpenDropdown}
+                  setValue={setValue}
+                  setItems={setItems}
+                  placeholder="Sélectionner un cheval"
+                  searchable={true}
+                  searchPlaceholder="Chercher un cheval..."
+                />
+              </View>
+
+              <Text style={[INPUT_LABEL, { marginTop: 25 }]}>Sujet</Text>
               <TextInput
                 editable
                 placeholder="Sujet du vote"
@@ -63,12 +90,15 @@ export const AdminFormDaoScreen: FC<StackScreenProps<AppStackScreenProps, "Admin
 
               <Text style={INPUT_LABEL}>Date butoire</Text>
               <>
-                <Button onPress={() => setOpen(true)} uppercase={false} mode="outlined">
-                  Pick single date
-                </Button>
+                <TouchableOpacity style={BTN} onPress={() => setOpen(true)}>
+                  <Text style={BTN_TEXT}>Choisir une date</Text>
+                  <AntDesign name="calendar" size={18} color="black" />
+                </TouchableOpacity>
+
                 <DatePickerModal
-                  locale="en"
+                  locale="fr"
                   mode="single"
+                  label="Sélectionner une date"
                   visible={open}
                   onDismiss={onDismissSingle}
                   date={date}
@@ -76,7 +106,12 @@ export const AdminFormDaoScreen: FC<StackScreenProps<AppStackScreenProps, "Admin
                 />
               </>
 
-              <Btn style={BTN} text="publication" textStyle={BTN_TEXT} onPress={() => {}} />
+              <Btn
+                style={BTN_SUBMIT}
+                text="publication"
+                textStyle={BTN_SUBMIT_TEXT}
+                onPress={() => {}}
+              />
             </View>
           </View>
 
@@ -132,6 +167,12 @@ const BODY: ViewStyle = {
   backgroundColor: "white",
 }
 
+const DROPDOWN_CONTAINER: ViewStyle = {
+  position: "relative",
+  zIndex: 2,
+  backgroundColor: "white",
+}
+
 const TEXT_INFO: TextStyle = {
   paddingVertical: 8,
 }
@@ -148,17 +189,33 @@ const INPUT_LABEL: TextStyle = {
   fontFamily: fonts.nunito.bold,
   fontSize: 17,
   textTransform: "uppercase",
+  marginVertical: 10,
 }
 
 // BUTTON
 const BTN: ViewStyle = {
+  ...styling.SPACE_BETWEEN,
+  ...styling.ROW_CENTER_Y,
+  minHeight: 50,
+  paddingHorizontal: 10,
+  borderRadius: 5,
+  borderWidth: 1,
+  borderColor: "black",
+  backgroundColor: "transparent",
+}
+
+const BTN_TEXT: TextStyle = {
+  flex: 1,
+}
+
+const BTN_SUBMIT: ViewStyle = {
   ...styling.CENTER_X,
   marginTop: 16,
   borderRadius: 5,
   backgroundColor: "#131724",
 }
 
-const BTN_TEXT: TextStyle = {
+const BTN_SUBMIT_TEXT: TextStyle = {
   fontFamily: fonts.nunito.bold,
   fontSize: 17,
   textTransform: "uppercase",
