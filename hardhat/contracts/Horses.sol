@@ -36,7 +36,7 @@ contract Royalties is IERC2981Royalties, ERC165{
     }
 }
 
-contract HorsesSFT is ERC1155, Royalties, Ownable {
+contract Horses is ERC1155, Royalties, Ownable {
 
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
