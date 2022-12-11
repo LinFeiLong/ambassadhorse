@@ -1,10 +1,11 @@
+import '@nomiclabs/hardhat-etherscan'
 import '@nomicfoundation/hardhat-toolbox'
 
 import { HardhatUserConfig } from 'hardhat/config'
 
-require("dotenv").config()
+require("dotenv").config({ path: "../.env" })
 
-const { INFURA, ETHERSCAN_API_KEY, PRIVATE_KEY } = process.env
+const { INFURA_URI, POLYGONSCAN_API_KEY, PRIVATE_KEY } = process.env
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -25,7 +26,7 @@ const config: HardhatUserConfig = {
       from: "0x4ac8E6177D6bA59EC47087fb1fFD2F100eaFe949",
     },
     mumbai: {
-      url: INFURA,
+      url: INFURA_URI,
       accounts: [`0x${PRIVATE_KEY}`],
     },
   },
@@ -35,7 +36,7 @@ const config: HardhatUserConfig = {
     enabled: true,
   },
   etherscan: {
-    apiKey: ETHERSCAN_API_KEY,
+    apiKey: POLYGONSCAN_API_KEY,
   },
 }
 
