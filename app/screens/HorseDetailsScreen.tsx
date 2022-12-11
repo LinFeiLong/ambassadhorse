@@ -1,97 +1,181 @@
-import React, { FC } from "react"
-import { observer } from "mobx-react-lite"
-import { View, ViewStyle, Text, TextStyle, Image, ImageStyle } from "react-native"
-import { StackScreenProps } from "@react-navigation/stack"
-import { AppStackScreenProps } from "../navigators"
-import { Btn, Screen } from "../components"
-import { styling, fonts, colors, gradients, palette, spacing } from "../theme"
-// import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../models"
-import { AntDesign, Ionicons } from '@expo/vector-icons'
+// Import the crypto getRandomValues shim (**BEFORE** the shims)
+import 'react-native-get-random-values'
+// Import the the ethers shims (**BEFORE** ethers)
+import '@ethersproject/shims'
 
-const picture = require("../../assets/images/horse4.png")
+// Import the ethers library
+import { ethers } from 'ethers'
+import _ from 'lodash'
+import { observer } from 'mobx-react-lite'
+import React, { FC, useEffect, useState } from 'react'
+import { Image, ImageStyle, Text, TextStyle, View, ViewStyle } from 'react-native'
+
+import { AntDesign, Ionicons } from '@expo/vector-icons'
+import { useRoute } from '@react-navigation/native'
+import { StackScreenProps } from '@react-navigation/stack'
+
+import Contract from '../../hardhat/artifacts/contracts/Horses.sol/Horses.json'
+import { Btn, EAttribute, Metadata, Screen } from '../components'
+import useEthersProvider from '../hooks/useEthersProvider'
+import { AppStackScreenProps } from '../navigators'
+import { colors, fonts, gradients, palette, spacing, styling } from '../theme'
+import { Horse } from './HorsesScreen'
+
+const axios = require("axios")
+
 const circle = require("../../assets/images/circle-gradient.png")
 
-// REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
-// @ts-ignore
-export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "HorseDetails">> = observer(function HorseDetailsScreen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "HorseDetails">> =
+  observer(function HorseDetailsScreen() {
+    const route = useRoute()
+    const { horseId } = route.params
+    console.log({ horseId })
 
-  // Pull in navigation via hook
-  // const navigation = useNavigation()
+    const { account, provider } = useEthersProvider()
+    const [isLoading, setIsLoading] = useState(false)
+    const [horse, setHorse] = useState<Horse>(null)
+    const [m, setMetadata] = useState<Metadata>(null)
 
+    const contractAddress = process.env.DEPLOYED_CONTRACT_ADDRESS
 
+    const getHorse = async (horseId: number) => {
+      setIsLoading(true)
+      const signer = await provider.getSigner()
+      const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
 
-  return (
-    <Screen style={$root} preset="scroll">
-      <View style={LAYER}>
-        <Image style={BG_DECORATION} source={circle} />
-      </View>
+      if (!_.isEmpty(contract)) {
+        const contractWithSigner = contract.connect(signer)
 
-      <View style={WRAPPER}>
-        <View style={COL_LEFT}>
-          <View style={DEADLINE_CONTAINER}>
-            <AntDesign name="clockcircleo" size={24} color="white" />
-            {/* TODO: ADD DATA */}
-            <Text style={DEADLINE_TEXT}>Fin de vente le 5 janvier 2023 à 7:29 PM GMT+0 </Text>
-          </View>
-          <Image style={IMG} source={picture} />
+        try {
+          const result = await contractWithSigner.getHorse(horseId)
 
-          <Btn style={BTN} onPress={() => { }} gradient={gradients.grey} gradientStyle={BTN_GRADIENT}>
-            {/* TODO: ADD DATA */}
-            <Text style={BTN_TEXT}>RÉSERVER</Text>
-            <Text style={BTN_TEXT_BOTTOM}>Token start price 100 € *</Text>
-          </Btn>
+          setIsLoading(false)
+          if (_.isEmpty(result)) {
+            setHorse(null)
+          } else {
+            setHorse(result)
+            console.log({ result })
+          }
+        } catch (error) {
+          console.log({ error })
+          setIsLoading(false)
+          setHorse(null)
+        }
+      }
+      setIsLoading(false)
+    }
 
-          <Text>
-            <Text style={MENTION}>(inclus </Text>
-            {/* TODO: add link */}
-            <Text style={MENTION_UNDERLINE}>les frais de pension des écuries</Text>
-            <Text style={MENTION}>*)</Text>
-          </Text>
+    useEffect(() => {
+      if (contractAddress) {
+        getHorse(horseId)
+      }
+    }, [contractAddress, horseId])
 
-          <View style={[styling.ROW, { paddingVertical: 10 }]}>
-            {/* TODO: ADD DATA */}
-            <Text style={[TEXT_INFO_BOLD, { color: "orange" }]}>66</Text>
-            {/* TODO: ADD DATA */}
-            <Text style={TEXT_INFO_BOLD}>/266 Tokens disponibles</Text>
-          </View>
+    const getJSON = async () => {
+      await axios
+        .get(horse.uri)
+        .then((result) => {
+          __DEV__ && console.log("JSON data from API ==>", result.data)
+          setMetadata(result.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
 
-          <Text style={TEXT_INFO}>L'ACHAT DE LIBERTY DE MASSA SERA CONFIRMÉ LORSQU'IL NE RESTERA PLUS QUE 100 TOKENS DISPONIBLES</Text>
+    useEffect(() => {
+      if (!_.isEmpty(horse)) {
+        getJSON()
+      }
+    }, [horse])
+
+    return (
+      <Screen style={$root} preset="scroll">
+        <View style={LAYER}>
+          <Image style={BG_DECORATION} source={circle} />
         </View>
 
-        <View style={COL_RIGHT}>
-          <Text style={TITLE}>Liberty</Text>
-          <Text style={SUBTITLE}>De massa</Text>
+        <View style={WRAPPER}>
+          <View style={COL_LEFT}>
+            <View style={DEADLINE_CONTAINER}>
+              <AntDesign name="clockcircleo" size={24} color="white" />
+              <Text style={DEADLINE_TEXT}>
+                {`Fin de vente le ${m?.attributes?.[EAttribute.end_date]?.value} `}
+                {/* // à 7:29
+                // PM GMT+0 */}
+              </Text>
+            </View>
+            <Image style={IMG} source={{ uri: m?.image }} />
 
-          <Text>
-            <Ionicons name="female-outline" size={24} color="white" />
-            <Text style={TEXT}> Femelle</Text>
-          </Text>
+            <Btn
+              style={BTN}
+              onPress={() => null}
+              gradient={gradients.grey}
+              gradientStyle={BTN_GRADIENT}
+            >
+              {/* TODO: ADD DATA */}
+              <Text style={BTN_TEXT}>RÉSERVER</Text>
+              <Text style={BTN_TEXT_BOTTOM}>{`Token start price ${
+                m?.attributes?.[EAttribute.token_price_at_start]?.value
+              } € *`}</Text>
+            </Btn>
 
-          <View style={SECTION}>
-            <Text style={TEXT}>Née le 01/05/2021 en France</Text>
-            <Text style={TEXT}>Cheval de dressage français</Text>
-            <Text style={TEXT}>Bai Brun foncé</Text>
-            <Text style={TEXT}>1m58</Text>
+            <Text>
+              <Text style={MENTION}>(inclus </Text>
+              {/* TODO: add link */}
+              <Text style={MENTION_UNDERLINE}>les frais de pension des écuries</Text>
+              <Text style={MENTION}>*)</Text>
+            </Text>
+
+            {/* TODO: ADD DATA */}
+            {/* <View style={[styling.ROW, { paddingVertical: 10 }]}>
+              <Text style={[TEXT_INFO_BOLD, { color: "orange" }]}>??</Text>
+              <Text style={TEXT_INFO_BOLD}>{`/266 Tokens disponibles`}</Text>
+            </View> */}
+
+            {/* <Text style={TEXT_INFO}>
+              L'ACHAT DE LIBERTY DE MASSA SERA CONFIRMÉ LORSQU'IL NE RESTERA PLUS QUE 100 TOKENS
+              DISPONIBLES
+            </Text> */}
           </View>
 
-          <Text style={TEXT}>
-            Une chic femelle issue de la lignée maternelle de VODKA DE MASSA. {"\n"}
-            Une pouliche très dans le sang, très noble et prometteuse. Soeur utérine de l’étalon ALYRA VILLA DE MONTEIRO.
-          </Text>
+          <View style={COL_RIGHT}>
+            <Text style={TITLE}>{m?.name}</Text>
+            <Text style={SUBTITLE}>{m?.attributes?.[EAttribute.origin]?.value}</Text>
 
-          <View style={[SECTION, styling.ROW_CENTER_Y]}>
-            <AntDesign name="calendar" size={24} color={palette.purple} />
-            <Text style={INVEST_TEXT}>Horizon d'investissement : 3 ans</Text>
+            <Text>
+              <Ionicons
+                name={`${m?.attributes?.[EAttribute.gender]?.value}-outline`}
+                size={24}
+                color="white"
+              />
+              <Text style={TEXT}>{`Sexe : ${
+                m?.attributes?.[EAttribute.gender]?.value === "male" ? "male" : "femelle"
+              }`}</Text>
+            </Text>
+
+            <View style={SECTION}>
+              <Text style={TEXT}>{`Née le ${
+                m?.attributes?.[EAttribute.birthdate]?.value
+              } en France`}</Text>
+              <Text style={TEXT}>{`Type: ${m?.attributes?.[EAttribute.type]?.value}`}</Text>
+              <Text style={TEXT}>{`Couleur: ${m?.attributes?.[EAttribute.color]?.value}`}</Text>
+              <Text style={TEXT}>{`Taille: ${m?.attributes?.[EAttribute.height]?.value} cm`}</Text>
+            </View>
+
+            <Text style={TEXT}>{`${m?.description}`}</Text>
+
+            <View style={[SECTION, styling.ROW_CENTER_Y]}>
+              <AntDesign name="calendar" size={24} color={palette.purple} />
+              <Text style={INVEST_TEXT}>{`Horizon d'investissement : ${
+                m?.attributes?.[EAttribute.investment_horizon]?.value
+              } ans`}</Text>
+            </View>
           </View>
         </View>
-
-      </View>
-    </Screen>
-  )
-})
+      </Screen>
+    )
+  })
 
 const $root: ViewStyle = {
   flex: 1,
@@ -121,7 +205,7 @@ const BG_DECORATION: ImageStyle = {
   right: -(845 / 3) / 2,
   width: 845 / 3,
   height: 853 / 3,
-  transform: [{ rotate: '90deg' }],
+  transform: [{ rotate: "90deg" }],
 }
 
 const COL_LEFT: ViewStyle = {
@@ -141,12 +225,12 @@ const DEADLINE_CONTAINER: ViewStyle = {
   paddingVertical: 5,
   marginBottom: 10,
   borderRadius: 15,
-  backgroundColor: "#3848F1"
+  backgroundColor: "#3848F1",
 }
 
 const DEADLINE_TEXT: TextStyle = {
   paddingLeft: 5,
-  color: "white"
+  color: "white",
 }
 
 const IMG: ImageStyle = {
@@ -169,7 +253,7 @@ const BTN_GRADIENT: ViewStyle = {
   ...styling.COL,
   height: 50,
   paddingHorizontal: 30,
-  borderRadius: 5
+  borderRadius: 5,
 }
 
 const BTN_TEXT: TextStyle = {
@@ -194,7 +278,7 @@ const MENTION: TextStyle = {
 
 const MENTION_UNDERLINE: TextStyle = {
   ...MENTION,
-  textDecorationLine: "underline"
+  textDecorationLine: "underline",
 }
 
 const TEXT_INFO_BOLD: TextStyle = {
@@ -202,7 +286,7 @@ const TEXT_INFO_BOLD: TextStyle = {
   fontSize: 12.5,
   paddingVertical: 15,
   textTransform: "uppercase",
-  color: "white"
+  color: "white",
 }
 
 const TEXT_INFO: TextStyle = {
@@ -228,13 +312,13 @@ const SUBTITLE: TextStyle = {
 }
 
 const SECTION: ViewStyle = {
-  paddingVertical: 25
+  paddingVertical: 25,
 }
 
 const TEXT: TextStyle = {
   fontFamily: fonts.nunito.light,
   fontSize: 16,
-  color: "white"
+  color: "white",
 }
 
 const INVEST_TEXT: TextStyle = {
@@ -242,5 +326,5 @@ const INVEST_TEXT: TextStyle = {
   fontSize: 13,
   textTransform: "uppercase",
   paddingLeft: 10,
-  color: palette.purple
+  color: palette.purple,
 }

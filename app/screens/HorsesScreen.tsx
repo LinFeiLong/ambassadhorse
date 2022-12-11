@@ -4,11 +4,11 @@ import 'react-native-get-random-values'
 import '@ethersproject/shims'
 
 // Import the ethers library
-import { ethers } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
 import _ from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { FC, useEffect, useState } from 'react'
-import { FlatList, Text, TextStyle, TouchableOpacity, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -17,26 +17,24 @@ import Contract from '../../hardhat/artifacts/contracts/Horses.sol/Horses.json'
 import { CardOnSale, Metadata, Screen } from '../components'
 import useEthersProvider from '../hooks/useEthersProvider'
 import { AppStackScreenProps } from '../navigators'
-import { colors } from '../theme'
-import {
-    $root, FLATLIST, SUBNAV, SUBNAV_MENU_ACTIVE, SUBNAV_MENU_ITEM
-} from './HorsesScreen.styles'
+import { $root, FLATLIST, SUBNAV } from './HorsesScreen.styles'
 
 const axios = require("axios")
 
-type Horse = {
-  id: number
+export type Horse = {
+  id: BigNumber
   uri: string // json url
 }
 
+// SubNav est désactivé pour le moment
 const SubNav = () => {
-  const tab = ["Nos 2 ans", "Nos 3 ans", "Nos 4 ans"]
-  const [active, setActive] = useState("Nos 2 ans")
-  const handlePress = (tab) => setActive(tab)
+  // const tab = ["Nos 2 ans", "Nos 3 ans", "Nos 4 ans"]
+  // const [active, setActive] = useState("Nos 2 ans")
+  // const handlePress = (tab) => setActive(tab)
 
   return (
     <View style={SUBNAV}>
-      {tab.map((i) => {
+      {/* {tab.map((i) => {
         const subnavMenuItemStyles: TextStyle = {
           color: active === i ? colors.palette.orange : "white",
         }
@@ -49,13 +47,13 @@ const SubNav = () => {
             <Text style={[SUBNAV_MENU_ITEM, subnavMenuItemStyles]}>{i}</Text>
           </TouchableOpacity>
         )
-      })}
+      })} */}
     </View>
   )
 }
 
 const Item = ({ item, navigation }) => {
-  const goToHorseDetails = () => navigation.navigate("HorseDetails", { horseId: item.id })
+  const goToHorseDetails = () => navigation.navigate("HorseDetails", { horseId: Number(item.id) })
   const [metadata, setMetadata] = useState<Metadata>(null)
 
   const getJSON = async () => {

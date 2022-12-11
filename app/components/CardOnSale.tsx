@@ -7,7 +7,7 @@ import { AntDesign } from '@expo/vector-icons'
 import { colors, fonts, gradients, palette, styling } from '../theme'
 import { Btn } from './Btn'
 
-enum EAttribute {
+export enum EAttribute {
   total_price,
   token_price_at_start,
   end_date,
