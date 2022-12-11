@@ -1,10 +1,22 @@
-import React, { FC, useState } from "react"
-import { observer } from "mobx-react-lite"
-import { View, ViewStyle, Text, TextStyle, TextInput } from "react-native"
-import { StackScreenProps } from "@react-navigation/stack"
-import { AppStackScreenProps } from "../navigators"
-import { Btn, Screen, Sidebar } from "../components"
-import { styling, spacing, colors, fonts, palette } from "../theme"
+// Import the crypto getRandomValues shim (**BEFORE** the shims)
+import 'react-native-get-random-values'
+// Import the the ethers shims (**BEFORE** ethers)
+import '@ethersproject/shims'
+
+// Import the ethers library
+import { ethers } from 'ethers'
+import { observer } from 'mobx-react-lite'
+import React, { FC, useState } from 'react'
+import { Text, TextInput, TextStyle, View, ViewStyle } from 'react-native'
+
+import { StackScreenProps } from '@react-navigation/stack'
+
+import Contract from '../../hardhat/artifacts/contracts/Horses.sol/Horses.json'
+import { Btn, Screen, Sidebar } from '../components'
+import useEthersProvider from '../hooks/useEthersProvider'
+import { AppStackScreenProps } from '../navigators'
+import { colors, fonts, palette, styling } from '../theme'
+
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
 
@@ -12,11 +24,45 @@ import { styling, spacing, colors, fonts, palette } from "../theme"
 // @ts-ignore
 export const AdminCreateScreen: FC<StackScreenProps<AppStackScreenProps, "AdminCreate">> = observer(
   function AdminCreateScreen() {
-    // Pull in one of our MST stores
-    // const { someStore, anotherStore } = useStores()
+    const { account, provider } = useEthersProvider()
+    const [isLoading, setIsLoading] = useState(false)
+    const contractAddress = "0x2c333d594D03721D3486bA462f4786c5b31bb784"
 
-    // Pull in navigation via hook
-    // const navigation = useNavigation()
+    console.log({ provider })
+
+    const createHorse = async () => {
+      console.log("Create Horse")
+      setIsLoading(true)
+      const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
+
+      const signer = await provider.getSigner()
+
+      console.log({ signer })
+      const contractWithSigner = contract.connect(signer)
+
+      await contractWithSigner
+        .init()
+        .then((result) => {
+          console.log({ result })
+        })
+        .catch((error) => {
+          console.log({ error })
+        })
+      // await contract
+      //   .mintHorse(
+      //     contractAddress,
+      //     2 * 10 ** 6,
+      //     "Parisiens",
+      //     "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmexER8EgqcC2Bwiv9WbDWfV4JZbmSs19RqYer6fKhoEQw",
+      //   )
+      //   .then((result) => {
+      //     console.log({ result })
+      //   })
+      //   .catch((error) => {
+      //     console.log({ error })
+      //   })
+      setIsLoading(false)
+    }
 
     // FORM
     const [name, onChangeName] = useState("")
@@ -24,69 +70,79 @@ export const AdminCreateScreen: FC<StackScreenProps<AppStackScreenProps, "AdminC
     const [tokens, onChangeTokens] = useState("")
     const [description, onChangeDescription] = useState("")
 
+    // if (account)
+
     return (
       <Screen style={CONTAINER} contentContainerStyle={CONTAINER_INNER} preset="scroll">
         <Sidebar admin />
 
         <View style={MAIN_WRAPPER}>
           <View style={FORM_CONTAINER}>
-            <View style={HEADER}>
-              <Text style={TITLE}>Créer un nouveau cheval</Text>
-            </View>
+            {!account ? (
+              <View style={HEADER}>
+                <Text style={TITLE}>Vous n'êtes pas connecté</Text>
+              </View>
+            ) : (
+              <>
+                <View style={HEADER}>
+                  <Text style={TITLE}>Créer un nouveau cheval</Text>
+                </View>
 
-            <View style={BODY}>
-              <Text style={SUBTITLE}>Image, Video, Audio, or 3D Model</Text>
-              <Text style={TEXT_INFO}>
-                Fichiers acceptés: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF. Max
-                size: 100 MB
-              </Text>
+                <View style={BODY}>
+                  <Text style={SUBTITLE}>Image, Video, Audio, or 3D Model</Text>
+                  <Text style={TEXT_INFO}>
+                    Fichiers acceptés: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF. Max
+                    size: 100 MB
+                  </Text>
 
-              <Text style={INPUT_LABEL}>Nom</Text>
-              <TextInput
-                editable
-                placeholder="Nom du cheval"
-                placeholderTextColor={colors.placeholder}
-                maxLength={150}
-                onChangeText={(text) => onChangeName(text)}
-                value={name}
-                style={INPUT}
-              />
+                  <Text style={INPUT_LABEL}>Nom</Text>
+                  <TextInput
+                    editable
+                    placeholder="Nom du cheval"
+                    placeholderTextColor={colors.placeholder}
+                    maxLength={150}
+                    onChangeText={(text) => onChangeName(text)}
+                    value={name}
+                    style={INPUT}
+                  />
 
-              <Text style={INPUT_LABEL}>Prix du token</Text>
-              <TextInput
-                editable
-                placeholder="Prix du token"
-                placeholderTextColor={colors.placeholder}
-                maxLength={150}
-                onChangeText={(text) => onChangePrice(text)}
-                value={price}
-                style={INPUT}
-              />
+                  <Text style={INPUT_LABEL}>Prix du token</Text>
+                  <TextInput
+                    editable
+                    placeholder="Prix du token"
+                    placeholderTextColor={colors.placeholder}
+                    maxLength={150}
+                    onChangeText={(text) => onChangePrice(text)}
+                    value={price}
+                    style={INPUT}
+                  />
 
-              <Text style={INPUT_LABEL}>Nombre de tokens</Text>
-              <TextInput
-                editable
-                placeholder="Nombre de tokens"
-                placeholderTextColor={colors.placeholder}
-                maxLength={150}
-                onChangeText={(text) => onChangeTokens(text)}
-                value={tokens}
-                style={INPUT}
-              />
+                  <Text style={INPUT_LABEL}>Nombre de tokens</Text>
+                  <TextInput
+                    editable
+                    placeholder="Nombre de tokens"
+                    placeholderTextColor={colors.placeholder}
+                    maxLength={150}
+                    onChangeText={(text) => onChangeTokens(text)}
+                    value={tokens}
+                    style={INPUT}
+                  />
 
-              <Text style={INPUT_LABEL}>Description</Text>
-              <TextInput
-                editable
-                multiline
-                numberOfLines={5}
-                maxLength={150}
-                onChangeText={(text) => onChangeDescription(text)}
-                value={description}
-                style={INPUT_TEXTAREA}
-              />
+                  <Text style={INPUT_LABEL}>Description</Text>
+                  <TextInput
+                    editable
+                    multiline
+                    numberOfLines={5}
+                    maxLength={150}
+                    onChangeText={(text) => onChangeDescription(text)}
+                    value={description}
+                    style={INPUT_TEXTAREA}
+                  />
 
-              <Btn style={BTN} text="create" textStyle={BTN_TEXT} onPress={() => {}} />
-            </View>
+                  <Btn style={BTN} text="create" textStyle={BTN_TEXT} onPress={createHorse} />
+                </View>
+              </>
+            )}
           </View>
         </View>
       </Screen>
