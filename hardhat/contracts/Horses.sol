@@ -43,8 +43,7 @@ contract HorsesSFT is ERC1155, Royalties, Ownable {
 
     struct Horse{
         string name;
-        uint height;
-        bool hair;
+        string uri; // json uri
     }
 
     // Contract name
@@ -55,7 +54,7 @@ contract HorsesSFT is ERC1155, Royalties, Ownable {
 
     Horse[] horses;
 
-    constructor() ERC1155("https://ipfs.io/votrehash/{id}.json") {
+    constructor() ERC1155("") {
         name = "Ambassad'Horse";
         symbol = "ZEHORSE";
     }
@@ -64,13 +63,17 @@ contract HorsesSFT is ERC1155, Royalties, Ownable {
         return super.supportsInterface(interfaceId);
     }
 
-    function setURI(string memory newuri) public onlyOwner {
-        _setURI(newuri);
+    function setURI(string memory newUri, uint256 tokenId) public onlyOwner {
+        horses[tokenId].uri = newUri;
     }
 
-    function mintHorse(address account, uint256 amount, string memory _name, uint _height, bool _hair) public onlyOwner returns (uint) {
+    function uri(uint256 tokenId) public view virtual override returns (string memory) {
+      return horses[tokenId].uri;
+    }
+
+    function mintHorse(address account, uint256 amount, string memory _name, string memory _uri) public onlyOwner returns (uint) {
       _tokenIds.increment();
-      horses.push(Horse(_name, _height, _hair));
+      horses.push(Horse(_name, _uri));
       uint256 newItemId = _tokenIds.current();
       _mint(account, newItemId, amount, "");
       _setTokenRoyalty(newItemId, msg.sender, 1000);
@@ -79,7 +82,8 @@ contract HorsesSFT is ERC1155, Royalties, Ownable {
     }
 
     function init()public {
-        mintHorse(msg.sender, 2*10**6, "Parisiens", 170, true );
-        mintHorse(msg.sender, 1, "Formateur", 185, true);
+        mintHorse(msg.sender, 2*10**6, "Parisiens", "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmexER8EgqcC2Bwiv9WbDWfV4JZbmSs19RqYer6fKhoEQw");
+        mintHorse(msg.sender, 1, "Formateur", "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmPjJyjAUumRTFyCZcJcBcNLjyeZt4Qy69gA8hGTM4fYvH");
+        // mintHorse(msg.sender, 1, "Formateur", "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmexER8EgqcC2Bwiv9WbDWfV4JZbmSs19RqYer6fKhoEQw");
     }
 }
