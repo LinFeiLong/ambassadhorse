@@ -156,7 +156,10 @@
   "resolutions": {
     "@babel/core": "^7.20.2",
     "@expo/dev-server": "0.1.120",
-    "babel-loader": "8.3.0"
+    "babel-loader": "8.3.0",
+
+    "@types/react": "~18.0.0",
+    "@types/react-native": "~0.69.1"
   },
   "prettier": {
     "printWidth": 100,
