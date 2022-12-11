@@ -52,6 +52,10 @@ contract Horses is ERC1155, Royalties, Ownable {
     // Contract symbol
     string public symbol;
 
+    string gateway = "https://gray-occasional-firefly-693.mypinata.cloud";
+    string url = "/ipfs/QmPKLrqLHQQzFnXTd7GK5EWsqk5aHxdoBi9n6Jndx2St6t/";
+    string extension =  ".json";
+
     Horse[] horses;
 
     constructor() ERC1155("") {
@@ -91,43 +95,42 @@ contract Horses is ERC1155, Royalties, Ownable {
       return newItemId;
     }
 
+    // Init a set of horses for demo
     function init()public {
-      const gateway = "https://gray-occasional-firefly-693.mypinata.cloud";
-      const url = "/ipfs/Qmd7NGp2UQ8y4HdZGQDL9Ae4ajRnxGT2vC3HoVx5Krwo1n/"
       mintHorse(
         msg.sender,
         200,
-        gateway + url + "1.jpg"
+        string(abi.encodePacked(gateway, url, "1", extension))
       );
       mintHorse(
         msg.sender,
         140,
-        gateway + url + "2.jpg"
+        string(abi.encodePacked(gateway, url, "2", extension))
       );
       mintHorse(
         msg.sender,
         150,
-        gateway + url + "3.jpg"
+        string(abi.encodePacked(gateway, url, "3", extension))
       );
       mintHorse(
         msg.sender,
         180,
-        gateway + url + "4.jpg"
+        string(abi.encodePacked(gateway, url, "4", extension))
       );
       mintHorse(
         msg.sender,
         160,
-        gateway + url + "5.jpg"
+        string(abi.encodePacked(gateway, url, "5", extension))
       );
       mintHorse(
         msg.sender,
         250,
-        gateway + url + "6.jpg"
+        string(abi.encodePacked(gateway, url, "6", extension))
       );
       mintHorse(
         msg.sender,
         220,
-        gateway + url + "7.jpg"
+        string(abi.encodePacked(gateway, url, "7", extension))
       );
     }
 }
