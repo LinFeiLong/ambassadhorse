@@ -1,22 +1,22 @@
 {
-  "name": "Lucky",
+  "name": "Flamenco",
   "description": "",
   "image": "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmTZaE8f2rx1tAUPYDKFUSU3iuhP81SsrFi7qGXbVSGPMT",
   "attributes": [
     {
       "display_type": "number",
       "trait_type": "total_price",
-      "value":  "35000"
+      "value":  "37500"
     },
     {
       "display_type": "number",
       "trait_type": "token_price_at_start",
-      "value":  "250"
+      "value":  "150"
     },
     {
       "display_type": "date",
       "trait_type": "end_date",
-      "value":  "31/03/2023"
+      "value":  "30/04/2023"
     },
     {
       "display_type": "number",
@@ -25,24 +25,24 @@
     },
     {
       "trait_type": "origin",
-      "value":  "Holsteiner"
+      "value":  "Hollsteiner"
     },
     {
       "trait_type": "type",
-      "value":  "CCE"
+      "value":  "Dressage"
     },
     {
       "trait_type": "gender",
-      "value":  "male"
+      "value":  "female"
     },
     {
       "trait_type": "color",
-      "value":  "Bai brun foncé"
+      "value":  "Isablelle"
     },
     {
       "display_type": "date",
       "trait_type": "birthdate",
-      "value":  "05/06/2019"
+      "value":  "26/10/2019"
     },
     {
       "trait_type": "birthplace",
@@ -51,8 +51,8 @@
     {
       "display_type": "number",
       "trait_type": "height",
-      "value":  "170"
+      "value":  "162"
     }
   ],
-    "external_url": "https://ambassadhorse.vercel.app/horse/2"
+  "external_url": "https://ambassadhorse.vercel.app/horse/6"
 }

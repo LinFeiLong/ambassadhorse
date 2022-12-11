@@ -1,35 +1,35 @@
 {
-  "name": "Lucky",
+  "name": "Gourmant",
   "description": "",
   "image": "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmTZaE8f2rx1tAUPYDKFUSU3iuhP81SsrFi7qGXbVSGPMT",
   "attributes": [
     {
       "display_type": "number",
       "trait_type": "total_price",
-      "value":  "35000"
+      "value":  "33000"
     },
     {
       "display_type": "number",
       "trait_type": "token_price_at_start",
-      "value":  "250"
+      "value":  "150"
     },
     {
       "display_type": "date",
       "trait_type": "end_date",
-      "value":  "31/03/2023"
+      "value":  "31/05/2023"
     },
     {
       "display_type": "number",
       "trait_type": "investment_horizon",
-      "value":  "4"
+      "value":  "3"
     },
     {
       "trait_type": "origin",
-      "value":  "Holsteiner"
+      "value":  "BWP"
     },
     {
       "trait_type": "type",
-      "value":  "CCE"
+      "value":  "Dressage"
     },
     {
       "trait_type": "gender",
@@ -37,22 +37,22 @@
     },
     {
       "trait_type": "color",
-      "value":  "Bai brun foncé"
+      "value":  "Bai brun clair"
     },
     {
       "display_type": "date",
       "trait_type": "birthdate",
-      "value":  "05/06/2019"
+      "value":  "10/10/2019"
     },
     {
       "trait_type": "birthplace",
-      "value":  "Deauville"
+      "value":  "Saint-Lô"
     },
     {
       "display_type": "number",
       "trait_type": "height",
-      "value":  "170"
+      "value":  "163"
     }
   ],
-    "external_url": "https://ambassadhorse.vercel.app/horse/2"
+  "external_url": "https://ambassadhorse.vercel.app/horse/7"
 }

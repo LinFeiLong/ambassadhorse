@@ -1,58 +1,58 @@
 {
-  "name": "Lucky",
+  "name": "Corneille",
   "description": "",
   "image": "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmTZaE8f2rx1tAUPYDKFUSU3iuhP81SsrFi7qGXbVSGPMT",
   "attributes": [
     {
       "display_type": "number",
       "trait_type": "total_price",
-      "value":  "35000"
+      "value":  "48000"
     },
     {
       "display_type": "number",
       "trait_type": "token_price_at_start",
-      "value":  "250"
+      "value":  "300"
     },
     {
       "display_type": "date",
       "trait_type": "end_date",
-      "value":  "31/03/2023"
+      "value":  "31/01/2023"
     },
     {
       "display_type": "number",
       "trait_type": "investment_horizon",
-      "value":  "4"
+      "value":  "3"
     },
     {
       "trait_type": "origin",
-      "value":  "Holsteiner"
+      "value":  "Selle français"
     },
     {
       "trait_type": "type",
-      "value":  "CCE"
+      "value":  "CSO"
     },
     {
       "trait_type": "gender",
-      "value":  "male"
+      "value":  "female"
     },
     {
       "trait_type": "color",
-      "value":  "Bai brun foncé"
+      "value":  "Crème"
     },
     {
       "display_type": "date",
       "trait_type": "birthdate",
-      "value":  "05/06/2019"
+      "value":  "30/12/2018"
     },
     {
       "trait_type": "birthplace",
-      "value":  "Deauville"
+      "value":  "Saint-Lô"
     },
     {
       "display_type": "number",
       "trait_type": "height",
-      "value":  "170"
+      "value":  "167"
     }
   ],
-    "external_url": "https://ambassadhorse.vercel.app/horse/2"
+  "external_url": "https://ambassadhorse.vercel.app/horse/5"
 }
