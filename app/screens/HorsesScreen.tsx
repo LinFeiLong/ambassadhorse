@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 
 import Contract from '../../hardhat/artifacts/contracts/Horses.sol/Horses.json'
-import { CardOnSale, Screen } from '../components'
+import { CardOnSale, Metadata, Screen } from '../components'
 import useEthersProvider from '../hooks/useEthersProvider'
 import { AppStackScreenProps } from '../navigators'
 import { colors } from '../theme'
@@ -23,14 +23,10 @@ import {
 } from './HorsesScreen.styles'
 
 const axios = require("axios")
+
 type Horse = {
   id: number
-  name: string
-  uri: string
-  // price: string
-  // quantity: string
-  // priceLabel: string
-  // quantityLabel: string
+  uri: string // json url
 }
 
 const SubNav = () => {
@@ -60,15 +56,14 @@ const SubNav = () => {
 
 const Item = ({ item, navigation }) => {
   const goToHorseDetails = () => navigation.navigate("HorseDetails", { horseId: item.id })
-  const [data, setData] = useState(null)
+  const [metadata, setMetadata] = useState<Metadata>(null)
 
   const getJSON = async () => {
     await axios
       .get(item.uri)
       .then((result) => {
-        console.log("JSON data from API ==>", result.data)
-        console.log(result.data.image)
-        setData(result.data)
+        __DEV__ && console.log("JSON data from API ==>", result.data)
+        setMetadata(result.data)
       })
       .catch((error) => {
         console.log(error)
@@ -79,17 +74,8 @@ const Item = ({ item, navigation }) => {
     getJSON()
   }, [])
 
-  if (data) {
-    return (
-      <CardOnSale
-        picture={data.image}
-        title={data.name}
-        price={item?.price || 0}
-        tokenPrice={item?.tokenPrice || 0}
-        deadline={item?.deadline || ""}
-        onPress={goToHorseDetails}
-      />
-    )
+  if (metadata) {
+    return <CardOnSale metadata={metadata} onPress={goToHorseDetails} />
   } else {
     return null
   }
@@ -149,7 +135,7 @@ export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> =
         <FlatList
           data={horses}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item: Horse) => item.id.toString()}
           numColumns={4}
           columnWrapperStyle={FLATLIST}
         />

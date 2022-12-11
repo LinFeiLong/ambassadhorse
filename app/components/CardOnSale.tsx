@@ -7,31 +7,56 @@ import { AntDesign } from '@expo/vector-icons'
 import { colors, fonts, gradients, palette, styling } from '../theme'
 import { Btn } from './Btn'
 
+enum EAttribute {
+  total_price,
+  token_price_at_start,
+  end_date,
+  investment_horizon,
+  origin,
+  type,
+  gender,
+  color,
+  birthdate,
+  birthplace,
+  height,
+}
+
+type TAttribute = {
+  display_type: string
+  trait_type: string
+  value: string
+}
+
+export type Metadata = {
+  name: string
+  description: string
+  image: string
+  external_url: string
+  attributes: TAttribute[]
+}
+
 export interface CardOnSaleProps {
   style?: StyleProp<ViewStyle>
-  deadline: string
-  picture: any
-  title: string
-  price: number
-  tokenPrice: number
+  metadata: Metadata
   onPress: () => void
 }
 
 export const CardOnSale = observer(function CardOnSale(props: CardOnSaleProps) {
-  const { style, deadline, picture, title, price, tokenPrice, onPress } = props
+  const { style, metadata, onPress } = props
+  const { name, image: uri, attributes: a } = metadata
   const styles = [CONTAINER, style]
 
   return (
     <View style={styles}>
-      {deadline ? (
+      {a?.[EAttribute.end_date]?.value ? (
         <View style={CAPTION_CONTAINER}>
           <AntDesign name="clockcircleo" size={24} color="white" />
-          <Text style={CAPTION}>{deadline}</Text>
+          <Text style={CAPTION}>{a[EAttribute.end_date].value}</Text>
         </View>
       ) : null}
 
       <View style={IMG_CONTAINER}>
-        <Image style={IMG} source={{ uri: picture }} />
+        <Image style={IMG} source={{ uri }} />
         <Btn
           style={BTN_INFO}
           text="En savoir +"
@@ -42,9 +67,13 @@ export const CardOnSale = observer(function CardOnSale(props: CardOnSaleProps) {
         />
       </View>
 
-      <Text style={TITLE}>{title}</Text>
-      <Text style={[SUBTITLE, { color: "#179cff" }]}>Total price {price}</Text>
-      <Text style={[SUBTITLE, { color: "#ff1a92" }]}>Token start price {tokenPrice}</Text>
+      <Text style={NAME}>{name}</Text>
+      <Text style={[SUBTITLE, { color: "#179cff" }]}>
+        {`Total price ${a[EAttribute.total_price].value}`}
+      </Text>
+      <Text style={[SUBTITLE, { color: "#ff1a92" }]}>
+        {`Token start price ${a[EAttribute.token_price_at_start].value}`}
+      </Text>
     </View>
   )
 })
@@ -110,7 +139,7 @@ const BTN_TEXT: TextStyle = {
   color: "black",
 }
 
-const TITLE: TextStyle = {
+const NAME: TextStyle = {
   fontFamily: fonts.nunito.light,
   fontSize: 12,
   paddingVertical: 10,
