@@ -20,6 +20,7 @@ import {
     AdminCreateScreen, AdminFormDaoScreen, ConceptScreen, DaoScreen, HomeScreen, HorseDetailsScreen,
     HorsesScreen, NewsScreen, OwnerHomeScreen, ResaleScreen
 } from '../screens'
+import { MAIN_CONTAINER } from './AppNavigator.styles'
 import { navigationRef, useBackButtonHandler } from './navigationUtilities'
 
 /**
@@ -36,11 +37,6 @@ import { navigationRef, useBackButtonHandler } from './navigationUtilities'
  *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type AppStackParamList = {
-  // Welcome: undefined
-  // Login: undefined // @demo remove-current-line
-  // Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
-
-  // 🔥 Your screens go here
   Home: undefined
   Horses: undefined
   Resale: undefined
@@ -69,8 +65,8 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = observer(function AppStack() {
   return (
-    <View style={{ flex: 1, backgroundColor: "black" }}>
-      <SafeAreaView style={{ flex: 1, backgroundColor: "black" }}>
+    <View style={MAIN_CONTAINER}>
+      <SafeAreaView style={MAIN_CONTAINER}>
         <Stack.Navigator
           screenOptions={({ route }) => ({
             header: () => <Navbar route={route} />,

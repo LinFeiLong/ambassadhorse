@@ -2,13 +2,13 @@ import { observer } from 'mobx-react-lite'
 import React, { FC, useState } from 'react'
 import { FlatList, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 
+import { useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
 
 import { CardOnSale, Screen } from '../components'
 import { AppStackScreenProps } from '../navigators'
 import { colors, fonts, spacing, styling } from '../theme'
 
-import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
 
 const DATA = [
@@ -78,14 +78,8 @@ const DATA = [
   },
 ]
 
-// REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
-// @ts-ignore
 export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> = observer(
   function HorsesScreen() {
-    // Pull in one of our MST stores
-    // const { someStore, anotherStore } = useStores()
-
-    // Pull in navigation via hook
     const navigation = useNavigation()
     const goToHorseDetails = () => navigation.navigate("HorseDetails")
 

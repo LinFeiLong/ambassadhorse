@@ -17,16 +17,11 @@ import useEthersProvider from '../hooks/useEthersProvider'
 import { AppStackScreenProps } from '../navigators'
 import { colors, fonts, palette, styling } from '../theme'
 
-// import { useNavigation } from "@react-navigation/native"
-// import { useStores } from "../models"
-
-// REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
-// @ts-ignore
 export const AdminCreateScreen: FC<StackScreenProps<AppStackScreenProps, "AdminCreate">> = observer(
   function AdminCreateScreen() {
     const { account, provider } = useEthersProvider()
     const [isLoading, setIsLoading] = useState(false)
-    const contractAddress = "0x2c333d594D03721D3486bA462f4786c5b31bb784"
+    const contractAddress = process.env.DEPLOYED_CONTRACT_ADDRESS
 
     console.log({ provider })
 
@@ -139,7 +134,11 @@ export const AdminCreateScreen: FC<StackScreenProps<AppStackScreenProps, "AdminC
                     style={INPUT_TEXTAREA}
                   />
 
-                  <Btn style={BTN} text="create" textStyle={BTN_TEXT} onPress={createHorse} />
+                  {isLoading ? (
+                    <Text>{"isLoading"}</Text>
+                  ) : (
+                    <Btn style={BTN} text="create" textStyle={BTN_TEXT} onPress={createHorse} />
+                  )}
                 </View>
               </>
             )}
