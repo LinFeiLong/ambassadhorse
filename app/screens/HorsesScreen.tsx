@@ -7,7 +7,7 @@ import '@ethersproject/shims'
 import { ethers } from 'ethers'
 import _ from 'lodash'
 import { observer } from 'mobx-react-lite'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { FlatList, Text, TextStyle, TouchableOpacity, View } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'
@@ -18,14 +18,15 @@ import { CardOnSale, Screen } from '../components'
 import useEthersProvider from '../hooks/useEthersProvider'
 import { AppStackScreenProps } from '../navigators'
 import { colors } from '../theme'
-import { DATA } from './HorsesScreen.data'
 import {
     $root, FLATLIST, SUBNAV, SUBNAV_MENU_ACTIVE, SUBNAV_MENU_ITEM
 } from './HorsesScreen.styles'
 
+const axios = require("axios")
 type Horse = {
   id: number
   name: string
+  uri: string
   // price: string
   // quantity: string
   // priceLabel: string
@@ -57,48 +58,87 @@ const SubNav = () => {
   )
 }
 
+const Item = ({ item, navigation }) => {
+  const goToHorseDetails = () => navigation.navigate("HorseDetails", { horseId: item.id })
+  const [data, setData] = useState(null)
+
+  const getJSON = async () => {
+    await axios
+      .get(item.uri)
+      .then((result) => {
+        console.log("JSON data from API ==>", result.data)
+        console.log(result.data.image)
+        setData(result.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  useEffect(() => {
+    getJSON()
+  }, [])
+
+  if (data) {
+    return (
+      <CardOnSale
+        picture={data.image}
+        title={data.name}
+        price={item?.price || 0}
+        tokenPrice={item?.tokenPrice || 0}
+        deadline={item?.deadline || ""}
+        onPress={goToHorseDetails}
+      />
+    )
+  } else {
+    return null
+  }
+}
+
 export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> = observer(
   function HorsesScreen() {
     const navigation = useNavigation()
-    const [isLoading, setIsLoading] = useState(false)
-
     const { account, provider } = useEthersProvider()
+    const [isLoading, setIsLoading] = useState(false)
+    const [horses, setHorses] = useState<Horse[]>([])
+
     const contractAddress = process.env.DEPLOYED_CONTRACT_ADDRESS
-    const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
 
     const getHorses = async () => {
       setIsLoading(true)
       const signer = await provider.getSigner()
-      const contractWithSigner = contract.connect(signer)
+      const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
 
-      try {
-        const result = await contractWithSigner.getHorses()
+      if (!_.isEmpty(contract)) {
+        const contractWithSigner = contract.connect(signer)
 
-        setIsLoading(false)
-        if (_.isEmpty(result)) {
-          return []
+        try {
+          const result = await contractWithSigner.getHorses()
+
+          setIsLoading(false)
+          if (_.isEmpty(result)) {
+            setHorses([])
+          } else {
+            setHorses(result)
+            console.log({ result })
+          }
+        } catch (error) {
+          console.log({ error })
+          setIsLoading(false)
+          setHorses([])
         }
-        return result
-      } catch (error) {
-        console.log({ error })
-        setIsLoading(false)
-        return []
       }
+      setIsLoading(false)
     }
 
-    const renderItem = ({ item }) => {
-      const goToHorseDetails = () => navigation.navigate("HorseDetails", { horseId: item.id })
+    useEffect(() => {
+      if (contractAddress) {
+        getHorses()
+      }
+    }, [contractAddress])
 
-      return (
-        <CardOnSale
-          picture={item.picture}
-          title={item.title}
-          price={item.price}
-          tokenPrice={item.tokenPrice}
-          deadline={item.deadline}
-          onPress={goToHorseDetails}
-        />
-      )
+    const renderItem = ({ item }: { item: Horse }) => {
+      return <Item item={item} navigation={navigation} />
     }
 
     return (
@@ -107,9 +147,9 @@ export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> =
 
         {/* TODO: https://devfabi.com/react-native-dynamic-flatlist */}
         <FlatList
-          data={DATA}
+          data={horses}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           numColumns={4}
           columnWrapperStyle={FLATLIST}
         />

@@ -1,9 +1,11 @@
 import { observer } from 'mobx-react-lite'
 import * as React from 'react'
 import { Image, ImageStyle, StyleProp, Text, TextStyle, View, ViewStyle } from 'react-native'
+
 import { AntDesign } from '@expo/vector-icons'
-import { styling, fonts, gradients, palette, colors } from '../theme'
-import { Btn } from './Btn';
+
+import { colors, fonts, gradients, palette, styling } from '../theme'
+import { Btn } from './Btn'
 
 export interface CardOnSaleProps {
   style?: StyleProp<ViewStyle>
@@ -21,19 +23,15 @@ export const CardOnSale = observer(function CardOnSale(props: CardOnSaleProps) {
 
   return (
     <View style={styles}>
-      {
-        deadline
-          ? (
-            <View style={CAPTION_CONTAINER}>
-              <AntDesign name="clockcircleo" size={24} color="white" />
-              <Text style={CAPTION}>{deadline}</Text>
-            </View>
-          )
-          : null
-      }
+      {deadline ? (
+        <View style={CAPTION_CONTAINER}>
+          <AntDesign name="clockcircleo" size={24} color="white" />
+          <Text style={CAPTION}>{deadline}</Text>
+        </View>
+      ) : null}
 
       <View style={IMG_CONTAINER}>
-        <Image style={IMG} source={picture} />
+        <Image style={IMG} source={{ uri: picture }} />
         <Btn
           style={BTN_INFO}
           text="En savoir +"
@@ -68,7 +66,7 @@ const CAPTION_CONTAINER: ViewStyle = {
   left: 0,
   right: 0,
   padding: 10,
-  backgroundColor: colors.cardOverlay
+  backgroundColor: colors.cardOverlay,
 }
 
 const CAPTION: TextStyle = {
