@@ -39,6 +39,7 @@ import { navigationRef, useBackButtonHandler } from './navigationUtilities'
 export type AppStackParamList = {
   Home: undefined
   Horses: undefined
+  HorseDetails: { horseId: number }
   Resale: undefined
   Concept: undefined
   News: undefined
@@ -46,7 +47,6 @@ export type AppStackParamList = {
   OwnerHome: undefined
   AdminCreate: undefined
   AdminFormDao: undefined
-  HorseDetails: undefined
 }
 
 /**

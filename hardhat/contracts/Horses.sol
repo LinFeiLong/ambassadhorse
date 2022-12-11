@@ -13,26 +13,26 @@ interface IERC2981Royalties {
 
 contract Royalties is IERC2981Royalties, ERC165{
     struct RoyaltyInfo {
-        address recipient;
-        uint24 amount;
+      address recipient;
+      uint24 amount;
     }
 
     mapping(uint256 => RoyaltyInfo) internal _royalties;
 
     function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
-        return interfaceId == type(IERC2981Royalties).interfaceId || super.supportsInterface(interfaceId);
+      return interfaceId == type(IERC2981Royalties).interfaceId || super.supportsInterface(interfaceId);
     }
 
     function _setTokenRoyalty( uint256 tokenId, address recipient, uint256 value) internal {
-        require(value <= 10000, 'ERC2981Royalties: Too high');
-        _royalties[tokenId] = RoyaltyInfo(recipient, uint24(value));
+      require(value <= 10000, 'ERC2981Royalties: Too high');
+      _royalties[tokenId] = RoyaltyInfo(recipient, uint24(value));
     }
 
     function royaltyInfo(uint256 tokenId, uint256 value) external view override returns (address receiver, uint256 royaltyAmount)
     {
-        RoyaltyInfo memory royalties = _royalties[tokenId];
-        receiver = royalties.recipient;
-        royaltyAmount = (value * royalties.amount) / 10000;
+      RoyaltyInfo memory royalties = _royalties[tokenId];
+      receiver = royalties.recipient;
+      royaltyAmount = (value * royalties.amount) / 10000;
     }
 }
 
@@ -42,8 +42,9 @@ contract Horses is ERC1155, Royalties, Ownable {
     Counters.Counter private _tokenIds;
 
     struct Horse{
-        string name;
-        string uri; // json uri
+      uint256 id;
+      string name;
+      string uri; // json uri
     }
 
     // Contract name
@@ -55,26 +56,34 @@ contract Horses is ERC1155, Royalties, Ownable {
     Horse[] horses;
 
     constructor() ERC1155("") {
-        name = "Ambassad'Horse";
-        symbol = "ZEHORSE";
+      name = "Ambassad'Horse";
+      symbol = "ZEHORSE";
     }
 
     function supportsInterface(bytes4 interfaceId) public view virtual override(ERC1155, Royalties) returns (bool){
-        return super.supportsInterface(interfaceId);
+      return super.supportsInterface(interfaceId);
     }
 
     function setURI(string memory newUri, uint256 tokenId) public onlyOwner {
-        horses[tokenId].uri = newUri;
+      horses[tokenId].uri = newUri;
     }
 
     function uri(uint256 tokenId) public view virtual override returns (string memory) {
       return horses[tokenId].uri;
     }
 
+    function getHorses() public view returns (Horse[] memory) {
+      return horses;
+    }
+
+    function getHorse(uint256 tokenId) public view returns (Horse memory) {
+      return horses[tokenId];
+    }
+
     function mintHorse(address account, uint256 amount, string memory _name, string memory _uri) public onlyOwner returns (uint) {
       _tokenIds.increment();
-      horses.push(Horse(_name, _uri));
       uint256 newItemId = _tokenIds.current();
+      horses.push(Horse(newItemId, _name, _uri));
       _mint(account, newItemId, amount, "");
       _setTokenRoyalty(newItemId, msg.sender, 1000);
 
@@ -84,6 +93,5 @@ contract Horses is ERC1155, Royalties, Ownable {
     function init()public {
         mintHorse(msg.sender, 2*10**6, "Parisiens", "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmexER8EgqcC2Bwiv9WbDWfV4JZbmSs19RqYer6fKhoEQw");
         mintHorse(msg.sender, 1, "Formateur", "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmPjJyjAUumRTFyCZcJcBcNLjyeZt4Qy69gA8hGTM4fYvH");
-        // mintHorse(msg.sender, 1, "Formateur", "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmexER8EgqcC2Bwiv9WbDWfV4JZbmSs19RqYer6fKhoEQw");
     }
 }

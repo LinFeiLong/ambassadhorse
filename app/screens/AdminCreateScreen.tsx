@@ -23,18 +23,11 @@ export const AdminCreateScreen: FC<StackScreenProps<AppStackScreenProps, "AdminC
     const [isLoading, setIsLoading] = useState(false)
     const contractAddress = process.env.DEPLOYED_CONTRACT_ADDRESS
 
-    console.log({ provider })
-
     const createHorse = async () => {
-      console.log("Create Horse")
       setIsLoading(true)
       const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
-
       const signer = await provider.getSigner()
-
-      console.log({ signer })
       const contractWithSigner = contract.connect(signer)
-
       await contractWithSigner
         .init()
         .then((result) => {
@@ -43,19 +36,6 @@ export const AdminCreateScreen: FC<StackScreenProps<AppStackScreenProps, "AdminC
         .catch((error) => {
           console.log({ error })
         })
-      // await contract
-      //   .mintHorse(
-      //     contractAddress,
-      //     2 * 10 ** 6,
-      //     "Parisiens",
-      //     "https://gray-occasional-firefly-693.mypinata.cloud/ipfs/QmexER8EgqcC2Bwiv9WbDWfV4JZbmSs19RqYer6fKhoEQw",
-      //   )
-      //   .then((result) => {
-      //     console.log({ result })
-      //   })
-      //   .catch((error) => {
-      //     console.log({ error })
-      //   })
       setIsLoading(false)
     }
 
