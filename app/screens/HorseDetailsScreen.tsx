@@ -63,14 +63,11 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
 
     const getHorse = async (horseId: number) => {
       setIsLoading(true)
-      const signer = await provider.getSigner()
       const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
 
       if (!_.isEmpty(contract)) {
-        const contractWithSigner = contract.connect(signer)
-
         try {
-          const result = await contractWithSigner.getHorse(horseId)
+          const result = await contract.getHorse(horseId)
 
           setIsLoading(false)
           if (_.isEmpty(result)) {
