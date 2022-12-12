@@ -4,6 +4,7 @@ La stack:
 
 - react-native-web via Expo (boilerplate ignite react-native)
 - hardhat
+- vercel
 
 Le réseau:
 

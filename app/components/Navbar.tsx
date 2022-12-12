@@ -70,7 +70,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
   // Pull in navigation via hook
   const navigation = useNavigation()
   const goToHome = () => navigation.navigate("Home")
-  const goToOwnerHome = () => navigation.navigate("OwnerHome")
+  // const goToOwnerHome = () => navigation.navigate("OwnerHome")
 
   // Connect
   const [isLoading, setIsLoading] = useState(false)
