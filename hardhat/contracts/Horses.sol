@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
@@ -36,14 +36,13 @@ contract Royalties is IERC2981Royalties, ERC165{
     }
 }
 
-contract Horses is ERC1155, Royalties, Ownable {
+contract Horses is ERC1155URIStorage, Royalties, Ownable {
 
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
     struct Horse{
       uint256 id;
-      string uri; // json uri
       uint256 amount;
     }
 
@@ -70,12 +69,8 @@ contract Horses is ERC1155, Royalties, Ownable {
       return super.supportsInterface(interfaceId);
     }
 
-    function setURI(string memory newUri, uint256 tokenId) public onlyOwner {
-      horses[tokenId].uri = newUri;
-    }
-
-    function uri(uint256 id) public view virtual override returns (string memory) {
-      return horses[id].uri;
+    function setURI(uint256 tokenId, string memory newUri) public onlyOwner {
+      _setURI(tokenId, newUri);
     }
 
     function getHorses() public view returns (Horse[] memory) {
@@ -87,12 +82,12 @@ contract Horses is ERC1155, Royalties, Ownable {
     }
 
     function mintHorse(address account, uint256 amount, string memory _uri) public onlyOwner returns (uint) {
-      _tokenIds.increment();
       uint256 newItemId = _tokenIds.current();
-      horses.push(Horse(newItemId - 1, _uri, amount));
+      horses.push(Horse(newItemId, amount));
+      setURI(newItemId, _uri);
       _mint(account, newItemId, amount, "");
       _setTokenRoyalty(newItemId, msg.sender, 1000);
-
+      _tokenIds.increment();
       return newItemId;
     }
 
