@@ -9,6 +9,7 @@ import _ from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { FC, useEffect, useState } from 'react'
 import { FlatList, View } from 'react-native'
+import { ActivityIndicator } from 'react-native-paper'
 
 import { useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -82,7 +83,7 @@ const Item = ({ item, navigation }) => {
 export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> = observer(
   function HorsesScreen() {
     const navigation = useNavigation()
-    const { account, provider } = useEthersProvider()
+    const { provider } = useEthersProvider()
     const [isLoading, setIsLoading] = useState(false)
     const [horses, setHorses] = useState<Horse[]>([])
 
@@ -90,21 +91,17 @@ export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> =
 
     const getHorses = async () => {
       setIsLoading(true)
-      const signer = await provider.getSigner()
       const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
 
       if (!_.isEmpty(contract)) {
-        const contractWithSigner = contract.connect(signer)
-
         try {
-          const result = await contractWithSigner.getHorses()
+          const result = await contract.getHorses()
 
           setIsLoading(false)
           if (_.isEmpty(result)) {
             setHorses([])
           } else {
             setHorses(result)
-            console.log({ result })
           }
         } catch (error) {
           console.log({ error })
@@ -130,13 +127,17 @@ export const HorsesScreen: FC<StackScreenProps<AppStackScreenProps, "Horses">> =
         <SubNav />
 
         {/* TODO: https://devfabi.com/react-native-dynamic-flatlist */}
-        <FlatList
-          data={horses}
-          renderItem={renderItem}
-          keyExtractor={(item: Horse) => item.id.toString()}
-          numColumns={4}
-          columnWrapperStyle={FLATLIST}
-        />
+        {isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          <FlatList
+            data={horses}
+            renderItem={renderItem}
+            keyExtractor={(item: Horse) => item.id.toString()}
+            numColumns={4}
+            columnWrapperStyle={FLATLIST}
+          />
+        )}
       </Screen>
     )
   },
