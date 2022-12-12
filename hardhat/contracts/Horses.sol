@@ -57,8 +57,9 @@ contract Horses is ERC1155URIStorage, Royalties, Ownable {
     /// Useful for Marketplace
     Counters.Counter private _itemsSold;
 
-    uint256 listingPrice = 0.025 ether;
+    uint256 listingPrice = 0.000000001 ether;
     address payable ownerOfContract;
+    address user;
 
     mapping(uint256 => MarketItem) private idToMarketItem;
 
@@ -103,6 +104,7 @@ contract Horses is ERC1155URIStorage, Royalties, Ownable {
 
         // Useful for Marketplace
         ownerOfContract = payable(msg.sender);
+        user = 0x70ae7F5a41517aD09b1dF2E623a771E371804043;
 
         init();
     }
@@ -151,6 +153,7 @@ contract Horses is ERC1155URIStorage, Royalties, Ownable {
 
     // Init a set of horses for demo
     function init() public {
+        // Populate horses
         mintHorse(msg.sender, 200, string(abi.encodePacked(gateway, url, "1", extension)));
         mintHorse(msg.sender, 140, string(abi.encodePacked(gateway, url, "2", extension)));
         mintHorse(msg.sender, 150, string(abi.encodePacked(gateway, url, "3", extension)));
@@ -158,11 +161,16 @@ contract Horses is ERC1155URIStorage, Royalties, Ownable {
         mintHorse(msg.sender, 160, string(abi.encodePacked(gateway, url, "5", extension)));
         mintHorse(msg.sender, 250, string(abi.encodePacked(gateway, url, "6", extension)));
         mintHorse(msg.sender, 220, string(abi.encodePacked(gateway, url, "7", extension)));
+        // Give some token to other accounts
+        // safeTransferFrom(msg.sender, user, 0, 10, "");
+        // safeTransferFrom(msg.sender, user, 4, 30, "");
+        // safeTransferFrom(msg.sender, user, 7, 20, "");
     }
 
     /* Creates a sale */
-    function createMarketSale(uint256 tokenId) public payable // uint256 amount
-    {
+    function createMarketSale(
+        uint256 tokenId // uint256 amount
+    ) public payable {
         uint256 price = 1;
         address seller = msg.sender;
         require(
