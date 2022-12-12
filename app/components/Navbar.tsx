@@ -6,7 +6,7 @@ import '@ethersproject/shims'
 // Import the ethers library
 import { ethers } from 'ethers'
 import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import Toast from 'react-native-toast-message'
@@ -14,6 +14,7 @@ import Toast from 'react-native-toast-message'
 import { EvilIcons, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { RouteProp, useNavigation } from '@react-navigation/native'
 
+import Contract from '../../hardhat/artifacts/contracts/Horses.sol/Horses.json'
 import useEthersProvider from '../hooks/useEthersProvider'
 import { AppStackParamList } from '../navigators'
 import { colors, fonts, palette, styling } from '../theme'
@@ -68,7 +69,34 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
 
   // Connect
   const [isLoading, setIsLoading] = useState(false)
+  const [isOwner, setIsOwner] = useState<boolean>(false)
   const { account, provider, setAccount } = useEthersProvider()
+  const [owner, setOwner] = useState<string>(null)
+
+  const contractAddress = process.env.DEPLOYED_CONTRACT_ADDRESS
+
+  const getOwner = async () => {
+    const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
+
+    await contract
+      .owner()
+      .then((result: string) => {
+        setOwner(result)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  useEffect(() => {
+    getOwner()
+  }, [])
+
+  useEffect(() => {
+    if (account && owner) {
+      setIsOwner(owner === account)
+    }
+  }, [account])
 
   const connectWallet = async () => {
     if (hasMetamask()) {
@@ -106,6 +134,8 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
     }
   }
 
+  useEffect(() => {}, [])
+
   return (
     <View style={NAVBAR}>
       <View style={[styling.ROW, styling.ROW_CENTER_Y]}>
@@ -118,6 +148,9 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
         </TouchableOpacity>
 
         {MENU.map((item) => {
+          if (item.title === "Admin" && !isOwner) {
+            return null
+          }
           return (
             <TouchableOpacity
               style={MENU_ITEM}
