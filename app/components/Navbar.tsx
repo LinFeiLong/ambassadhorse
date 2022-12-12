@@ -36,6 +36,11 @@ const MENU = [
     link: "AdminCreate",
   },
 
+  {
+    title: "User",
+    hasSubmenu: false,
+    link: "OwnerHome",
+  },
   // {
   //   title: "Revente",
   //   hasSubmenu: true,
@@ -138,7 +143,13 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
     <View style={NAVBAR}>
       <View style={[styling.ROW, styling.ROW_CENTER_Y]}>
         {/* <TouchableOpacity>
-          <MaterialCommunityIcons name="menu" size={24} color="white" style={ICON_MENU} />
+          <MaterialCommunityIcons
+            name="menu"
+            size={24}
+            color="white"
+            style={ICON_MENU}
+            onPress={goToOwnerHome}
+          />
         </TouchableOpacity> */}
 
         <TouchableOpacity onPress={goToHome}>
