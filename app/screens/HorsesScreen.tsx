@@ -25,6 +25,7 @@ const axios = require("axios")
 export type Horse = {
   id: BigNumber
   uri: string // json url
+  amount: BigNumber
 }
 
 // SubNav est désactivé pour le moment

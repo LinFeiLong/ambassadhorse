@@ -96,7 +96,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
     if (account && owner) {
       setIsOwner(owner === account)
     }
-  }, [account])
+  }, [account, owner])
 
   const connectWallet = async () => {
     if (hasMetamask()) {
@@ -133,8 +133,6 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
       })
     }
   }
-
-  useEffect(() => {}, [])
 
   return (
     <View style={NAVBAR}>

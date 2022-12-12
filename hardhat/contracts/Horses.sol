@@ -44,6 +44,7 @@ contract Horses is ERC1155, Royalties, Ownable {
     struct Horse{
       uint256 id;
       string uri; // json uri
+      uint256 amount;
     }
 
     // Contract name
@@ -88,7 +89,7 @@ contract Horses is ERC1155, Royalties, Ownable {
     function mintHorse(address account, uint256 amount, string memory _uri) public onlyOwner returns (uint) {
       _tokenIds.increment();
       uint256 newItemId = _tokenIds.current();
-      horses.push(Horse(newItemId, _uri));
+      horses.push(Horse(newItemId - 1, _uri, amount));
       _mint(account, newItemId, amount, "");
       _setTokenRoyalty(newItemId, msg.sender, 1000);
 

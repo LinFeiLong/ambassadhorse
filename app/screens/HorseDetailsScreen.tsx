@@ -29,14 +29,37 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
   observer(function HorseDetailsScreen() {
     const route = useRoute()
     const { horseId } = route.params
-    console.log({ horseId })
 
     const { account, provider } = useEthersProvider()
     const [isLoading, setIsLoading] = useState(false)
     const [horse, setHorse] = useState<Horse>(null)
     const [m, setMetadata] = useState<Metadata>(null)
+    const [balance, setBalance] = useState(null)
 
     const contractAddress = process.env.DEPLOYED_CONTRACT_ADDRESS
+
+    const getBalance = async () => {
+      const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
+
+      await contract
+        .owner()
+        .then(async (owner: string) => {
+          await contract
+            .balanceOf(owner, horseId)
+            .then((result) => {
+              setBalance(Number(result))
+            })
+            .catch((error) => {
+              console.log({ error })
+            })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+    useEffect(() => {
+      getBalance()
+    }, [])
 
     const getHorse = async (horseId: number) => {
       setIsLoading(true)
@@ -128,10 +151,10 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
             </Text>
 
             {/* TODO: ADD DATA */}
-            {/* <View style={[styling.ROW, { paddingVertical: 10 }]}>
-              <Text style={[TEXT_INFO_BOLD, { color: "orange" }]}>??</Text>
-              <Text style={TEXT_INFO_BOLD}>{`/266 Tokens disponibles`}</Text>
-            </View> */}
+            <View style={[styling.ROW, { paddingVertical: 10 }]}>
+              <Text style={[TEXT_INFO_BOLD, { color: "orange" }]}>{balance}</Text>
+              <Text style={TEXT_INFO_BOLD}>{`/${horse?.amount} Tokens disponibles`}</Text>
+            </View>
 
             {/* <Text style={TEXT_INFO}>
               L'ACHAT DE LIBERTY DE MASSA SERA CONFIRMÉ LORSQU'IL NE RESTERA PLUS QUE 100 TOKENS
