@@ -43,6 +43,7 @@ contract Horses is ERC1155URIStorage, Royalties, Ownable {
 
     struct Horse{
       uint256 id;
+      string uri;
       uint256 amount;
     }
 
@@ -71,6 +72,11 @@ contract Horses is ERC1155URIStorage, Royalties, Ownable {
 
     function setURI(uint256 tokenId, string memory newUri) public onlyOwner {
       _setURI(tokenId, newUri);
+      horses[tokenId].uri = newUri;
+    }
+
+    function setBaseURI(string memory baseURI) internal virtual {
+      _setBaseURI(baseURI);
     }
 
     function getHorses() public view returns (Horse[] memory) {
@@ -83,8 +89,9 @@ contract Horses is ERC1155URIStorage, Royalties, Ownable {
 
     function mintHorse(address account, uint256 amount, string memory _uri) public onlyOwner returns (uint) {
       uint256 newItemId = _tokenIds.current();
-      horses.push(Horse(newItemId, amount));
+      horses.push(Horse(newItemId, _uri, amount));
       setURI(newItemId, _uri);
+      horses[newItemId].uri = _uri;
       _mint(account, newItemId, amount, "");
       _setTokenRoyalty(newItemId, msg.sender, 1000);
       _tokenIds.increment();
