@@ -1,4 +1,4 @@
 Fernand LIME
 github: https://github.com/LinFeiLong/ambassadhorse
 vercel: https://ambassadhorse.vercel.app/
-vidéo:
+vidéo: https://www.youtube.com/watch?v=wakmpYHqoYk ou https://drive.google.com/file/d/1vk7mB28hdlKwV0SGeh11t0i8vpGMltR-/view?usp=share_link
