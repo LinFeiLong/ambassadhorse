@@ -8,6 +8,19 @@ require("dotenv").config({ path: "../.env" })
 const { INFURA_URI, POLYGONSCAN_API_KEY, PRIVATE_KEY } = process.env
 
 const config: HardhatUserConfig = {
+  defaultNetwork: "mumbai",
+  networks: {
+    hardhat: {
+      chainId: 80001,
+      from: "0x4ac8E6177D6bA59EC47087fb1fFD2F100eaFe949",
+    },
+    mumbai: {
+      url: INFURA_URI,
+      chainId: 80001,
+      from: "0x4ac8E6177D6bA59EC47087fb1fFD2F100eaFe949",
+      accounts: [`0x${PRIVATE_KEY}`],
+    },
+  },
   solidity: {
     version: "0.8.17",
     settings: {
@@ -18,17 +31,10 @@ const config: HardhatUserConfig = {
     },
   },
   paths: {
+    sources: "./contracts",
+    tests: "./test",
+    cache: "./cache",
     artifacts: "./artifacts",
-  },
-  networks: {
-    hardhat: {
-      chainId: 80001,
-      from: "0x4ac8E6177D6bA59EC47087fb1fFD2F100eaFe949",
-    },
-    mumbai: {
-      url: INFURA_URI,
-      accounts: [`0x${PRIVATE_KEY}`],
-    },
   },
   gasReporter: {
     currency: "EUR",
