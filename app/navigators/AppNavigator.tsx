@@ -18,8 +18,8 @@ import { Navbar } from '../components'
 import Config from '../config'
 import {
     AdminCreateScreen, AdminFormDaoScreen, ConceptScreen, DaoScreen, HomeScreen, HorseDetailsScreen,
-    HorseHealthScreen, HorsePerformanceScreen, HorsesScreen, NewsScreen, OwnerHomeScreen,
-    ResaleScreen
+    HorseHealthScreen, HorseInvestmentScreen, HorsePerformanceScreen, HorsesScreen, NewsScreen,
+    OwnerHomeScreen, ResaleScreen
 } from '../screens'
 import { MAIN_CONTAINER } from './AppNavigator.styles'
 import { navigationRef, useBackButtonHandler } from './navigationUtilities'
@@ -50,6 +50,7 @@ export type AppStackParamList = {
   AdminFormDao: undefined
   HorsePerformance: undefined
   HorseHealth: undefined
+  HorseInvestment: undefined
 }
 
 /**
@@ -88,6 +89,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="HorseDetails" component={HorseDetailsScreen} />
           <Stack.Screen name="HorsePerformance" component={HorsePerformanceScreen} />
           <Stack.Screen name="HorseHealth" component={HorseHealthScreen} />
+          <Stack.Screen name="HorseInvestment" component={HorseInvestmentScreen} />
         </Stack.Navigator>
       </SafeAreaView>
     </View>
