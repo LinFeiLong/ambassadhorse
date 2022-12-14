@@ -7,7 +7,7 @@ import '@ethersproject/shims'
 import { ethers } from 'ethers'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
-import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
+import { Platform, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import Toast from 'react-native-toast-message'
 
@@ -70,7 +70,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
   // Pull in navigation via hook
   const navigation = useNavigation()
   const goToHome = () => navigation.navigate("Home")
-  // const goToOwnerHome = () => navigation.navigate("OwnerHome")
+  const goToOwnerHome = () => navigation.navigate("OwnerHome")
 
   // Connect
   const [isLoading, setIsLoading] = useState(false)
@@ -142,19 +142,21 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
   return (
     <View style={NAVBAR}>
       <View style={[styling.ROW, styling.ROW_CENTER_Y]}>
-        {/* <TouchableOpacity>
-          <MaterialCommunityIcons
-            name="menu"
-            size={24}
-            color="white"
-            style={ICON_MENU}
-            onPress={goToOwnerHome}
-          />
-        </TouchableOpacity> */}
-
-        <TouchableOpacity onPress={goToHome}>
-          <Text style={LOGO_LABEL}>Ambassad'horse</Text>
-        </TouchableOpacity>
+        {Platform.OS === "web" ? (
+          <TouchableOpacity onPress={goToHome}>
+            <Text style={LOGO_LABEL}>Ambassad'horse</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity>
+            <MaterialCommunityIcons
+              name="menu"
+              size={24}
+              color="white"
+              style={ICON_MENU}
+              onPress={goToOwnerHome}
+            />
+          </TouchableOpacity>
+        )}
 
         {MENU.map((item) => {
           if (item.title === "Admin" && !isOwner) {

@@ -2,17 +2,22 @@
 import * as ImagePicker from 'expo-image-picker'
 import { observer } from 'mobx-react-lite'
 import React, { FC } from 'react'
-import { Image, ImageStyle, Text, TextStyle, TouchableOpacity, View, ViewStyle, Dimensions } from 'react-native'
+import {
+    Dimensions, Image, ImageStyle, Text, TextStyle, TouchableOpacity, View, ViewStyle
+} from 'react-native'
+
 import { useNavigation } from '@react-navigation/native'
 import { StackScreenProps } from '@react-navigation/stack'
+
 import { Btn, HeroLogo, Screen, Subnav } from '../components'
 import { AppStackScreenProps } from '../navigators'
 import { colors, fonts, gradients, styling } from '../theme'
 import { pinFileToIPFS } from '../utils/pinata/pinFileToIPFS'
+
 // import { useStores } from "../models"
 
-const windowWidth = Dimensions.get('window').width
-const isMobile = (windowWidth <= 767)
+const windowWidth = Dimensions.get("window").width
+const isMobile = windowWidth <= 767
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
@@ -46,18 +51,25 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
       <Screen style={$root} contentContainerStyle={CONTAINER} preset="scroll">
         {/* <Subnav /> */}
 
-        <View style={[{ flex: 1 }, (isMobile) ? WRAPPER_COL : WRAPPER_ROW]}>
-          <View style={[COL_LEFT, (!isMobile) ? COL_SMALL : null]}>
-
-            <TouchableOpacity style={[LOGO_CONTAINER, (isMobile) ? styling.CENTER_X : null]} onPress={pickImageAsync}>
+        <View style={[{ flex: 1 }, isMobile ? WRAPPER_COL : WRAPPER_ROW]}>
+          <View style={[COL_LEFT, !isMobile ? COL_SMALL : null]}>
+            <TouchableOpacity
+              style={[LOGO_CONTAINER, isMobile ? styling.CENTER_X : null]}
+              onPress={pickImageAsync}
+            >
               <HeroLogo />
             </TouchableOpacity>
 
-            <Text style={(isMobile) ? TITLE_SMALL : TITLE_LARGE}>
+            <Text style={isMobile ? TITLE_SMALL : TITLE_LARGE}>
               {`Vivez l'expérience, investissez dans un cheval de sport`}
             </Text>
 
-            <View style={[styling.ROW_CENTER_Y, (isMobile ? { alignSelf: "center", marginBottom: 30 } : null)]}>
+            <View
+              style={[
+                styling.ROW_CENTER_Y,
+                isMobile ? { alignSelf: "center", marginBottom: 30 } : null,
+              ]}
+            >
               <Btn
                 text="En savoir +"
                 textStyle={BTN_GRADIENT_TEXT}
@@ -67,26 +79,20 @@ export const HomeScreen: FC<StackScreenProps<AppStackScreenProps, "Home">> = obs
               />
             </View>
 
-            {
-              isMobile ? (
-                <View style={{ marginBottom: 30 }}>
-                  <Image style={IMG_SMALL} source={require("../../assets/images/hero.png")} />
-                </View>
-              ) : null
-            }
+            {isMobile ? (
+              <View style={{ marginBottom: 30 }}>
+                <Image style={IMG_SMALL} source={require("../../assets/images/hero.png")} />
+              </View>
+            ) : null}
           </View>
 
-          <View style={[COL_RIGHT, (!isMobile) ? COL_LARGE : null]}>
-            {
-              !isMobile
-                ? (
-                  <Image style={IMG_LARGE} source={require("../../assets/images/hero.png")} />
-                )
-                : null
-            }
+          <View style={[COL_RIGHT, !isMobile ? COL_LARGE : null]}>
+            {!isMobile ? (
+              <Image style={IMG_LARGE} source={require("../../assets/images/hero.png")} />
+            ) : null}
           </View>
         </View>
-      </Screen >
+      </Screen>
     )
   },
 )
@@ -119,11 +125,11 @@ const COL_RIGHT: ViewStyle = {
 }
 
 const COL_LARGE: ViewStyle = {
-  flex: 1.5
+  flex: 1.5,
 }
 
 const COL_SMALL: ViewStyle = {
-  flex: 1
+  flex: 1,
 }
 
 // LOGO
