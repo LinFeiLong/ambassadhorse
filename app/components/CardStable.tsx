@@ -1,7 +1,8 @@
+import { observer } from "mobx-react-lite"
 import * as React from "react"
 import { Image, ImageStyle, StyleProp, Text, TextStyle, View, ViewStyle } from "react-native"
-import { observer } from "mobx-react-lite"
-import { styling, fonts, palette, gradients } from "../theme"
+
+import { fonts, gradients, palette, styling } from "../theme"
 import { Btn } from "./Btn"
 
 export interface CardStableProps {
@@ -45,8 +46,8 @@ export const CardStable = observer(function CardStable(props: CardStableProps) {
 
       <Text style={TITLE}>{name}</Text>
       <Text style={SUBTITLE_ORANGE}>Ma part : {tokens} tokens</Text>
-      <Text style={SUBTITLE}>Prix de revient initial : {initPrice}</Text>
-      <Text style={SUBTITLE}>Prix de revient actuel : {currentPrice}</Text>
+      <Text style={SUBTITLE}>Prix de revient initial : {initPrice} €</Text>
+      <Text style={SUBTITLE}>Prix de revient actuel : {currentPrice} €</Text>
       <Text style={SUBTITLE}>Propriétaire depuis : {ownerSince}</Text>
 
       <Btn style={BTN} text="VENDRE" textStyle={BTN_TEXT} onPress={() => onSalePress} />

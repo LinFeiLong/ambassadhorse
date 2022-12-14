@@ -1,10 +1,13 @@
-import React, { FC } from "react"
 import { observer } from "mobx-react-lite"
-import { View, ViewStyle, Text, TextStyle, FlatList } from "react-native"
+import React, { FC } from "react"
+import { FlatList, Text, TextStyle, View, ViewStyle } from "react-native"
+
 import { StackScreenProps } from "@react-navigation/stack"
-import { AppStackScreenProps } from "../navigators"
+
 import { CardStable, OwnerHeader, Screen, Sidebar } from "../components"
+import { AppStackScreenProps } from "../navigators"
 import { colors, fonts, spacing, styling } from "../theme"
+
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
 
@@ -13,8 +16,8 @@ const DATA = [
     id: 1,
     name: "Lucky Crypto",
     tokens: 1,
-    initPrice: "30 000€",
-    currentPrice: "60 000€",
+    initPrice: "30 000",
+    currentPrice: "60 000",
     ownerSince: "01/04/22",
     picture: require("../../assets/images/horse1.png"),
   },
@@ -22,8 +25,8 @@ const DATA = [
     id: 2,
     name: "Millenium",
     tokens: 2,
-    initPrice: "30 000€",
-    currentPrice: "60 000€",
+    initPrice: "30 000",
+    currentPrice: "60 000",
     ownerSince: "01/04/22",
     picture: require("../../assets/images/horse2.png"),
   },
@@ -31,8 +34,8 @@ const DATA = [
     id: 3,
     name: "Alyra du web",
     tokens: 1,
-    initPrice: "30 000€",
-    currentPrice: "60 000€",
+    initPrice: "30 000",
+    currentPrice: "60 000",
     ownerSince: "01/04/22",
     picture: require("../../assets/images/horse3.jpg"),
   },

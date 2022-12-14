@@ -1,11 +1,11 @@
-import { observer } from 'mobx-react-lite'
-import * as React from 'react'
-import { Image, ImageStyle, StyleProp, Text, TextStyle, View, ViewStyle } from 'react-native'
+import { observer } from "mobx-react-lite"
+import * as React from "react"
+import { Image, ImageStyle, StyleProp, Text, TextStyle, View, ViewStyle } from "react-native"
 
-import { AntDesign } from '@expo/vector-icons'
+import { AntDesign } from "@expo/vector-icons"
 
-import { colors, fonts, gradients, palette, styling } from '../theme'
-import { Btn } from './Btn'
+import { colors, fonts, gradients, palette, styling } from "../theme"
+import { Btn } from "./Btn"
 
 export enum EAttribute {
   total_price,
@@ -69,10 +69,10 @@ export const CardOnSale = observer(function CardOnSale(props: CardOnSaleProps) {
 
       <Text style={NAME}>{name}</Text>
       <Text style={[SUBTITLE, { color: "#179cff" }]}>
-        {`Prix total: ${a[EAttribute.total_price].value} Euros`}
+        {`Prix total: ${a[EAttribute.total_price].value} €`}
       </Text>
       <Text style={[SUBTITLE, { color: "#ff1a92" }]}>
-        {`Prix ​de départ du jeton: ${a[EAttribute.token_price_at_start].value} Euros`}
+        {`Prix ​de départ du jeton: ${a[EAttribute.token_price_at_start].value} €`}
       </Text>
     </View>
   )
