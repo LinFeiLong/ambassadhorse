@@ -71,12 +71,6 @@ contract Horses is ERC1155URIStorage, Ownable, ERC1155Supply, Pausable {
         _setBaseURI("");
     }
 
-    function setURI(uint256 tokenId, string memory newUri) public onlyOwner {
-        _setURI(tokenId, newUri);
-        horses[tokenId].uri = newUri;
-        setTokenURI(tokenId, newUri);
-    }
-
     function getHorses() public view returns (Horse[] memory) {
         return horses;
     }
@@ -120,6 +114,11 @@ contract Horses is ERC1155URIStorage, Ownable, ERC1155Supply, Pausable {
         onlyOwner
     {
         _setURI(_tokenId, _cid);
+    }
+
+    function setURI(uint256 tokenId, string memory newUri) public onlyOwner {
+        horses[tokenId].uri = newUri;
+        setTokenURI(tokenId, newUri);
     }
 
      // :: INTERNAL ::
