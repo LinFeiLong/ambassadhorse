@@ -271,7 +271,7 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
                 <Text style={MODAL_TITLE}>Choisir un nombre de token</Text>
                 <TouchableOpacity
                   style={MODAL_ICON_CONTAINER}
-                  onPress={() => setDisclaimerVisible(false)}
+                  onPress={() => setPaymentVisible(false)}
                 >
                   <Ionicons name="close" size={20} color="white" />
                 </TouchableOpacity>

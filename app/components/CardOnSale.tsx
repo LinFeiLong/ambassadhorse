@@ -69,10 +69,10 @@ export const CardOnSale = observer(function CardOnSale(props: CardOnSaleProps) {
 
       <Text style={NAME}>{name}</Text>
       <Text style={[SUBTITLE, { color: "#179cff" }]}>
-        {`Total price ${a[EAttribute.total_price].value}`}
+        {`Prix total: ${a[EAttribute.total_price].value} Euros`}
       </Text>
       <Text style={[SUBTITLE, { color: "#ff1a92" }]}>
-        {`Token start price ${a[EAttribute.token_price_at_start].value}`}
+        {`Prix ​de départ du jeton: ${a[EAttribute.token_price_at_start].value} Euros`}
       </Text>
     </View>
   )
