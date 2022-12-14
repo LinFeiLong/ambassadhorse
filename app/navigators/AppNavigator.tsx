@@ -1,8 +1,8 @@
-import { observer } from 'mobx-react-lite'
-import React from 'react'
-import { useColorScheme, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import Toast from 'react-native-toast-message'
+import { observer } from "mobx-react-lite"
+import React from "react"
+import { useColorScheme, View } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
+import Toast from "react-native-toast-message"
 
 /**
  * The app navigator (formerly "AppNavigator" and "MainNavigator") is used for the primary
@@ -10,17 +10,26 @@ import Toast from 'react-native-toast-message'
  * Generally speaking, it will contain an auth flow (registration, login, forgot password)
  * and a "main" flow which the user will use once logged in.
  */
-import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { StackScreenProps } from '@react-navigation/stack'
+import { DarkTheme, DefaultTheme, NavigationContainer } from "@react-navigation/native"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { StackScreenProps } from "@react-navigation/stack"
 
-import { Navbar } from '../components'
-import Config from '../config'
+import { Navbar } from "../components"
+import Config from "../config"
 import {
-    AdminCreateScreen, AdminFormDaoScreen, ConceptScreen, DaoScreen, HomeScreen, HorseDetailsScreen,
-    HorsesScreen, NewsScreen, OwnerHomeScreen, ResaleScreen
-} from '../screens'
-import { navigationRef, useBackButtonHandler } from './navigationUtilities'
+  AdminCreateScreen,
+  AdminFormDaoScreen,
+  ConceptScreen,
+  DaoScreen,
+  HomeScreen,
+  HorseDetailsScreen,
+  HorsePerformanceScreen,
+  HorsesScreen,
+  NewsScreen,
+  OwnerHomeScreen,
+  ResaleScreen,
+} from "../screens"
+import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -51,6 +60,7 @@ export type AppStackParamList = {
   AdminCreate: undefined
   AdminFormDao: undefined
   HorseDetails: undefined
+  HorsePerformance: undefined
 }
 
 /**
@@ -87,6 +97,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="AdminCreate" component={AdminCreateScreen} />
           <Stack.Screen name="AdminFormDao" component={AdminFormDaoScreen} />
           <Stack.Screen name="HorseDetails" component={HorseDetailsScreen} />
+          <Stack.Screen name="HorsePerformance" component={HorsePerformanceScreen} />
         </Stack.Navigator>
       </SafeAreaView>
     </View>
