@@ -1,6 +1,6 @@
-import { ImageStyle, TextStyle, ViewStyle } from 'react-native'
+import { ImageStyle, TextStyle, ViewStyle } from "react-native"
 
-import { colors, fonts, palette, spacing, styling } from '../theme'
+import { colors, fonts, palette, spacing, styling } from "../theme"
 
 export const $root: ViewStyle = {
   flex: 1,
@@ -160,6 +160,7 @@ export const MODAL_CONTAINER: ViewStyle = {
   alignSelf: "center",
   justifyContent: "center",
   alignItems: "center",
+  minWidth: "50%",
   maxWidth: "50%",
 }
 

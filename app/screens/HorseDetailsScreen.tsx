@@ -1,32 +1,53 @@
 // Import the crypto getRandomValues shim (**BEFORE** the shims)
-import 'react-native-get-random-values'
+import "react-native-get-random-values"
 // Import the the ethers shims (**BEFORE** ethers)
-import '@ethersproject/shims'
+import "@ethersproject/shims"
 
 // Import the ethers library
-import { ethers } from 'ethers'
-import _ from 'lodash'
-import { observer } from 'mobx-react-lite'
-import React, { FC, useEffect, useState } from 'react'
-import { Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ethers } from "ethers"
+import _ from "lodash"
+import { observer } from "mobx-react-lite"
+import React, { FC, useEffect, useState } from "react"
+import { Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 
-import { AntDesign, Ionicons } from '@expo/vector-icons'
-import { useRoute } from '@react-navigation/native'
-import { StackScreenProps } from '@react-navigation/stack'
+import { AntDesign, Ionicons } from "@expo/vector-icons"
+import { useRoute } from "@react-navigation/native"
+import { StackScreenProps } from "@react-navigation/stack"
 
-import Contract from '../../hardhat/artifacts/contracts/Horses.sol/Horses.json'
-import { Btn, EAttribute, Metadata, Screen } from '../components'
-import useEthersProvider from '../hooks/useEthersProvider'
-import { AppStackScreenProps } from '../navigators'
-import { gradients, palette, styling } from '../theme'
+import Contract from "../../hardhat/artifacts/contracts/Horses.sol/Horses.json"
+import { Btn, EAttribute, Metadata, Screen } from "../components"
+import useEthersProvider from "../hooks/useEthersProvider"
+import { AppStackScreenProps } from "../navigators"
+import { gradients, palette, styling } from "../theme"
 import {
-    BG_DECORATION, BTN, BTN_GRADIENT, BTN_TEXT, BTN_TEXT_BOTTOM, COL_LEFT, COL_RIGHT,
-    DEADLINE_CONTAINER, DEADLINE_TEXT, IMG, INVEST_TEXT, LAYER, MENTION, MODAL_BTN, MODAL_CONTAINER,
-    MODAL_CONTENT, MODAL_DESCRIPTION, MODAL_ICON_CONTAINER, MODAL_TITLE, SECTION, SUBTITLE, TEXT,
-    TEXT_INFO_BOLD, TITLE, WRAPPER
-} from './HorseDetailsScreen.styles'
-import { Horse } from './HorsesScreen'
-import { $root } from './HorsesScreen.styles'
+  BG_DECORATION,
+  BTN,
+  BTN_GRADIENT,
+  BTN_TEXT,
+  BTN_TEXT_BOTTOM,
+  COL_LEFT,
+  COL_RIGHT,
+  DEADLINE_CONTAINER,
+  DEADLINE_TEXT,
+  IMG,
+  INVEST_TEXT,
+  LAYER,
+  MENTION,
+  MODAL_BTN,
+  MODAL_CONTAINER,
+  MODAL_CONTENT,
+  MODAL_DESCRIPTION,
+  MODAL_ICON_CONTAINER,
+  MODAL_TITLE,
+  SECTION,
+  SUBTITLE,
+  TEXT,
+  TEXT_INFO_BOLD,
+  TITLE,
+  WRAPPER,
+} from "./HorseDetailsScreen.styles"
+import { Horse } from "./HorsesScreen"
+import { $root } from "./HorsesScreen.styles"
 
 const axios = require("axios")
 
@@ -161,7 +182,7 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
             >
               {/* TODO: ADD DATA */}
               <Text style={BTN_TEXT}>RÉSERVER</Text>
-              <Text style={BTN_TEXT_BOTTOM}>{`Token start price ${
+              <Text style={BTN_TEXT_BOTTOM}>{`Prix initial du token ${
                 m?.attributes?.[EAttribute.token_price_at_start]?.value
               } € *`}</Text>
             </Btn>
@@ -221,7 +242,7 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
         </View>
 
         <Modal
-          animationType="slide"
+          animationType="fade"
           transparent={true}
           visible={disclaimerVisible}
           presentationStyle="fullScreen"
@@ -247,9 +268,8 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
 
               <Btn
                 style={MODAL_BTN}
-                text="NEXT"
+                text="SUIVANT"
                 textStyle={{ color: "black" }}
-                // TODO: add onPress
                 onPress={() => {
                   handlePress()
                   handlePressPayment()
@@ -259,7 +279,7 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
           </View>
         </Modal>
         <Modal
-          animationType="slide"
+          animationType="fade"
           transparent={true}
           visible={paymentVisible}
           presentationStyle="fullScreen"
@@ -268,7 +288,7 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
           <View style={MODAL_CONTAINER}>
             <View style={MODAL_CONTENT}>
               <View style={[styling.ROW_SPACE_BETWEEN, styling.ROW_CENTER_Y]}>
-                <Text style={MODAL_TITLE}>Choisir un nombre de token</Text>
+                <Text style={MODAL_TITLE}>Quantité</Text>
                 <TouchableOpacity
                   style={MODAL_ICON_CONTAINER}
                   onPress={() => setPaymentVisible(false)}
@@ -276,7 +296,7 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
                   <Ionicons name="close" size={20} color="white" />
                 </TouchableOpacity>
               </View>
-              <Text style={MODAL_DESCRIPTION}>Paiement</Text>
+              <Text style={MODAL_DESCRIPTION}>Choisir un nombre de token</Text>
 
               <TextInput
                 style={styles.input}
@@ -288,9 +308,8 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
 
               <Btn
                 style={MODAL_BTN}
-                text="NEXT"
+                text="Réserver"
                 textStyle={{ color: "black" }}
-                // TODO: add onPress
                 onPress={() => {
                   handlePressPayment()
                 }}
@@ -304,7 +323,9 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
 
 const styles = StyleSheet.create({
   input: {
+    borderColor: "white",
     borderWidth: 1,
+    color: "white",
     height: 40,
     margin: 12,
     padding: 10,
