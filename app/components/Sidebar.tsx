@@ -1,9 +1,11 @@
-import * as React from "react"
-import { StyleProp, TouchableOpacity, View, ViewStyle, Text, TextStyle } from "react-native"
 import { observer } from "mobx-react-lite"
-import { styling, palette } from "../theme"
+import * as React from "react"
+import { StyleProp, Text, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
+
 import { AntDesign, Entypo, Feather, Ionicons } from "@expo/vector-icons"
 import { useNavigation } from "@react-navigation/native"
+
+import { palette, styling } from "../theme"
 
 export interface SidebarProps {
   style?: StyleProp<ViewStyle>
@@ -32,10 +34,10 @@ export const Sidebar = observer(function Sidebar(props: SidebarProps) {
             <Text style={MENU_TEXT}>Créer</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={MENU_CONTAINER} onPress={goToAdminCreate}>
+          {/* <TouchableOpacity style={MENU_CONTAINER} onPress={goToAdminCreate}>
             <AntDesign name="form" size={34} color="white" />
             <Text style={MENU_TEXT}>Vendre</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity style={MENU_CONTAINER} onPress={goToAdminFormDao}>
             <Feather name="users" size={34} color="white" />
