@@ -8,9 +8,7 @@ import { ethers } from 'ethers'
 import _ from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { FC, useEffect, useState } from 'react'
-import {
-    Image, ImageStyle, Modal, Text, TextStyle, TouchableOpacity, View, ViewStyle
-} from 'react-native'
+import { Image, Modal, Text, TouchableOpacity, View } from 'react-native'
 
 import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { useRoute } from '@react-navigation/native'
@@ -20,8 +18,15 @@ import Contract from '../../hardhat/artifacts/contracts/Horses.sol/Horses.json'
 import { Btn, EAttribute, Metadata, Screen } from '../components'
 import useEthersProvider from '../hooks/useEthersProvider'
 import { AppStackScreenProps } from '../navigators'
-import { colors, fonts, gradients, palette, spacing, styling } from '../theme'
+import { gradients, palette, styling } from '../theme'
+import {
+    BG_DECORATION, BTN, BTN_GRADIENT, BTN_TEXT, BTN_TEXT_BOTTOM, COL_LEFT, COL_RIGHT,
+    DEADLINE_CONTAINER, DEADLINE_TEXT, IMG, INVEST_TEXT, LAYER, MENTION, MODAL_BTN, MODAL_CONTAINER,
+    MODAL_CONTENT, MODAL_DESCRIPTION, MODAL_ICON_CONTAINER, MODAL_TITLE, SECTION, SUBTITLE, TEXT,
+    TEXT_INFO_BOLD, TITLE, WRAPPER
+} from './HorseDetailsScreen.styles'
 import { Horse } from './HorsesScreen'
+import { $root } from './HorsesScreen.styles'
 
 const axios = require("axios")
 
@@ -285,201 +290,3 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
       </Screen>
     )
   })
-
-const $root: ViewStyle = {
-  flex: 1,
-  position: "relative",
-  zIndex: 1,
-  backgroundColor: colors.screenBackground,
-}
-
-const LAYER: ViewStyle = {
-  position: "absolute",
-  zIndex: -1,
-  top: 0,
-  bottom: 0,
-  left: 0,
-  right: 0,
-  overflow: "hidden",
-}
-
-const WRAPPER: ViewStyle = {
-  ...styling.ROW_SPACE_BETWEEN,
-  ...styling.CENTER_Y,
-  padding: spacing.screen,
-}
-
-const BG_DECORATION: ImageStyle = {
-  position: "absolute",
-  right: -(845 / 3) / 2,
-  width: 845 / 3,
-  height: 853 / 3,
-  transform: [{ rotate: "90deg" }],
-}
-
-const COL_LEFT: ViewStyle = {
-  flex: 1.3,
-  paddingHorizontal: 15,
-}
-
-const COL_RIGHT: ViewStyle = {
-  flex: 2,
-  paddingHorizontal: 15,
-}
-
-const DEADLINE_CONTAINER: ViewStyle = {
-  ...styling.ROW_CENTER_Y,
-  alignSelf: "flex-start",
-  paddingHorizontal: 10,
-  paddingVertical: 5,
-  marginBottom: 10,
-  borderRadius: 15,
-  backgroundColor: "#3848F1",
-}
-
-const DEADLINE_TEXT: TextStyle = {
-  paddingLeft: 5,
-  color: "white",
-}
-
-const IMG: ImageStyle = {
-  width: 310,
-  height: 400,
-  maxWidth: "100%",
-  maxHeight: "100%",
-  resizeMode: "cover",
-}
-
-const BTN: ViewStyle = {
-  alignSelf: "flex-start",
-  height: 50,
-  marginTop: 13,
-  paddingHorizontal: 0,
-  borderRadius: 0,
-}
-
-const BTN_GRADIENT: ViewStyle = {
-  ...styling.COL,
-  height: 50,
-  paddingHorizontal: 30,
-  borderRadius: 5,
-}
-
-const BTN_TEXT: TextStyle = {
-  fontFamily: fonts.nunito.light,
-  fontSize: 25,
-  paddingLeft: 5,
-  color: "white",
-}
-
-const BTN_TEXT_BOTTOM: TextStyle = {
-  fontFamily: fonts.nunito.black,
-  fontSize: 11,
-  textTransform: "uppercase",
-  color: palette.orange,
-}
-
-const MENTION: TextStyle = {
-  fontFamily: fonts.nunito.bold,
-  fontSize: 11,
-  color: palette.orange,
-}
-
-const MENTION_UNDERLINE: TextStyle = {
-  ...MENTION,
-  textDecorationLine: "underline",
-}
-
-const TEXT_INFO_BOLD: TextStyle = {
-  fontFamily: fonts.tomorrow.bold,
-  fontSize: 12.5,
-  paddingVertical: 15,
-  textTransform: "uppercase",
-  color: "white",
-}
-
-const TEXT_INFO: TextStyle = {
-  fontFamily: fonts.nunito.light,
-  fontSize: 11,
-  textTransform: "uppercase",
-  color: "white",
-}
-
-const TITLE: TextStyle = {
-  fontFamily: fonts.nunito.black,
-  fontSize: 42,
-  textTransform: "uppercase",
-  color: "white",
-}
-
-const SUBTITLE: TextStyle = {
-  fontFamily: fonts.nunito.black,
-  fontSize: 22,
-  paddingBottom: 55,
-  textTransform: "uppercase",
-  color: "white",
-}
-
-const SECTION: ViewStyle = {
-  paddingVertical: 25,
-}
-
-const TEXT: TextStyle = {
-  fontFamily: fonts.nunito.light,
-  fontSize: 16,
-  color: "white",
-}
-
-const INVEST_TEXT: TextStyle = {
-  fontFamily: fonts.nunito.black,
-  fontSize: 13,
-  textTransform: "uppercase",
-  paddingLeft: 10,
-  color: palette.purple,
-}
-
-// DISCLAIMER MODAL
-const MODAL_CONTAINER: ViewStyle = {
-  flex: 1,
-  alignSelf: "center",
-  justifyContent: "center",
-  alignItems: "center",
-  maxWidth: "50%",
-}
-
-const MODAL_CONTENT: ViewStyle = {
-  padding: 27,
-  borderWidth: 3,
-  borderColor: "white",
-  backgroundColor: "#06367d",
-}
-
-// close icon container
-const MODAL_ICON_CONTAINER: ViewStyle = {
-  ...styling.CENTER,
-  width: 30,
-  height: 30,
-  borderRadius: 50,
-  backgroundColor: "grey",
-}
-
-const MODAL_TITLE: TextStyle = {
-  fontFamily: fonts.nunito.bold,
-  fontSize: 15,
-  letterSpacing: 2,
-  color: "white",
-}
-
-const MODAL_DESCRIPTION: TextStyle = {
-  fontFamily: fonts.nunito.light,
-  fontSize: 15,
-  paddingVertical: 15,
-  color: "white",
-}
-
-const MODAL_BTN: ViewStyle = {
-  alignSelf: "center",
-  paddingHorizontal: 25,
-  borderRadius: 0,
-  backgroundColor: "white",
-}
