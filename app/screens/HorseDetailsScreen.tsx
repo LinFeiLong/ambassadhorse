@@ -8,7 +8,7 @@ import { ethers } from 'ethers'
 import _ from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { FC, useEffect, useState } from 'react'
-import { Image, Modal, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
 import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { useRoute } from '@react-navigation/native'
@@ -34,6 +34,9 @@ const circle = require("../../assets/images/circle-gradient.png")
 
 export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "HorseDetails">> =
   observer(function HorseDetailsScreen() {
+    // TextInput
+    const [text, onChangeText] = React.useState("1")
+
     // DISCLAIMER MODAL
     const [disclaimerVisible, setDisclaimerVisible] = useState(false)
 
@@ -275,6 +278,14 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
               </View>
               <Text style={MODAL_DESCRIPTION}>Paiement</Text>
 
+              <TextInput
+                style={styles.input}
+                onChangeText={onChangeText}
+                value={text}
+                keyboardType="numeric"
+                onSubmitEditing={() => handlePressPayment()}
+              />
+
               <Btn
                 style={MODAL_BTN}
                 text="NEXT"
@@ -290,3 +301,12 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
       </Screen>
     )
   })
+
+const styles = StyleSheet.create({
+  input: {
+    borderWidth: 1,
+    height: 40,
+    margin: 12,
+    padding: 10,
+  },
+})
