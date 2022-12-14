@@ -7,7 +7,7 @@ import '@ethersproject/shims'
 import { ethers } from 'ethers'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
-import { Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
+import { Dimensions, TouchableOpacity, View, ViewStyle, Text, TextStyle, Modal } from 'react-native'
 import { ActivityIndicator } from 'react-native-paper'
 import Toast from 'react-native-toast-message'
 
@@ -19,6 +19,9 @@ import { AppStackParamList } from '../navigators'
 import { colors, fonts, palette, styling } from '../theme'
 import { hasMetamask } from '../utils/hasMetamask'
 import { Btn } from './Btn'
+
+const windowWidth = Dimensions.get('window').width
+const isMobile = (windowWidth <= 767)
 
 // Menu items
 const MENU = [
@@ -57,6 +60,12 @@ export interface NavbarProps {
 }
 
 export const Navbar = observer(function Navbar(props: NavbarProps) {
+  // MENU MOBILE
+  const [menuMobileVisible, setMenuMobileVisible] = useState(false)
+  const handlePress = () => {
+    setMenuMobileVisible(!menuMobileVisible)
+  }
+
   const { route } = props
   const routeName = route.name
   const submenuIconSize = 18
@@ -68,7 +77,7 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
 
   // Connect
   const [isLoading, setIsLoading] = useState(false)
-  const { account, provider, setAccount } = useEthersProvider()
+  // const { account, provider, setAccount } = useEthersProvider()
 
   const connectWallet = async () => {
     if (hasMetamask()) {
@@ -113,40 +122,96 @@ export const Navbar = observer(function Navbar(props: NavbarProps) {
           <MaterialCommunityIcons name="menu" size={24} color="white" style={ICON_MENU} />
         </TouchableOpacity> */}
 
-        <TouchableOpacity onPress={goToHome}>
-          <Text style={LOGO_LABEL}>Ambassad'horse</Text>
-        </TouchableOpacity>
 
-        {MENU.map((item) => {
-          return (
-            <TouchableOpacity
-              style={MENU_ITEM}
-              key={item.title}
-              onPress={() => {
-                navigation.navigate(item.link)
-              }}
-            >
-              {item.hasSubmenu ? (
-                <MaterialCommunityIcons
-                  name="chevron-down"
-                  size={submenuIconSize}
-                  color={routeName === item.link ? palette.orange : "white"}
-                />
-              ) : (
-                <View
-                  style={{
-                    width: submenuIconSize,
-                    height: submenuIconSize,
-                    backgroundColor: "transparent",
-                  }}
-                ></View>
-              )}
-              <Text style={[MENU_TEXT, routeName === item.link ? MENU_ACTIVE : null]}>
-                {item.title}
-              </Text>
-            </TouchableOpacity>
-          )
-        })}
+
+        {
+          isMobile
+            ? (
+              <View style={styling.ROW_CENTER_Y}>
+                <TouchableOpacity onPress={handlePress}>
+                  <MaterialCommunityIcons name="menu" size={24} color="white" />
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{ marginLeft: 25 }} onPress={goToHome}>
+                  <Text style={LOGO_LABEL}>Ambassad'horse</Text>
+                </TouchableOpacity>
+
+
+                <Modal
+                  animationType="fade"
+                  transparent={true}
+                  visible={menuMobileVisible}
+                  onRequestClose={handlePress}
+                >
+                  <View style={MODAL_WRAPPER}>
+                    <View style={MODAL_VIEW}>
+
+                      <TouchableOpacity style={BTN_CLOSE_CONTAINER} onPress={() => setMenuMobileVisible(false)}>
+                        <MaterialCommunityIcons name="close-circle-outline" size={36} color="black" />
+                      </TouchableOpacity>
+
+                      {MENU.map((item) => {
+                        return (
+                          <TouchableOpacity
+                            style={MENU_ITEM_MOBILE}
+                            key={item.title}
+                            onPress={() => {
+                              navigation.navigate(item.link)
+                            }}
+                          >
+                            <Text style={[MENU_TEXT_MOBILE, routeName === item.link ? MENU_ACTIVE : null]}>
+                              {item.title}
+                            </Text>
+                          </TouchableOpacity>
+                        )
+                      })}
+                    </View>
+                  </View>
+                </Modal>
+
+
+              </View>
+            )
+            :
+            (
+              <View>
+                <TouchableOpacity onPress={goToHome}>
+                  <Text style={LOGO_LABEL}>Ambassad'horse</Text>
+                </TouchableOpacity>
+
+                {MENU.map((item) => {
+                  return (
+                    <TouchableOpacity
+                      style={MENU_ITEM}
+                      key={item.title}
+                      onPress={() => {
+                        navigation.navigate(item.link)
+                      }}
+                    >
+                      {/* {item.hasSubmenu ? (
+                        <MaterialCommunityIcons
+                          name="chevron-down"
+                          size={submenuIconSize}
+                          color={routeName === item.link ? palette.orange : "white"}
+                        />
+                      ) : (
+                        <View
+                          style={{
+                            width: submenuIconSize,
+                            height: submenuIconSize,
+                            backgroundColor: "transparent",
+                          }}
+                        ></View>
+                      )} */}
+                      <Text style={[MENU_TEXT, routeName === item.link ? MENU_ACTIVE : null]}>
+                        {item.title}
+                      </Text>
+                    </TouchableOpacity>
+                  )
+                })}
+              </View>
+            )
+        }
       </View>
 
       <View style={[styling.ROW, styling.ROW_CENTER_Y]}>
@@ -232,4 +297,39 @@ const BTN_LOGIN_TEXT: TextStyle = {
   fontSize: 12,
   paddingLeft: 5,
   color: "black",
+}
+
+
+// MOBILE
+const BTN_CLOSE_CONTAINER: ViewStyle = {
+  position: "absolute",
+  right: 30,
+  top: 30
+}
+
+const MENU_ITEM_MOBILE: ViewStyle = {
+  ...styling.ROW,
+  paddingBottom: 30,
+}
+
+const MENU_TEXT_MOBILE: TextStyle = {
+  fontFamily: fonts.nunito.bold,
+  fontSize: 18,
+  textAlign: "center",
+  color: "white",
+}
+
+// MODAL
+const MODAL_WRAPPER: ViewStyle = {
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+}
+
+const MODAL_VIEW: ViewStyle = {
+  flex: 1,
+  width: "100%",
+  justifyContent: "center",
+  alignItems: "center",
+  backgroundColor: colors.screenBackground,
 }
