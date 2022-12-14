@@ -10,6 +10,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
+import "hardhat/console.sol";
 
 contract Horses is ERC1155URIStorage, Ownable, ERC1155Supply, Pausable {
     using Counters for Counters.Counter;
@@ -147,7 +148,7 @@ contract Horses is ERC1155URIStorage, Ownable, ERC1155Supply, Pausable {
         mintHorse(msg.sender, 250, string(abi.encodePacked(gateway, url, "6", extension)));
         mintHorse(msg.sender, 220, string(abi.encodePacked(gateway, url, "7", extension)));
         // Give some token to other accounts
-        // safeTransferFrom(msg.sender, user, 0, 10, "");
+        safeTransferFrom(msg.sender, user, 0, 10, "");
         // safeTransferFrom(msg.sender, user, 4, 30, "");
         // safeTransferFrom(msg.sender, user, 7, 20, "");
     }
