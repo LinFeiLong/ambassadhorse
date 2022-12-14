@@ -1,18 +1,18 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractName": "IERC2981Royalties",
-  "sourceName": "contracts/Horses.sol",
+  "contractName": "IERC2981",
+  "sourceName": "@openzeppelin/contracts/interfaces/IERC2981.sol",
   "abi": [
     {
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "_tokenId",
+          "name": "tokenId",
           "type": "uint256"
         },
         {
           "internalType": "uint256",
-          "name": "_value",
+          "name": "salePrice",
           "type": "uint256"
         }
       ],
@@ -20,13 +20,32 @@
       "outputs": [
         {
           "internalType": "address",
-          "name": "_receiver",
+          "name": "receiver",
           "type": "address"
         },
         {
           "internalType": "uint256",
-          "name": "_royaltyAmount",
+          "name": "royaltyAmount",
           "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
         }
       ],
       "stateMutability": "view",

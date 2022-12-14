@@ -4,53 +4,14 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
+import "@openzeppelin/contracts/token/common/ERC2981.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
 
-interface IERC2981Royalties {
-    function royaltyInfo(uint256 _tokenId, uint256 _value)
-        external
-        view
-        returns (address _receiver, uint256 _royaltyAmount);
-}
-
-contract Royalties is IERC2981Royalties, ERC165 {
-    struct RoyaltyInfo {
-        address recipient;
-        uint24 amount;
-    }
-
-    mapping(uint256 => RoyaltyInfo) internal _royalties;
-
-    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
-        return
-            interfaceId == type(IERC2981Royalties).interfaceId ||
-            super.supportsInterface(interfaceId);
-    }
-
-    function _setTokenRoyalty(
-        uint256 tokenId,
-        address recipient,
-        uint256 value
-    ) internal {
-        require(value <= 10000, "ERC2981Royalties: Too high");
-        _royalties[tokenId] = RoyaltyInfo(recipient, uint24(value));
-    }
-
-    function royaltyInfo(uint256 tokenId, uint256 value)
-        external
-        view
-        override
-        returns (address receiver, uint256 royaltyAmount)
-    {
-        RoyaltyInfo memory royalties = _royalties[tokenId];
-        receiver = royalties.recipient;
-        royaltyAmount = (value * royalties.amount) / 10000;
-    }
-}
-
-contract Horses is ERC1155URIStorage, Royalties, Ownable {
+contract Horses is ERC1155URIStorage, Ownable, ERC1155Supply, Pausable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
@@ -107,25 +68,13 @@ contract Horses is ERC1155URIStorage, Royalties, Ownable {
         user = 0x70ae7F5a41517aD09b1dF2E623a771E371804043;
 
         init();
-    }
-
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        virtual
-        override(ERC1155, Royalties)
-        returns (bool)
-    {
-        return super.supportsInterface(interfaceId);
+        _setBaseURI("");
     }
 
     function setURI(uint256 tokenId, string memory newUri) public onlyOwner {
         _setURI(tokenId, newUri);
         horses[tokenId].uri = newUri;
-    }
-
-    function setBaseURI(string memory baseURI) internal virtual {
-        _setBaseURI(baseURI);
+        setTokenURI(tokenId, newUri);
     }
 
     function getHorses() public view returns (Horse[] memory) {
@@ -146,9 +95,46 @@ contract Horses is ERC1155URIStorage, Royalties, Ownable {
         setURI(newItemId, _uri);
         horses[newItemId].uri = _uri;
         _mint(account, newItemId, amount, "");
-        _setTokenRoyalty(newItemId, msg.sender, 1000);
+        // _setTokenRoyalty(newItemId, msg.sender, 1000);
         _tokenIds.increment();
         return newItemId;
+    }
+
+    // :: URI ::
+    function uri(uint256 tokenId)
+        public
+        view
+        virtual
+        override(ERC1155, ERC1155URIStorage)
+        returns (string memory)
+    {
+        return super.uri(tokenId);
+    }
+
+    function setBaseURI(string memory baseURI) external onlyOwner {
+        _setBaseURI(baseURI);
+    }
+
+    function setTokenURI(uint256 _tokenId, string memory _cid)
+        public
+        onlyOwner
+    {
+        _setURI(_tokenId, _cid);
+    }
+
+     // :: INTERNAL ::
+    function _beforeTokenTransfer(
+        address operator,
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    ) internal override(ERC1155Supply, ERC1155) whenNotPaused {
+        // for (uint256 i; i < ids.length; i++) {
+        //     require(!votingState, "cant transfer bottle in Voting state");
+        // }
+        super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
 
     // Init a set of horses for demo
