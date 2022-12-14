@@ -8,7 +8,9 @@ import { ethers } from 'ethers'
 import _ from 'lodash'
 import { observer } from 'mobx-react-lite'
 import React, { FC, useEffect, useState } from 'react'
-import { Image, ImageStyle, Text, TextStyle, View, ViewStyle } from 'react-native'
+import {
+    Image, ImageStyle, Modal, Text, TextStyle, TouchableOpacity, View, ViewStyle
+} from 'react-native'
 
 import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { useRoute } from '@react-navigation/native'
@@ -27,6 +29,22 @@ const circle = require("../../assets/images/circle-gradient.png")
 
 export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "HorseDetails">> =
   observer(function HorseDetailsScreen() {
+    // DISCLAIMER MODAL
+    const [disclaimerVisible, setDisclaimerVisible] = useState(false)
+
+    const handlePress = () => {
+      console.log("handlePress()")
+      setDisclaimerVisible(!disclaimerVisible)
+    }
+
+    // DISCLAIMER MODAL
+    const [paymentVisible, setPaymentVisible] = useState(false)
+
+    const handlePressPayment = () => {
+      console.log("handlePress()")
+      setPaymentVisible(!paymentVisible)
+    }
+
     const route = useRoute()
     const { horseId } = route.params
 
@@ -129,7 +147,7 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
 
             <Btn
               style={BTN}
-              onPress={() => null}
+              onPress={handlePress}
               gradient={gradients.grey}
               gradientStyle={BTN_GRADIENT}
             >
@@ -143,7 +161,7 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
             <Text>
               <Text style={MENTION}>(inclus </Text>
               {/* TODO: add link */}
-              <Text style={MENTION_UNDERLINE}>les frais de pension des écuries</Text>
+              <Text style={MENTION}>les frais de pension des écuries</Text>
               <Text style={MENTION}>*)</Text>
             </Text>
 
@@ -193,6 +211,77 @@ export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "Horse
             </View>
           </View>
         </View>
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={disclaimerVisible}
+          presentationStyle="fullScreen"
+          onRequestClose={handlePress}
+        >
+          <View style={MODAL_CONTAINER}>
+            <View style={MODAL_CONTENT}>
+              <View style={[styling.ROW_SPACE_BETWEEN, styling.ROW_CENTER_Y]}>
+                <Text style={MODAL_TITLE}>ATTENTION</Text>
+                <TouchableOpacity
+                  style={MODAL_ICON_CONTAINER}
+                  onPress={() => setDisclaimerVisible(false)}
+                >
+                  <Ionicons name="close" size={20} color="white" />
+                </TouchableOpacity>
+              </View>
+              <Text style={MODAL_DESCRIPTION}>
+                L'investissement dans un cheval de sport peut présenter des risques de perte en
+                capital, partielle ou totale. La valorisation d'un cheval de sport dépendra
+                essentiellement des aptitudes qu'il développera à l'entrainement et pourra être
+                fortement impactée en cas d'accident ou de problèmes de santé.
+              </Text>
+
+              <Btn
+                style={MODAL_BTN}
+                text="NEXT"
+                textStyle={{ color: "black" }}
+                // TODO: add onPress
+                onPress={() => {
+                  handlePress()
+                  handlePressPayment()
+                }}
+              />
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={paymentVisible}
+          presentationStyle="fullScreen"
+          onRequestClose={handlePressPayment}
+        >
+          <View style={MODAL_CONTAINER}>
+            <View style={MODAL_CONTENT}>
+              <View style={[styling.ROW_SPACE_BETWEEN, styling.ROW_CENTER_Y]}>
+                <Text style={MODAL_TITLE}>Choisir un nombre de token</Text>
+                <TouchableOpacity
+                  style={MODAL_ICON_CONTAINER}
+                  onPress={() => setDisclaimerVisible(false)}
+                >
+                  <Ionicons name="close" size={20} color="white" />
+                </TouchableOpacity>
+              </View>
+              <Text style={MODAL_DESCRIPTION}>Paiement</Text>
+
+              <Btn
+                style={MODAL_BTN}
+                text="NEXT"
+                textStyle={{ color: "black" }}
+                // TODO: add onPress
+                onPress={() => {
+                  handlePressPayment()
+                }}
+              />
+            </View>
+          </View>
+        </Modal>
       </Screen>
     )
   })
@@ -347,4 +436,50 @@ const INVEST_TEXT: TextStyle = {
   textTransform: "uppercase",
   paddingLeft: 10,
   color: palette.purple,
+}
+
+// DISCLAIMER MODAL
+const MODAL_CONTAINER: ViewStyle = {
+  flex: 1,
+  alignSelf: "center",
+  justifyContent: "center",
+  alignItems: "center",
+  maxWidth: "50%",
+}
+
+const MODAL_CONTENT: ViewStyle = {
+  padding: 27,
+  borderWidth: 3,
+  borderColor: "white",
+  backgroundColor: "#06367d",
+}
+
+// close icon container
+const MODAL_ICON_CONTAINER: ViewStyle = {
+  ...styling.CENTER,
+  width: 30,
+  height: 30,
+  borderRadius: 50,
+  backgroundColor: "grey",
+}
+
+const MODAL_TITLE: TextStyle = {
+  fontFamily: fonts.nunito.bold,
+  fontSize: 15,
+  letterSpacing: 2,
+  color: "white",
+}
+
+const MODAL_DESCRIPTION: TextStyle = {
+  fontFamily: fonts.nunito.light,
+  fontSize: 15,
+  paddingVertical: 15,
+  color: "white",
+}
+
+const MODAL_BTN: ViewStyle = {
+  alignSelf: "center",
+  paddingHorizontal: 25,
+  borderRadius: 0,
+  backgroundColor: "white",
 }
