@@ -23,6 +23,7 @@ import {
   DaoScreen,
   HomeScreen,
   HorseDetailsScreen,
+  HorseHealthScreen,
   HorsePerformanceScreen,
   HorsesScreen,
   NewsScreen,
@@ -61,6 +62,7 @@ export type AppStackParamList = {
   AdminFormDao: undefined
   HorseDetails: undefined
   HorsePerformance: undefined
+  HorseHealth: undefined
 }
 
 /**
@@ -98,6 +100,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="AdminFormDao" component={AdminFormDaoScreen} />
           <Stack.Screen name="HorseDetails" component={HorseDetailsScreen} />
           <Stack.Screen name="HorsePerformance" component={HorsePerformanceScreen} />
+          <Stack.Screen name="HorseHealth" component={HorseHealthScreen} />
         </Stack.Navigator>
       </SafeAreaView>
     </View>
