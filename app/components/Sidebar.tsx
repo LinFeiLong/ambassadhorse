@@ -19,6 +19,7 @@ export const Sidebar = observer(function Sidebar(props: SidebarProps) {
   const goToDao = () => navigation.navigate("Dao")
   const goToAdminCreate = () => navigation.navigate("AdminCreate")
   const goToHorsePerformance = () => navigation.navigate("HorsePerformance")
+  const goToHorseHealth = () => navigation.navigate("HorseHealth")
   const goToAdminFormDao = () => navigation.navigate("AdminFormDao")
 
   return (
@@ -52,7 +53,7 @@ export const Sidebar = observer(function Sidebar(props: SidebarProps) {
             <Text style={MENU_TEXT}>Perf</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={MENU_CONTAINER}>
+          <TouchableOpacity style={MENU_CONTAINER} onPress={goToHorseHealth}>
             <View style={ICON_WRAPPER}>
               <Feather name="heart" size={34} color="white" />
               <View style={ICON_CONTAINER}>
