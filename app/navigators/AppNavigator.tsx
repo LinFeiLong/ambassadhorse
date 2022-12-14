@@ -24,6 +24,7 @@ import {
   HomeScreen,
   HorseDetailsScreen,
   HorseHealthScreen,
+  HorseInvestmentScreen,
   HorsePerformanceScreen,
   HorsesScreen,
   NewsScreen,
@@ -63,6 +64,7 @@ export type AppStackParamList = {
   HorseDetails: undefined
   HorsePerformance: undefined
   HorseHealth: undefined
+  HorseInvestment: undefined
 }
 
 /**
@@ -101,6 +103,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="HorseDetails" component={HorseDetailsScreen} />
           <Stack.Screen name="HorsePerformance" component={HorsePerformanceScreen} />
           <Stack.Screen name="HorseHealth" component={HorseHealthScreen} />
+          <Stack.Screen name="HorseInvestment" component={HorseInvestmentScreen} />
         </Stack.Navigator>
       </SafeAreaView>
     </View>
