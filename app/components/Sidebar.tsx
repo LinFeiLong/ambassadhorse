@@ -20,6 +20,7 @@ export const Sidebar = observer(function Sidebar(props: SidebarProps) {
   const goToAdminCreate = () => navigation.navigate("AdminCreate")
   const goToHorsePerformance = () => navigation.navigate("HorsePerformance")
   const goToHorseHealth = () => navigation.navigate("HorseHealth")
+  const goToHorseInvestment = () => navigation.navigate("HorseInvestment")
   const goToAdminFormDao = () => navigation.navigate("AdminFormDao")
 
   return (
@@ -63,7 +64,7 @@ export const Sidebar = observer(function Sidebar(props: SidebarProps) {
             <Text style={MENU_TEXT}>Santé</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={MENU_CONTAINER}>
+          <TouchableOpacity style={MENU_CONTAINER} onPress={goToHorseInvestment}>
             <Ionicons name="briefcase-outline" size={34} color="white" />
             <Text style={MENU_TEXT}>Invest</Text>
           </TouchableOpacity>
