@@ -84,17 +84,17 @@ export const HorseHealthScreen: FC<StackScreenProps<AppStackScreenProps, "HorseH
                 </View>
 
                 <View style={{ alignItems: "flex-start" }}>
-                  <Text style={[BOX_TITLE, { color: palette.orange }]}>02/12/22:</Text>
-                  <Text style={[BOX_TITLE, { marginBottom: 10 }]}>
+                  <Text style={[BOX_TEXT_LIGHT, { color: palette.orange }]}>02/12/22:</Text>
+                  <Text style={[BOX_TEXT_LIGHT, { marginBottom: 10 }]}>
                     "RAS: dernier bilan de santé parfait"
                   </Text>
-                  <Text style={[BOX_TITLE, { color: palette.orange }]}>04/11/22:</Text>
-                  <Text style={[BOX_TITLE, { marginBottom: 10 }]}>
+                  <Text style={[BOX_TEXT_LIGHT, { color: palette.orange }]}>04/11/22:</Text>
+                  <Text style={[BOX_TEXT_LIGHT, { marginBottom: 10 }]}>
                     " Changement de quantité de granulé. Passage à 2L matin avec ajout minéraux"
                   </Text>
-                  <View style={BOX_TITLE_CONTAINER}>
+                  <View style={[BOX_TITLE_CONTAINER, { marginTop: 20 }]}>
                     <GradientBullet style={BULLET} />
-                    <Text style={[BOX_TITLE, { alignSelf: "flex-start" }]}>Ordonnances & Doc</Text>
+                    <Text style={BOX_TITLE}>Ordonnances & Doc</Text>
                   </View>
                   <Ionicons
                     style={{ alignSelf: "center" }}
@@ -176,6 +176,13 @@ const BULLET: ViewStyle = {
 
 const BOX_TITLE: TextStyle = {
   fontFamily: fonts.poppins.medium,
+  fontSize: 14,
+  flexWrap: "wrap",
+  color: "white",
+}
+
+const BOX_TEXT_LIGHT: TextStyle = {
+  fontFamily: fonts.nunito.light,
   fontSize: 14,
   flexWrap: "wrap",
   color: "white",
