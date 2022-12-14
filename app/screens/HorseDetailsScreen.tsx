@@ -1,97 +1,156 @@
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { observer } from "mobx-react-lite"
-import { View, ViewStyle, Text, TextStyle, Image, ImageStyle } from "react-native"
+import {
+  View,
+  ViewStyle,
+  Text,
+  TextStyle,
+  Image,
+  ImageStyle,
+  Modal,
+  TouchableOpacity,
+} from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { AppStackScreenProps } from "../navigators"
 import { Btn, Screen } from "../components"
 import { styling, fonts, colors, gradients, palette, spacing } from "../theme"
 // import { useNavigation } from "@react-navigation/native"
 // import { useStores } from "../models"
-import { AntDesign, Ionicons } from '@expo/vector-icons'
+import { AntDesign, Ionicons } from "@expo/vector-icons"
 
 const picture = require("../../assets/images/horse4.png")
 const circle = require("../../assets/images/circle-gradient.png")
 
 // REMOVE ME! ⬇️ This TS ignore will not be necessary after you've added the correct navigator param type
 // @ts-ignore
-export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "HorseDetails">> = observer(function HorseDetailsScreen() {
-  // Pull in one of our MST stores
-  // const { someStore, anotherStore } = useStores()
+export const HorseDetailsScreen: FC<StackScreenProps<AppStackScreenProps, "HorseDetails">> =
+  observer(function HorseDetailsScreen() {
+    // DISCLAIMER MODAL
+    const [disclaimerVisible, setDisclaimerVisible] = useState(false)
 
-  // Pull in navigation via hook
-  // const navigation = useNavigation()
+    const handlePress = () => {
+      setDisclaimerVisible(!disclaimerVisible)
+    }
 
+    // Pull in one of our MST stores
+    // const { someStore, anotherStore } = useStores()
 
+    // Pull in navigation via hook
+    // const navigation = useNavigation()
 
-  return (
-    <Screen style={$root} preset="scroll">
-      <View style={LAYER}>
-        <Image style={BG_DECORATION} source={circle} />
-      </View>
-
-      <View style={WRAPPER}>
-        <View style={COL_LEFT}>
-          <View style={DEADLINE_CONTAINER}>
-            <AntDesign name="clockcircleo" size={24} color="white" />
-            {/* TODO: ADD DATA */}
-            <Text style={DEADLINE_TEXT}>Fin de vente le 5 janvier 2023 à 7:29 PM GMT+0 </Text>
-          </View>
-          <Image style={IMG} source={picture} />
-
-          <Btn style={BTN} onPress={() => { }} gradient={gradients.grey} gradientStyle={BTN_GRADIENT}>
-            {/* TODO: ADD DATA */}
-            <Text style={BTN_TEXT}>RÉSERVER</Text>
-            <Text style={BTN_TEXT_BOTTOM}>Token start price 100 € *</Text>
-          </Btn>
-
-          <Text>
-            <Text style={MENTION}>(inclus </Text>
-            {/* TODO: add link */}
-            <Text style={MENTION_UNDERLINE}>les frais de pension des écuries</Text>
-            <Text style={MENTION}>*)</Text>
-          </Text>
-
-          <View style={[styling.ROW, { paddingVertical: 10 }]}>
-            {/* TODO: ADD DATA */}
-            <Text style={[TEXT_INFO_BOLD, { color: "orange" }]}>66</Text>
-            {/* TODO: ADD DATA */}
-            <Text style={TEXT_INFO_BOLD}>/266 Tokens disponibles</Text>
-          </View>
-
-          <Text style={TEXT_INFO}>L'ACHAT DE LIBERTY DE MASSA SERA CONFIRMÉ LORSQU'IL NE RESTERA PLUS QUE 100 TOKENS DISPONIBLES</Text>
+    return (
+      <Screen style={$root} preset="scroll">
+        <View style={LAYER}>
+          <Image style={BG_DECORATION} source={circle} />
         </View>
 
-        <View style={COL_RIGHT}>
-          <Text style={TITLE}>Liberty</Text>
-          <Text style={SUBTITLE}>De massa</Text>
+        <View style={WRAPPER}>
+          <View style={COL_LEFT}>
+            <View style={DEADLINE_CONTAINER}>
+              <AntDesign name="clockcircleo" size={24} color="white" />
+              {/* TODO: ADD DATA */}
+              <Text style={DEADLINE_TEXT}>Fin de vente le 5 janvier 2023 à 7:29 PM GMT+0 </Text>
+            </View>
+            <Image style={IMG} source={picture} />
 
-          <Text>
-            <Ionicons name="female-outline" size={24} color="white" />
-            <Text style={TEXT}> Femelle</Text>
-          </Text>
+            <Btn
+              style={BTN}
+              onPress={handlePress}
+              gradient={gradients.grey}
+              gradientStyle={BTN_GRADIENT}
+            >
+              {/* TODO: ADD DATA */}
+              <Text style={BTN_TEXT}>RÉSERVER</Text>
+              <Text style={BTN_TEXT_BOTTOM}>Token start price 100 € *</Text>
+            </Btn>
 
-          <View style={SECTION}>
-            <Text style={TEXT}>Née le 01/05/2021 en France</Text>
-            <Text style={TEXT}>Cheval de dressage français</Text>
-            <Text style={TEXT}>Bai Brun foncé</Text>
-            <Text style={TEXT}>1m58</Text>
+            <Text>
+              <Text style={MENTION}>(inclus </Text>
+              {/* TODO: add link */}
+              <Text style={MENTION_UNDERLINE}>les frais de pension des écuries</Text>
+              <Text style={MENTION}>*)</Text>
+            </Text>
+
+            <View style={[styling.ROW, { paddingVertical: 10 }]}>
+              {/* TODO: ADD DATA */}
+              <Text style={[TEXT_INFO_BOLD, { color: "orange" }]}>66</Text>
+              {/* TODO: ADD DATA */}
+              <Text style={TEXT_INFO_BOLD}>/266 Tokens disponibles</Text>
+            </View>
+
+            <Text style={TEXT_INFO}>
+              L'ACHAT DE LIBERTY DE MASSA SERA CONFIRMÉ LORSQU'IL NE RESTERA PLUS QUE 100 TOKENS
+              DISPONIBLES
+            </Text>
           </View>
 
-          <Text style={TEXT}>
-            Une chic femelle issue de la lignée maternelle de VODKA DE MASSA. {"\n"}
-            Une pouliche très dans le sang, très noble et prometteuse. Soeur utérine de l’étalon ALYRA VILLA DE MONTEIRO.
-          </Text>
+          <View style={COL_RIGHT}>
+            <Text style={TITLE}>Liberty</Text>
+            <Text style={SUBTITLE}>De massa</Text>
 
-          <View style={[SECTION, styling.ROW_CENTER_Y]}>
-            <AntDesign name="calendar" size={24} color={palette.purple} />
-            <Text style={INVEST_TEXT}>Horizon d'investissement : 3 ans</Text>
+            <Text>
+              <Ionicons name="female-outline" size={24} color="white" />
+              <Text style={TEXT}> Femelle</Text>
+            </Text>
+
+            <View style={SECTION}>
+              <Text style={TEXT}>Née le 01/05/2021 en France</Text>
+              <Text style={TEXT}>Cheval de dressage français</Text>
+              <Text style={TEXT}>Bai Brun foncé</Text>
+              <Text style={TEXT}>1m58</Text>
+            </View>
+
+            <Text style={TEXT}>
+              Une chic femelle issue de la lignée maternelle de VODKA DE MASSA. {"\n"}
+              Une pouliche très dans le sang, très noble et prometteuse. Soeur utérine de l’étalon
+              ALYRA VILLA DE MONTEIRO.
+            </Text>
+
+            <View style={[SECTION, styling.ROW_CENTER_Y]}>
+              <AntDesign name="calendar" size={24} color={palette.purple} />
+              <Text style={INVEST_TEXT}>Horizon d'investissement : 3 ans</Text>
+            </View>
           </View>
         </View>
 
-      </View>
-    </Screen>
-  )
-})
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={disclaimerVisible}
+          presentationStyle="fullScreen"
+          onRequestClose={handlePress}
+        >
+          <View style={MODAL_CONTAINER}>
+            <View style={MODAL_CONTENT}>
+              <View style={[styling.ROW_SPACE_BETWEEN, styling.ROW_CENTER_Y]}>
+                <Text style={MODAL_TITLE}>ATTENTION</Text>
+                <TouchableOpacity
+                  style={MODAL_ICON_CONTAINER}
+                  onPress={() => setDisclaimerVisible(false)}
+                >
+                  <Ionicons name="close" size={20} color="white" />
+                </TouchableOpacity>
+              </View>
+              <Text style={MODAL_DESCRIPTION}>
+                L'investissement dans un cheval de sport peut présenter des risques de perte en
+                capital, partielle ou totale. La valorisation d'un cheval de sport dépendra
+                essentiellement des aptitudes qu'il développera à l'entrainement et pourra être
+                fortement impactée en cas d'accident ou de problèmes de santé.
+              </Text>
+
+              <Btn
+                style={MODAL_BTN}
+                text="NEXT"
+                textStyle={{ color: "black" }}
+                // TODO: add onPress
+                onPress={() => {}}
+              />
+            </View>
+          </View>
+        </Modal>
+      </Screen>
+    )
+  })
 
 const $root: ViewStyle = {
   flex: 1,
@@ -121,7 +180,7 @@ const BG_DECORATION: ImageStyle = {
   right: -(845 / 3) / 2,
   width: 845 / 3,
   height: 853 / 3,
-  transform: [{ rotate: '90deg' }],
+  transform: [{ rotate: "90deg" }],
 }
 
 const COL_LEFT: ViewStyle = {
@@ -141,12 +200,12 @@ const DEADLINE_CONTAINER: ViewStyle = {
   paddingVertical: 5,
   marginBottom: 10,
   borderRadius: 15,
-  backgroundColor: "#3848F1"
+  backgroundColor: "#3848F1",
 }
 
 const DEADLINE_TEXT: TextStyle = {
   paddingLeft: 5,
-  color: "white"
+  color: "white",
 }
 
 const IMG: ImageStyle = {
@@ -169,7 +228,7 @@ const BTN_GRADIENT: ViewStyle = {
   ...styling.COL,
   height: 50,
   paddingHorizontal: 30,
-  borderRadius: 5
+  borderRadius: 5,
 }
 
 const BTN_TEXT: TextStyle = {
@@ -194,7 +253,7 @@ const MENTION: TextStyle = {
 
 const MENTION_UNDERLINE: TextStyle = {
   ...MENTION,
-  textDecorationLine: "underline"
+  textDecorationLine: "underline",
 }
 
 const TEXT_INFO_BOLD: TextStyle = {
@@ -202,7 +261,7 @@ const TEXT_INFO_BOLD: TextStyle = {
   fontSize: 12.5,
   paddingVertical: 15,
   textTransform: "uppercase",
-  color: "white"
+  color: "white",
 }
 
 const TEXT_INFO: TextStyle = {
@@ -228,13 +287,13 @@ const SUBTITLE: TextStyle = {
 }
 
 const SECTION: ViewStyle = {
-  paddingVertical: 25
+  paddingVertical: 25,
 }
 
 const TEXT: TextStyle = {
   fontFamily: fonts.nunito.light,
   fontSize: 16,
-  color: "white"
+  color: "white",
 }
 
 const INVEST_TEXT: TextStyle = {
@@ -242,5 +301,51 @@ const INVEST_TEXT: TextStyle = {
   fontSize: 13,
   textTransform: "uppercase",
   paddingLeft: 10,
-  color: palette.purple
+  color: palette.purple,
+}
+
+// DISCLAIMER MODAL
+const MODAL_CONTAINER: ViewStyle = {
+  flex: 1,
+  alignSelf: "center",
+  justifyContent: "center",
+  alignItems: "center",
+  maxWidth: "50%",
+}
+
+const MODAL_CONTENT: ViewStyle = {
+  padding: 27,
+  borderWidth: 3,
+  borderColor: "white",
+  backgroundColor: "#06367d",
+}
+
+// close icon container
+const MODAL_ICON_CONTAINER: ViewStyle = {
+  ...styling.CENTER,
+  width: 30,
+  height: 30,
+  borderRadius: 50,
+  backgroundColor: "grey",
+}
+
+const MODAL_TITLE: TextStyle = {
+  fontFamily: fonts.nunito.bold,
+  fontSize: 15,
+  letterSpacing: 2,
+  color: "white",
+}
+
+const MODAL_DESCRIPTION: TextStyle = {
+  fontFamily: fonts.nunito.light,
+  fontSize: 15,
+  paddingVertical: 15,
+  color: "white",
+}
+
+const MODAL_BTN: ViewStyle = {
+  alignSelf: "center",
+  paddingHorizontal: 25,
+  borderRadius: 0,
+  backgroundColor: "white",
 }
